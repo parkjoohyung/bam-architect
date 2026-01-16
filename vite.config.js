@@ -3,6 +3,7 @@ import { resolve } from 'path';
 
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/bam-architect/' : '/', // Use repo name for build, root for dev
+  appType: 'mpa', // Disable SPA fallback to index.html
   build: {
     outDir: 'dist',
     rollupOptions: {
