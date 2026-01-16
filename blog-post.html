@@ -24,7 +24,8 @@
                 <a href="./" class="logo">건축사사무소밤</a>
                 <nav class="desktop-nav">
                     <a href="projects.html">Projects</a>
-                    <a href="blog.html" class="active">Blog</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="news.html">News</a>
                     <a href="contact.html">Contact</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -133,6 +134,50 @@
                 // 5. Render
                 document.getElementById('post-body').innerHTML = marked.parse(cleanMd);
 
+                // 6. Navigation (Previous / Next)
+                // posts array is sorted by date (newest first)
+                // index 0: newest
+                // index N: oldest
+                const currentIndex = posts.findIndex(p => p.id === postId);
+
+                // Newer post (index - 1) -> Next Post (Wait, traditionally Next is newer, Prev is older? Or Next Page is older?)
+                // Let's use explicit labels "이전 글 (Older)", "다음 글 (Newer)" or just Titles.
+                // Standard convention: "Previous" = Newer (Left), "Next" = Older (Right) sometimes.
+                // Let's use: < Previous (Newer) | Next (Older) > 
+                // Wait, usually "Previous Post" implies chronologically previous (Older).
+                // Let's just use "이전글", "다음글" and see.
+
+                // If sorted by Date DESC:
+                // i-1 is NEWER
+                // i+1 is OLDER
+
+                const newerPost = posts[currentIndex - 1]; // To be shown as '다음글' (Next / Newer) or '이전글'?
+                const olderPost = posts[currentIndex + 1]; // To be shown as '이전글' (Previous / Older)
+
+                // Let's stick to standard reversed chronological blog:
+                // Left: Newer Post (다음글 usually means Next in list, which is older... ambiguous)
+                // Let's use "이전글(Older)" and "다음글(Newer)" ? 
+                // Actually, "Next" usually means "Next to read" which could be the next chronological one.
+                // Let's just calculate them and render.
+
+                const navContainer = document.querySelector('.post-nav');
+                navContainer.innerHTML = `
+                    <div class="nav-links">
+                        ${olderPost ? `<a href="blog-post.html?id=${olderPost.id}" class="nav-item prev">
+                            <span class="nav-label">이전글</span>
+                            <span class="nav-title">${olderPost.title}</span>
+                        </a>` : '<div></div>'}
+                        
+                        ${newerPost ? `<a href="blog-post.html?id=${newerPost.id}" class="nav-item next">
+                            <span class="nav-label">다음글</span>
+                            <span class="nav-title">${newerPost.title}</span>
+                        </a>` : '<div></div>'}
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem;">
+                         <a href="blog.html" class="btn-link">목록으로</a>
+                    </div>
+                `;
+
             } catch (error) {
                 console.error(error);
                 document.getElementById('post-content').innerHTML = `<h1>Post not found</h1><p>${error.message}</p>`;
@@ -162,9 +207,76 @@
             color: var(--color-text-main);
         }
 
+        /* Navigation Styles */
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: var(--color-text-main);
+            padding: 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            width: 48%;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item.next {
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .nav-label {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-title {
+            font-weight: 500;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .btn-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-border);
+            text-decoration: none;
+            color: var(--color-text-muted);
+            transition: all 0.2s;
+        }
+
+        .btn-link:hover {
+            border-color: var(--color-text-main);
+            color: var(--color-text-main);
+        }
+
         @media (max-width: 768px) {
             .post-header h1 {
                 font-size: 1.8rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: left !important;
+                align-items: flex-start !important;
             }
         }
     </style>

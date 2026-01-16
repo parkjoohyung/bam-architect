@@ -25,6 +25,7 @@
                 <nav class="desktop-nav">
                     <a href="projects.html">Projects</a>
                     <a href="blog.html" class="active">Blog</a>
+                    <a href="news.html">News</a>
                     <a href="contact.html">Contact</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -36,8 +37,6 @@
 
         <!-- Main Content -->
         <main>
-
-
             <!-- Blog List -->
             <section id="blog" class="section">
                 <div class="container">
@@ -45,9 +44,11 @@
                         <input type="text" id="search-input" placeholder="Search posts..."
                             style="width: 100%; padding: 1rem; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-main); font-family: inherit;">
                     </div>
-                    <div class="blog-list" id="blog-list">
+
+                    <div class="blog-container" id="blog-list">
                         <!-- Content will be injected by JS -->
-                        <div style="padding: 2rem; color: var(--color-text-muted);">Loading posts...</div>
+                        <div style="text-align: center; padding: 4rem; color: var(--color-text-muted);">Loading posts...
+                        </div>
                     </div>
                 </div>
             </section>
@@ -84,16 +85,14 @@
 
         async function loadPosts() {
             try {
-                const response = await fetch('posts.json'); // Changed to relative path
+                const response = await fetch('posts.json');
                 const posts = await response.json();
 
-                // Fetch content for each post to enable full-text search
+                // Fetch content for each post (for search) - keeping this logic
                 allPosts = await Promise.all(posts.map(async (post) => {
                     try {
-                        const mdRes = await fetch(`posts/${post.filename}`); // Changed to relative path
+                        const mdRes = await fetch(`posts/${post.filename}`);
                         const text = await mdRes.text();
-                        // Clean frontmatter for search (remove lines with ::)
-                        // Clean content: remove attributes and leading dashes
                         const cleanText = text.split('\n')
                             .filter(line => !line.includes('::'))
                             .map(line => line.replace(/^\s*-\s?/, ''))
@@ -121,42 +120,25 @@
             }
 
             listContainer.innerHTML = posts.map((post, index) => {
-                let snippet = 'Read more...';
                 let titleHtml = post.title;
 
                 if (query) {
-                    // Highlight Title
                     if (post.title.toLowerCase().includes(query)) {
                         const regex = new RegExp(`(${query})`, 'gi');
                         titleHtml = post.title.replace(regex, '<mark class="search-highlight">$1</mark>');
                     }
-
-                    // Find match in content and create snippet
-                    if (post.content) {
-                        const lowerContent = post.content.toLowerCase();
-                        const matchIndex = lowerContent.indexOf(query);
-
-                        if (matchIndex !== -1) {
-                            // Extract snippet around match
-                            const start = Math.max(0, matchIndex - 40);
-                            const end = Math.min(post.content.length, matchIndex + query.length + 60);
-                            let rawSnippet = post.content.substring(start, end);
-
-                            // Highlight in snippet
-                            const regex = new RegExp(`(${query})`, 'gi');
-                            snippet = '...' + rawSnippet.replace(regex, '<mark class="search-highlight">$1</mark>') + '...';
-                        }
-                    }
                 }
 
+                // Using list layout similar to news.html
                 return `
-            <a href="/blog-post.html?id=${post.id}" class="blog-item fade-in-up" style="animation-delay: ${index * 0.1}s">
-                <span class="blog-date">${post.date}</span>
-                <div class="blog-content">
-                    <h3>${titleHtml}</h3>
-                    <p>${snippet}</p>
-                </div>
-            </a>
+            <article class="blog-item fade-in-up" style="animation-delay: ${index * 0.05}s">
+                <a href="blog-post.html?id=${post.id}" class="blog-link">
+                    <span class="blog-date">${post.date}</span>
+                    <div class="blog-info">
+                        <h3>${titleHtml}</h3>
+                    </div>
+                </a>
+            </article>
           `;
             }).join('');
 
@@ -172,7 +154,6 @@
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         }
 
-        // Search Handler
         const searchInput = document.getElementById('search-input');
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
@@ -187,56 +168,59 @@
         document.addEventListener('DOMContentLoaded', loadPosts);
     </script>
     <style>
-        .blog-list {
-            display: flex;
-            flex-direction: column;
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
             border-top: 1px solid var(--color-border);
         }
 
         .blog-item {
-            display: flex;
-            align-items: baseline;
-            gap: 4rem;
-            padding: 2rem 0;
             border-bottom: 1px solid var(--color-border);
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-decoration: none;
-            /* Reset link style */
-            color: inherit;
-            /* Reset link color */
+            transition: background-color 0.2s;
         }
 
-        .blog-item:hover {
-            opacity: 0.7;
+        .blog-link {
+            display: flex;
+            align-items: baseline;
+            gap: 2rem;
+            text-decoration: none;
+            color: inherit;
+            padding: 1.2rem 1rem;
+        }
+
+        .blog-link:hover {
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .blog-date {
             font-family: var(--font-body);
             font-size: 0.9rem;
             color: var(--color-text-muted);
-            min-width: 120px;
+            min-width: 100px;
+            white-space: nowrap;
         }
 
-        .blog-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        .blog-info {
+            flex: 1;
+        }
+
+        .blog-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0;
             font-weight: 500;
+            line-height: 1.4;
         }
 
-        .blog-content p {
-            color: var(--color-text-muted);
-            font-weight: 300;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .blog-item {
+            .blog-link {
                 flex-direction: column;
                 gap: 0.5rem;
+                padding: 1.5rem 0;
             }
 
-            .blog-content h3 {
-                font-size: 1.2rem;
+            .blog-date {
+                font-size: 0.8rem;
             }
         }
 
