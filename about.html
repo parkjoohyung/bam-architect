@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="About - 건축사사무소밤" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parkjoohyung.github.io/bam-architect/about.html" />
+    <meta property="og:title" content="About - 건축사사무소밤" />
+    <meta property="og:description" content="Philosophy and Profile of Architecture Firm BAM." />
+    <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
+
+    <title>About - 건축사사무소밤</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="./" class="logo">건축사사무소밤</a>
+                <nav class="desktop-nav">
+                    <a href="about.html" class="active">About</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="news.html">News</a>
+                    <a href="law.html">Law</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <button class="mobile-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero / Philosophy Section -->
+            <section class="section" style="padding-top: 150px;">
+                <div class="container">
+                    <div class="fade-in-up">
+                        <h1 style="font-size: 3rem; margin-bottom: 2rem; line-height: 1.2;">
+                            The Depth of Silence, <br>
+                            The Resonance of Space.
+                        </h1>
+                        <p
+                            style="font-size: 1.2rem; color: var(--color-text-muted); max-width: 600px; line-height: 1.8;">
+                            건축사사무소밤은 밤이 주는 고요한 사유의 힘을 믿습니다. <br>
+                            화려한 치장보다는, 어둠 속에서 비로소 선명해지는 본질적인 가치를 쫓습니다.
+                            삶을 담아내는 단단한 그릇이자, 시간이 흐를수록 깊이를 더해가는 공간을 짓습니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section class="section">
+                <div class="container">
+                    <div class="profile-grid">
+                        <div class="profile-image fade-in-up">
+                            <!-- Placeholder for profile image -->
+                            <div
+                                style="width: 100%; height: 400px; background: rgba(255,255,255,0.05); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">
+                                Principal Architect Image
+                            </div>
+                        </div>
+                        <div class="profile-info fade-in-up" style="animation-delay: 0.2s;">
+                            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Park Ju Hyung</h2>
+                            <span style="color: var(--color-text-muted); display: block; margin-bottom: 2rem;">Principal
+                                Architect / KIRA</span>
+
+                            <p style="margin-bottom: 1.5rem; line-height: 1.7; color: var(--color-text-main);">
+                                박주형 소장은 도시와 건축의 경계에서 일어나는 다양한 상호작용에 주목합니다.
+                                한양대학교 건축학부를 졸업하고 국내 주요 건축사사무소에서 실무를 익혔으며,
+                                2025년 건축사사무소밤을 설립하여 주거, 상업, 문화 시설 등 다양한 프로젝트를 수행하고 있습니다.
+                            </p>
+
+                            <ul style="list-style: none; padding: 0; color: var(--color-text-muted); line-height: 2;">
+                                <li>2025 - Present : Principal, BAM Architects</li>
+                                <li>2018 - 2023 : Senior Architect, Major Firm</li>
+                                <li>2018 : B.Arch, Hanyang University</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>건축사사무소밤</h3>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Contact</h4>
+                        <p>p.juhyung@daum.net</p>
+                        <p>010-5891-1031</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Social</h4>
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 건축사사무소밤. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+        // Animation Trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        });
+    </script>
+    <style>
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</body>
+
+</html>

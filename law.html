@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Regulations - 건축사사무소밤" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parkjoohyung.github.io/bam-architect/law.html" />
+    <meta property="og:title" content="Regulations - 건축사사무소밤" />
+    <meta property="og:description" content="Architectural Laws and Regulations." />
+    <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
+
+    <title>Law - 건축사사무소밤</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="./" class="logo">건축사사무소밤</a>
+                <nav class="desktop-nav">
+                    <a href="about.html">About</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="news.html">News</a>
+                    <a href="law.html" class="active">Law</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <button class="mobile-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <section class="section" style="padding-top: 120px; padding-bottom: 4rem;">
+                <div class="container">
+                    <!-- Accordion Item 1: Building Act -->
+                    <div class="accordion-item expanded">
+                        <div class="accordion-header">
+                            <div class="header-info">
+                                <h2>Architectural Building Act</h2>
+                                <p>건축법</p>
+                            </div>
+                            <div class="header-actions">
+                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95"
+                                    target="_blank" class="btn-external">
+                                    New Tab ↗
+                                </a>
+                                <button class="btn-toggle" aria-label="Toggle">
+                                    <span class="icon-toggle"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="iframe-wrapper">
+                                <iframe src="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95"
+                                    title="Building Act">
+                                    <p>Your browser does not support iframes. <a
+                                            href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95">Click
+                                            here to
+                                            view.</a></p>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- No Footer needed for utility page -->
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggles = document.querySelectorAll('.accordion-header'); // Click header to toggle
+
+            toggles.forEach(header => {
+                header.addEventListener('click', (e) => {
+                    // Prevent toggling when clicking the external link
+                    if (e.target.closest('.btn-external')) return;
+
+                    const item = header.closest('.accordion-item');
+                    item.classList.toggle('expanded');
+                });
+            });
+        });
+    </script>
+    <style>
+        .accordion-item {
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            background: var(--color-bg);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .accordion-item.expanded .accordion-header {
+            border-bottom-color: var(--color-border);
+        }
+
+        .header-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+            font-weight: 500;
+        }
+
+        .header-info p {
+            color: var(--color-text-muted);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .accordion-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .accordion-item.expanded .accordion-content {
+            height: 80vh;
+            /* Fixed height for content when expanded */
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .btn-external {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            border: 1px solid var(--color-border);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-external:hover {
+            color: var(--color-text-main);
+            border-color: var(--color-text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            pointer-events: none;
+            /* Let header click handle it */
+        }
+
+        .icon-toggle {
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid var(--color-text-main);
+            border-right: 2px solid var(--color-text-main);
+            transform: rotate(135deg);
+            /* Down arrow */
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: -3px;
+        }
+
+        .accordion-item.expanded .icon-toggle {
+            transform: rotate(-45deg);
+            /* Up arrow */
+            margin-top: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</body>
+
+</html>
