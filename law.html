@@ -14,6 +14,7 @@
     <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
 
     <title>Law - 건축사사무소밤</title>
+    <link rel="stylesheet" href="css/law.css">
 </head>
 
 <body>
@@ -40,188 +41,984 @@
         <!-- Main Content -->
         <main>
             <section class="section" style="padding-top: 120px; padding-bottom: 4rem;">
-                <div class="container">
-                    <!-- Accordion Item 1: Building Act -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div class="header-info">
-                                <h2>건축법</h2>
-                            </div>
-                            <div class="header-actions">
-                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95"
-                                    target="_blank" class="btn-external">
-                                    New Tab ↗
-                                </a>
-                                <button class="btn-toggle" aria-label="Toggle">
-                                    <span class="icon-toggle"></span>
+                <div class="container law-container-wrapper">
+                    <!-- Search Section -->
+
+
+                    <div id="searchOverlay" class="search-overlay">
+                        <div class="search-section">
+                            <div class="search-wrapper">
+                                <input type="text" id="lawSearchInput"
+                                    placeholder="검색어 (공백=AND, |=OR) 예: 건폐율 용적률 │ 건폐율|용적률" aria-label="Search laws">
+                                <button id="lawSearchClear" class="btn-clear hidden" aria-label="Clear search">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                                <button id="lawSearchBtn" aria-label="Search">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
                                 </button>
                             </div>
+
+                            <!-- Search Filters -->
+                            <div class="filter-section">
+                                <div class="filter-toggle-row">
+                                    <label class="checkbox-label"><input type="checkbox" id="filterSelectAll" checked>
+                                        <span>전체 선택</span></label>
+                                    <button id="btnToggleFilters" class="btn-text">상세 선택 ▼</button>
+                                </div>
+                                <div id="filterOptions" class="filter-options hidden">
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 국계법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="planning_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="planning_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="planning_rules" checked> 시행규칙</label>
+                                    </div>
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 건축법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="building_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="building_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="building_rules" checked> 시행규칙</label>
+                                    </div>
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 주택법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="housing_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="housing_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="housing_rules" checked> 시행규칙</label>
+                                    </div>
+                                    <!-- Disability Convenience Act Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 장애인등편의법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="disability_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="disability_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="disability_rules" checked> 시행규칙</label>
+                                    </div>
+                                    <!-- Parking Lot Act Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 주차장법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="parking_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="parking_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="parking_rules" checked> 시행규칙</label>
+                                    </div>
+                                    <!-- Development Restriction Act Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 개발제한구역법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="dev_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="dev_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="dev_rules" checked> 시행규칙</label>
+                                    </div>
+                                    <!-- Building Management Act Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 건축물관리법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="buld_mng_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="buld_mng_decree" checked> 시행령</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="buld_mng_rules" checked> 시행규칙</label>
+                                    </div>
+
+                                    <!-- Outdoor Advertising Act Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 옥외광고물법</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="outdoor_ad_act" checked> 법</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="outdoor_ad_decree" checked> 시행령</label>
+                                    </div>
+
+
+                                    <!-- Divider for Standards/Rules -->
+                                    <hr class="filter-divider">
+
+                                    <!-- Standards/Rules Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 기준/규칙</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="balcony_criteria" checked> 발코니</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="landscape_criteria" checked> 조경</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="fire_safety_rules" checked> 피난/방화</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="energy_saving_criteria" checked> 에너지</label>
+                                    </div>
+
+                                    <!-- Divider for Ordinances -->
+                                    <hr class="filter-divider">
+
+                                    <!-- Seoul Ordinances Group -->
+                                    <div class="filter-group">
+                                        <div class="filter-group-title">
+                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
+                                                    checked> 조례 (서울시)</label>
+                                        </div>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="seoul_building_ord" checked> 건축</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="seoul_planning_ord" checked> 도시계획</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="seoul_planning_rules" checked> 도시계획규칙</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="seoul_parking_ord" checked> 주차장</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
+                                                value="seoul_outdoor_ad_ord" checked> 옥외광고물</label>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="accordion-content">
-                            <div class="iframe-wrapper">
-                                <iframe src="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95"
-                                    title="Building Act">
-                                    <p>Your browser does not support iframes. <a
-                                            href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95">Click
-                                            here to
-                                            view.</a></p>
-                                </iframe>
+                        <div id="searchResultsHeader" class="search-results-header"></div>
+                        <div id="searchResults" class="search-results"></div>
+                    </div>
+
+                    <div class="law-layout-flex">
+                        <div class="law-main-content">
+                            <!-- Law Area (National Acts) -->
+                            <div class="law-section-container law-area">
+                                <h3 class="section-title">법령</h3>
+                                <div class="law-grid">
+                                    <!-- Row 1: National Land Planning Act -->
+                                    <!-- Item 1: National Land Planning Act -->
+                                    <div class="accordion-item" id="planning_act" data-law-id="planning_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <div class="header-info">
+                                                <h2>국계법</h2>
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B5%AD%ED%86%A0%EC%9D%98%EA%B3%84%ED%9A%8D%EB%B0%8F%EC%9D%B4%EC%9A%A9%EC%97%90%EA%B4%80%ED%95%9C%EB%B2%95%EB%A5%A0"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=276959&urlMode=lsInfoP"
+                                                    title="National Land Planning Act">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=276959&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 2: National Land Planning Decree -->
+                                    <div class="accordion-item" id="planning_decree" data-law-id="planning_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <div class="header-info">
+                                                <h2>국계법 시행령</h2>
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B5%AD%ED%86%A0%EC%9D%98%EA%B3%84%ED%9A%8D%EB%B0%8F%EC%9D%B4%EC%9A%A9%EC%97%90%EA%B4%80%ED%95%9C%EB%B2%95%EB%A5%A0%EC%8B%9C%ED%96%89%EB%A0%B9"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=272601&urlMode=lsInfoP"
+                                                    title="National Land Planning Decree">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=272601&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 3: National Land Planning Rules -->
+                                    <div class="accordion-item" id="planning_rules" data-law-id="planning_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <div class="header-info">
+                                                <h2>국계법 시행규칙</h2>
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B5%AD%ED%86%A0%EC%9D%98%EA%B3%84%ED%9A%8D%EB%B0%8F%EC%9D%B4%EC%9A%A9%EC%97%90%EA%B4%80%ED%95%9C%EB%B2%95%EB%A5%A0%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=282029&urlMode=lsInfoP"
+                                                    title="National Land Planning Rules">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=282029&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 2: Building Act -->
+                                    <!-- Accordion Item 4: Building Act -->
+                                    <div class="accordion-item" id="building_act" data-law-id="building_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <div class="header-info">
+                                                <h2>건축법</h2>
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=276925&urlMode=lsInfoP"
+                                                    title="Building Act">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=276925&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Accordion Item 5: Enforcement Decree -->
+                                    <div class="accordion-item" id="building_decree" data-law-id="building_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <div class="header-info">
+                                                <h2>건축법 시행령</h2>
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95%EC%8B%9C%ED%96%89%EB%A0%B9"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=267115&urlMode=lsInfoP"
+                                                    title="Enforcement Decree">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=267115&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Accordion Item 6: Enforcement Rules -->
+                                    <div class="accordion-item" id="building_rules" data-law-id="building_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <div class="header-info">
+                                                <h2>건축법 시행규칙</h2>
+                                            </div>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%B2%95%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=279463&urlMode=lsInfoP"
+                                                    title="Enforcement Rules">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=279463&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 3: Housing Act -->
+                                    <!-- Item 7: Housing Act -->
+                                    <div class="accordion-item" id="housing_act" data-law-id="housing_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">주택법</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EB%B2%95"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=258833&urlMode=lsInfoP"
+                                                    title="Housing Act">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=258833&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 8: Housing Act Decree -->
+                                    <div class="accordion-item" id="housing_decree" data-law-id="housing_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">주택법 시행령</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EB%B2%95%EC%8B%9C%ED%96%89%EB%A0%B9"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281851&urlMode=lsInfoP"
+                                                    title="Housing Decree">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281851&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 9: Housing Act Rules -->
+                                    <div class="accordion-item" id="housing_rules" data-law-id="housing_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">주택법 시행규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EB%B2%95%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=264731&urlMode=lsInfoP"
+                                                    title="Housing Rules">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=264731&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Disability Convenience Act -->
+                                    <div class="accordion-item" id="disability_act" data-law-id="disability_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">장애인등편의법</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%9E%A5%EC%95%A0%EC%9D%B8%C2%B7%EB%85%B8%EC%9D%B8%C2%B7%EC%9E%84%EC%82%B0%EB%B6%80%20%EB%93%B1%EC%9D%98%20%ED%8E%B8%EC%9D%98%EC%A6%9D%EC%A7%84%20%EB%B3%B4%EC%9E%A5%EC%97%90%20%EA%B4%80%ED%95%9C%20%EB%B2%95%EB%A5%A0"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=267429&urlMode=lsInfoP"
+                                                    title="장애인등편의법">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=267429&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Disability Convenience Act Decree -->
+                                    <div class="accordion-item" id="disability_decree" data-law-id="disability_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">장애인등편의법 시행령</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%9E%A5%EC%95%A0%EC%9D%B8%C2%B7%EB%85%B8%EC%9D%B8%C2%B7%EC%9E%84%EC%82%B0%EB%B6%80%20%EB%93%B1%EC%9D%98%20%ED%8E%B8%EC%9D%98%EC%A6%9D%EC%A7%84%20%EB%B3%B4%EC%9E%A5%EC%97%90%20%EA%B4%80%ED%95%9C%20%EB%B2%95%EB%A5%A0%20%EC%8B%9C%ED%96%89%EB%A0%B9"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281167&urlMode=lsInfoP"
+                                                    title="장애인등편의법 시행령">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281167&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Disability Convenience Act Rules -->
+                                    <div class="accordion-item" id="disability_rules" data-law-id="disability_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">장애인등편의법 시행규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%9E%A5%EC%95%A0%EC%9D%B8%C2%B7%EB%85%B8%EC%9D%B8%C2%B7%EC%9E%84%EC%82%B0%EB%B6%80%20%EB%93%B1%EC%9D%98%20%ED%8E%B8%EC%9D%98%EC%A6%9D%EC%A7%84%20%EB%B3%B4%EC%9E%A5%EC%97%90%20%EA%B4%80%ED%95%9C%20%EB%B2%95%EB%A5%A0%20%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99"
+                                                    target="_blank" class="btn-external" aria-label="Open in New Tab">
+                                                    ↗
+                                                </a>
+                                                <button class="btn-toggle" aria-label="Toggle">
+                                                    <span class="icon-toggle"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=280333&urlMode=lsInfoP"
+                                                    title="장애인등편의법 시행규칙">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=280333&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Parking Lot Act -->
+                                    <div class="accordion-item" id="parking_act" data-law-id="parking_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">주차장법</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=280143&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external"
+                                                    aria-label="Open in New Tab">↗</a>
+                                                <button class="btn-toggle" aria-label="Toggle"><span
+                                                        class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <!-- Act ID: 280143 -->
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=280143&urlMode=lsInfoP"
+                                                    title="Parking Lot Act">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=280143&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Parking Lot Act Decree -->
+                                    <div class="accordion-item" id="parking_decree" data-law-id="parking_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">주차장법 시행령</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=273373&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external"
+                                                    aria-label="Open in New Tab">↗</a>
+                                                <button class="btn-toggle" aria-label="Toggle"><span
+                                                        class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <!-- Decree ID: 273373 -->
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=273373&urlMode=lsInfoP"
+                                                    title="Parking Lot Act Decree">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=273373&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Parking Lot Act Rules -->
+                                    <div class="accordion-item" id="parking_rules" data-law-id="parking_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">주차장법 시행규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EB%B2%95%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99"
+                                                    target="_blank" class="btn-external"
+                                                    aria-label="Open in New Tab">↗</a>
+                                                <button class="btn-toggle" aria-label="Toggle"><span
+                                                        class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <!-- Rules ID: 279253 -->
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=279253&urlMode=lsInfoP"
+                                                    title="Parking Lot Act Rules">
+                                                    <p>Your browser does not support iframes. <a
+                                                            href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=279253&urlMode=lsInfoP">Click
+                                                            here to
+                                                            view.</a></p>
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Development Restriction Act -->
+                                    <div class="accordion-item" id="dev_act" data-law-id="dev_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">개발제한구역법</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=254803&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <!-- Act ID: 254803 -->
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=254803&urlMode=lsInfoP"
+                                                    title="Development Restriction Act"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Development Restriction Act Decree -->
+                                    <div class="accordion-item" id="dev_decree" data-law-id="dev_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">개발제한구역법 시행령</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281641&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <!-- Decree ID: 281641 -->
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281641&urlMode=lsInfoP"
+                                                    title="Development Restriction Act Decree"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Development Restriction Act Rules -->
+                                    <div class="accordion-item" id="dev_rules" data-law-id="dev_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">개발제한구역법 시행규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=260441&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <!-- Rules ID: 260441 -->
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=260441&urlMode=lsInfoP"
+                                                    title="Development Restriction Act Rules"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Building Management Act -->
+                                    <div class="accordion-item" id="buld_mng_act" data-law-id="buld_mng_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">건축물관리법</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=266691&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=266691&urlMode=lsInfoP"
+                                                    title="건축물관리법"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Building Management Act Decree -->
+                                    <div class="accordion-item" id="buld_mng_decree" data-law-id="buld_mng_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">건축물관리법 시행령</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=271337&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=271337&urlMode=lsInfoP"
+                                                    title="건축물관리법 시행령"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Building Management Act Rules -->
+                                    <div class="accordion-item" id="buld_mng_rules" data-law-id="buld_mng_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">건축물관리법 시행규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=271531&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=271531&urlMode=lsInfoP"
+                                                    title="건축물관리법 시행규칙"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Outdoor Advertising Act -->
+                                    <div class="accordion-item" id="outdoor_ad_act" data-law-id="outdoor_ad_act">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">옥외광고물법</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=270383&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=270383&urlMode=lsInfoP"
+                                                    title="옥외광고물법"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Outdoor Advertising Act Decree -->
+                                    <div class="accordion-item" id="outdoor_ad_decree" data-law-id="outdoor_ad_decree">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">옥외광고물법 시행령</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281033&urlMode=lsInfoP"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=281033&urlMode=lsInfoP"
+                                                    title="옥외광고물법 시행령"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- End law-grid for Acts -->
+                            </div> <!-- End law-section-container law-area -->
+
+                            <!-- Criteria/Rules Area -->
+                            <div class="law-section-container rules-area">
+                                <h3 class="section-title">기준/규칙</h3>
+                                <div class="law-grid">
+                                    <!-- Item 1: Balcony Criteria -->
+                                    <div class="accordion-item" id="balcony_criteria" data-law-id="balcony_criteria">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">발코니 등의 구조변경절차 및 설치기준</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000171416"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000171416"
+                                                    title="발코니 등의 구조변경절차 및 설치기준"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 2: Landscape Criteria -->
+                                    <div class="accordion-item" id="landscape_criteria"
+                                        data-law-id="landscape_criteria">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">조경기준</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%ED%96%89%EC%A0%95%EA%B7%9C%EC%B9%99/%EC%A1%B0%EA%B2%BD%EA%B8%B0%EC%A4%80"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000208056"
+                                                    title="조경기준"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 3: Fire Safety Rules -->
+                                    <div class="accordion-item" id="fire_safety_rules" data-law-id="fire_safety_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">건축물방화구조규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B1%B4%EC%B6%95%EB%AC%BC%EC%9D%98%ED%94%BC%EB%82%9C%EB%B0%A9%ED%99%94%EA%B5%AC%EC%A1%B0%EB%93%B1%EC%9D%98%EA%B8%B0%EC%A4%80%EC%97%90%EA%B4%80%ED%95%9C%EA%B7%9C%EC%B9%99"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe data-src="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=279461"
+                                                    title="건축물방화구조규칙"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Item 4: Energy Saving Criteria -->
+                                    <div class="accordion-item" id="energy_saving_criteria"
+                                        data-law-id="energy_saving_criteria">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">건축물의 에너지절약설계기준</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000106860"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000106860"
+                                                    title="건축물의 에너지절약설계기준"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ordinance Area (Seoul City) -->
+                            <div class="law-section-container ordinance-area">
+                                <h3 class="section-title">조례</h3>
+                                <div class="law-grid">
+                                    <!-- 1. Seoul City Building Ordinance -->
+                                    <div class="accordion-item" id="seoul_building_ord"
+                                        data-law-id="seoul_building_ord">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">서울 건축 조례</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/자치법규/서울특별시건축조례" target="_blank"
+                                                    class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2070477&chrClsCd=010202&gubun="
+                                                    title="서울 건축 조례"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. Seoul City Urban Planning Ordinance -->
+                                    <div class="accordion-item" id="seoul_planning_ord"
+                                        data-law-id="seoul_planning_ord">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">서울 도시계획 조례</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/자치법규/서울특별시도시계획조례" target="_blank"
+                                                    class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2099911&chrClsCd=010202&gubun="
+                                                    title="서울 도시계획 조례"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Seoul City Urban Planning Ordinance Rules -->
+                                    <div class="accordion-item" id="seoul_planning_rules"
+                                        data-law-id="seoul_planning_rules">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">서울 도시계획 조례 시행규칙</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/자치법규/서울특별시도시계획조례시행규칙" target="_blank"
+                                                    class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1976247&chrClsCd=010202&gubun="
+                                                    title="서울 도시계획 조례 시행규칙"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 4. Seoul City Parking Ordinance -->
+                                    <div class="accordion-item" id="seoul_parking_ord" data-law-id="seoul_parking_ord">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">서울 주차장 관리및설치 조례</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/자치법규/서울특별시주차장설치및관리조례" target="_blank"
+                                                    class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2070413&chrClsCd=010202&gubun="
+                                                    title="서울 주차장 관리및설치 조례"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 5. Seoul City Outdoor Advertising Ordinance -->
+                                    <div class="accordion-item" id="seoul_outdoor_ad_ord"
+                                        data-law-id="seoul_outdoor_ad_ord">
+                                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                                            <span class="accordion-title">서울 옥외광고물 조례</span>
+                                            <div class="header-actions">
+                                                <a href="https://www.law.go.kr/자치법규/서울특별시옥외광고물등의관리와옥외광고산업진흥에관한조례"
+                                                    target="_blank" class="btn-external">↗</a>
+                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <div class="iframe-wrapper">
+                                                <iframe
+                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2099885&chrClsCd=010202&gubun="
+                                                    title="서울 옥외광고물 조례"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- End law-grid for Ordinances -->
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </section>
         </main>
 
         <!-- No Footer needed for utility page -->
     </div>
     <script type="module" src="/src/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggles = document.querySelectorAll('.accordion-header'); // Click header to toggle
-
-            toggles.forEach(header => {
-                header.addEventListener('click', (e) => {
-                    // Prevent toggling when clicking the external link
-                    if (e.target.closest('.btn-external')) return;
-
-                    const item = header.closest('.accordion-item');
-                    item.classList.toggle('expanded');
-                });
-            });
-        });
-    </script>
-    <style>
-        .accordion-item {
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            background: var(--color-bg);
-            transition: all 0.3s ease;
-        }
-
-        .accordion-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid transparent;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .accordion-header:hover {
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .accordion-item.expanded .accordion-header {
-            border-bottom-color: var(--color-border);
-        }
-
-        .header-info h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.2rem;
-            font-weight: 500;
-        }
-
-        .header-info p {
-            color: var(--color-text-muted);
-            margin: 0;
-            font-weight: 300;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .accordion-content {
-            height: 0;
-            overflow: hidden;
-            transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .accordion-item.expanded .accordion-content {
-            height: 80vh;
-            /* Fixed height for content when expanded */
-        }
-
-        .iframe-wrapper {
-            width: 100%;
-            height: 100%;
-        }
-
-        .iframe-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .btn-external {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            text-decoration: none;
-            border: 1px solid var(--color-border);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .btn-external:hover {
-            color: var(--color-text-main);
-            border-color: var(--color-text-main);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .btn-toggle {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 1px solid var(--color-border);
-            background: transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            pointer-events: none;
-            /* Let header click handle it */
-        }
-
-        .icon-toggle {
-            width: 8px;
-            height: 8px;
-            border-top: 2px solid var(--color-text-main);
-            border-right: 2px solid var(--color-text-main);
-            transform: rotate(135deg);
-            /* Down arrow */
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            margin-top: -3px;
-        }
-
-        .accordion-item.expanded .icon-toggle {
-            transform: rotate(-45deg);
-            /* Up arrow */
-            margin-top: 3px;
-        }
-
-        @media (max-width: 768px) {
-            .accordion-header {
-                padding: 1rem;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-
-            .header-actions {
-                width: 100%;
-                justify-content: space-between;
-            }
-        }
-    </style>
+    <script src="js/law.js"></script>
 </body>
 
 </html>
