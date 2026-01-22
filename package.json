@@ -15,6 +15,7 @@
     "@tsparticles/engine": "^3.9.1",
     "@tsparticles/slim": "^3.9.1",
     "marked": "^17.0.1",
+    "puppeteer": "^24.35.0",
     "rss-parser": "^3.13.0"
   }
 }
