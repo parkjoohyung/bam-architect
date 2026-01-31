@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.bam-architects.com/sitemap.xml
+# Disallow admin/utility paths
+Disallow: /backups/
+Disallow: /node_modules/
+Disallow: /*.js$
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://parkjoohyung.github.io/bam-architect/sitemap.xml

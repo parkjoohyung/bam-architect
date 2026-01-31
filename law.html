@@ -5,7 +5,10 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Regulations - 건축사사무소밤" />
+    <meta name="description" content="건축법령 검색 - 건축법, 국토계획법, 서울시 조례 등 건축 관련 법령 통합 검색. 건축사사무소밤." />
+
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="https://parkjoohyung.github.io/bam-architect/law.html" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://parkjoohyung.github.io/bam-architect/law.html" />
@@ -14,10 +17,13 @@
     <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
 
     <title>Law - 건축사사무소밤</title>
-    <link rel="stylesheet" href="css/law.css">
+    <link rel="stylesheet" href="css/law.css?v=18">
 </head>
 
 <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
     <div id="app">
         <!-- Header -->
         <header class="site-header">
@@ -29,6 +35,7 @@
                     <a href="blog.html">Blog</a>
                     <a href="news.html">News</a>
                     <a href="law.html" class="active">Law</a>
+                    <a href="ai-studio.html">AI Studio</a>
                     <a href="contact.html">Contact</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -74,6 +81,7 @@
                                     <button id="btnToggleFilters" class="btn-text">상세 선택 ▼</button>
                                 </div>
                                 <div id="filterOptions" class="filter-options hidden">
+                                    <!-- 국계법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -86,6 +94,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="planning_rules" checked> 시행규칙</label>
                                     </div>
+                                    <!-- 건축법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -98,6 +107,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="building_rules" checked> 시행규칙</label>
                                     </div>
+                                    <!-- 주택법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -110,7 +120,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="housing_rules" checked> 시행규칙</label>
                                     </div>
-                                    <!-- Disability Convenience Act Group -->
+                                    <!-- 장애인등편의법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -123,7 +133,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="disability_rules" checked> 시행규칙</label>
                                     </div>
-                                    <!-- Parking Lot Act Group -->
+                                    <!-- 주차장법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -136,7 +146,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="parking_rules" checked> 시행규칙</label>
                                     </div>
-                                    <!-- Development Restriction Act Group -->
+                                    <!-- 개발제한구역법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -149,7 +159,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="dev_rules" checked> 시행규칙</label>
                                     </div>
-                                    <!-- Building Management Act Group -->
+                                    <!-- 건축물관리법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -162,8 +172,7 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="buld_mng_rules" checked> 시행규칙</label>
                                     </div>
-
-                                    <!-- Outdoor Advertising Act Group -->
+                                    <!-- 옥외광고물법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -174,12 +183,9 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="outdoor_ad_decree" checked> 시행령</label>
                                     </div>
-
-
-                                    <!-- Divider for Standards/Rules -->
-                                    <hr class="filter-divider">
-
-                                    <!-- Standards/Rules Group -->
+                                    <!-- 구분선: 기준/규칙 -->
+                                    <div class="filter-divider"></div>
+                                    <!-- 기준/규칙 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -194,11 +200,9 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="energy_saving_criteria" checked> 에너지</label>
                                     </div>
-
-                                    <!-- Divider for Ordinances -->
-                                    <hr class="filter-divider">
-
-                                    <!-- Seoul Ordinances Group -->
+                                    <!-- 구분선: 조례 -->
+                                    <div class="filter-divider"></div>
+                                    <!-- 조례 (서울시) 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
                                             <label class="checkbox-label"><input type="checkbox" class="group-filter"
@@ -215,7 +219,6 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="seoul_outdoor_ad_ord" checked> 옥외광고물</label>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -1018,7 +1021,8 @@
         <!-- No Footer needed for utility page -->
     </div>
     <script type="module" src="/src/main.js"></script>
-    <script src="js/law.js"></script>
+    <script src="js/law_data_list.js" charset="utf-8"></script>
+    <script src="js/law.js?v=13"></script>
 </body>
 
 </html>
