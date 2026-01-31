@@ -1,0 +1,1130 @@
+        .law-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            align-items: start;
+            grid-auto-flow: row dense;
+        }
+
+        /* Section Containers for Law vs Ordinance */
+        .law-section-container {
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .law-section-container.law-area {
+            border-color: #666;
+            /* Distinct border for Acts */
+        }
+
+        .law-section-container.ordinance-area {
+            border-color: #666;
+            /* Distinct border for Ordinances */
+        }
+
+        /* 5-column layout for ordinance cards */
+        .ordinance-area .law-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .section-title {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #121212;
+            padding: 0 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ddd;
+            z-index: 5;
+            /* Ensure it sits on top of the border */
+        }
+
+        .accordion-item {
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--color-bg);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            margin-bottom: 0.75rem;
+            scroll-margin-top: 150px;
+            /* Increased to ensure header visibility */
+        }
+
+        /* Span full width when expanded */
+        .accordion-item.expanded {
+            grid-column: 1 / -1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 160px);
+            /* Slightly shorter to fit better */
+            /* Fill vertical space */
+            border-color: var(--color-text-main);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accordion-header {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid transparent;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .accordion-item.expanded .accordion-header {
+            border-bottom-color: var(--color-border);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .header-info h2 {
+            font-size: 16px;
+            margin-bottom: 0.1rem;
+            font-weight: 500;
+            line-height: 1.4;
+            white-space: nowrap;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .accordion-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            flex: 1;
+            display: none;
+        }
+
+        .accordion-item.expanded .accordion-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+            /* Enable scrollbars (Side wheels) */
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            flex: 1;
+            position: relative;
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: #fff;
+        }
+
+        .btn-external {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            border: 1px solid var(--color-border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+
+        .btn-external:hover {
+            color: var(--color-text-main);
+            border-color: var(--color-text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-toggle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+
+        .icon-toggle {
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid var(--color-text-main);
+            border-right: 2px solid var(--color-text-main);
+            transform: rotate(135deg);
+            transition: transform 0.3s;
+            margin-top: -3px;
+        }
+
+        .accordion-item.expanded .icon-toggle {
+            transform: rotate(-45deg);
+            margin-top: 3px;
+        }
+
+        .search-section {
+            margin-bottom: 2rem;
+            position: relative;
+            max-width: 1372px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        #lawSearchInput {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--color-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text-main);
+            font-size: 1rem;
+        }
+
+        #lawSearchInput:focus {
+            outline: none;
+            border-color: var(--color-text-main);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        #lawSearchBtn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        #lawSearchBtn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--color-text-main);
+        }
+
+        /* Filter Styles */
+        .filter-section {
+            margin-top: 10px;
+            padding: 0 10px;
+            max-width: 1372px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .filter-toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .btn-text:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .filter-options {
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .filter-options.hidden {
+            display: none;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-group-title {
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 500;
+            margin-right: 8px;
+            /* Space between title and first checkbox */
+            border-right: 1px solid #333;
+            /* Vertical separator instead of bottom */
+            padding-right: 8px;
+            white-space: nowrap;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .checkbox-label:hover {
+            color: #fff;
+        }
+
+        .checkbox-label input {
+            accent-color: var(--color-accent);
+        }
+
+        .filter-divider {
+            grid-column: 1 / -1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #555, transparent);
+            margin: 0.5rem 0;
+        }
+
+        .search-results {
+            margin-top: 1rem;
+            display: none;
+            color: #eee;
+            max-width: 1372px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        /* The content area for results - scrollable box */
+        .results-content {
+            background: #1a1a1a;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: none !important;
+            overflow-y: auto;
+
+            /* Make resizable */
+            resize: vertical;
+            min-height: 100px;
+            height: 50vh;
+
+            /* Visual cue for resize handle */
+            background-image: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.1) 50%),
+                linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.1) 50%);
+            background-position: bottom 2px right 2px, bottom 5px right 5px;
+            background-size: 10px 10px;
+            background-repeat: no-repeat;
+            background-color: #1a1a1a;
+        }
+
+        /* Header Area (Static, distinct block) */
+        .results-sticky-wrapper {
+            position: relative;
+            background: #262626;
+            /* Zero bottom padding to remove gap completely */
+            padding: 1rem 1rem 0 1rem;
+
+            /* Removed gap as requested */
+            margin-bottom: 0;
+
+            /* Rounded corners */
+            border-radius: 8px;
+
+            /* Box styling */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+
+            /* Make resizable */
+            resize: vertical;
+            overflow-y: auto;
+            /* Allow scrolling if too small */
+            overflow-x: hidden;
+            min-height: 100px;
+            /* Prevent collapsing */
+            /* Initial height in sidebar mode */
+            height: 400px;
+
+            /* Visual cue for resize handle */
+            background-image: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.1) 50%),
+                linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.1) 50%);
+            background-position: bottom 2px right 2px, bottom 5px right 5px;
+            background-size: 10px 10px;
+            background-repeat: no-repeat;
+        }
+
+        .results-nav {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .nav-chip {
+            margin-bottom: 0.5rem;
+            /* Allow some space between rows if wrapped */
+        }
+
+        .nav-chip .chip-remove {
+            margin-left: 8px;
+            color: #888;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .nav-chip .chip-remove:hover {
+            color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+
+
+        /* Maximized mode specific overrides for layout */
+
+        /* Responsive Grid Adjustments */
+        @media (max-width: 1024px) {
+            .law-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .accordion-item.expanded {
+                height: auto;
+                /* Don't force height on mobile */
+            }
+        }
+
+        .search-overlay {
+            /* Default: just a wrapper, no special style */
+            display: block;
+        }
+
+        /* Maximized mode: Overlay takes over */
+        .search-overlay.maximized {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #1a1a1a;
+            z-index: 2000;
+            padding: 0;
+            /* Maximized vertical range */
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .search-overlay.maximized .search-section {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 2rem 2rem 1rem;
+            box-sizing: border-box;
+            background: #262626;
+            border-bottom: 1px solid #333;
+        }
+
+        .search-overlay.maximized .search-results-header {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 1rem 2rem;
+            box-sizing: border-box;
+        }
+
+        .search-overlay.maximized .search-results {
+            /* Content container takes remaining space */
+            flex: 1 !important;
+            display: flex !important;
+            flex-direction: column;
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            overflow-y: hidden;
+            /* Result content inside will scroll */
+            min-height: 0;
+            margin-top: 0 !important;
+            max-height: none !important;
+        }
+
+        .search-overlay.maximized .results-content {
+            flex: 1;
+            overflow-y: auto;
+            border: none;
+            border-radius: 0;
+            padding: 2rem;
+            background: transparent;
+            max-height: none !important;
+        }
+
+        .search-overlay.maximized .results-content {
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+
+
+        .result-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-title h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            background: #333;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: #aaa;
+        }
+
+
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #444;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .results-nav {
+            display: flex;
+            /* Reduced gap */
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .results-sticky-wrapper {
+            position: sticky;
+            top: 0;
+            background: #1a1a1a;
+            z-index: 10;
+            padding-top: 10px;
+            margin-bottom: 1rem;
+            /* Box shadow to create visual separation when scrolling over content */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            /* Negative margin compensation if basic padding exists, but here it's fine */
+        }
+
+        /* Ensure maximized mode header width matches */
+        .search-results.maximized .results-sticky-wrapper,
+        .law-container-wrapper.split-view .results-sticky-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Remove bottom margin to connect with content */
+            margin-bottom: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            background: #262626;
+            z-index: 20;
+            flex-shrink: 0;
+            /* Header should not shrink */
+        }
+
+        .nav-chip {
+            background: #333;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        .nav-chip:hover {
+            background: #444;
+            color: #fff;
+        }
+
+        .nav-chip.active {
+            font-weight: bold;
+            border-color: #fff;
+            color: #fff;
+        }
+
+        .btn-maximize-results,
+        .btn-close-results {
+            background: transparent;
+            border: 1px solid #555;
+            color: #ccc;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-maximize-results:hover,
+        .btn-close-results:hover {
+            border-color: #888;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .snippet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .btn-view-full {
+            background: transparent;
+            border: 1px solid #555;
+            color: #aaa;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-view-full:hover {
+            color: #fff;
+            border-color: #888;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .snippet-full-text {
+            display: none;
+            margin-top: 8px;
+            white-space: pre-wrap;
+            color: #ddd;
+            background: #252525;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border: 1px solid #444;
+        }
+
+        .snippet-full-text.active {
+            display: block;
+        }
+
+        @media (min-width: 1025px) {
+
+            /* Styles for Split View (Sidebar) */
+            /* Styles for Split View (Sidebar) */
+            .law-container-wrapper.split-view {
+                display: flex;
+                gap: 0 !important;
+                align-items: flex-start;
+                max-width: 100% !important;
+                width: 100% !important;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            /* Resizer Handle */
+            .resizer {
+                width: 12px;
+                cursor: col-resize;
+                flex-shrink: 0;
+                align-self: stretch;
+                display: none;
+                justify-content: center;
+                position: sticky;
+                top: 100px;
+                height: calc(100vh - 120px);
+                z-index: 900;
+            }
+
+            .law-container-wrapper.split-view .resizer {
+                display: flex;
+            }
+
+            .resizer::after {
+                content: '';
+                width: 1px;
+                height: 100%;
+                background: #444;
+                transition: 0.2s;
+            }
+
+            .resizer:hover::after,
+            .resizer.resizing::after {
+                width: 3px;
+                background: #4a9eff;
+            }
+
+            .law-container-wrapper.split-view .search-overlay {
+                width: var(--sidebar-width, 350px);
+                min-width: 280px;
+                max-width: 60vw;
+                flex-shrink: 0;
+                position: sticky;
+                top: 100px;
+                height: calc(100vh - 120px);
+                /* Fill screen height */
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 0;
+                background: #262626;
+                border-radius: 8px;
+                border: 1px solid #333;
+                overflow: visible;
+                /* Allow children to handle their own overflow */
+            }
+
+            .law-container-wrapper.split-view .search-section {
+                padding: 0.75rem 0.5rem;
+                border-bottom: 1px solid #444;
+                margin: 0;
+            }
+
+            .law-container-wrapper.split-view .filter-options {
+                display: block !important;
+                max-height: 300px;
+                overflow: auto !important;
+                /* Enable both scrollbars on container */
+                padding: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .law-container-wrapper.split-view .filter-options.hidden {
+                display: none !important;
+            }
+
+            .law-container-wrapper.split-view .filter-group {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                white-space: nowrap !important;
+                width: max-content !important;
+                /* Allow growing beyond container */
+                min-width: 100%;
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+                border-bottom: 1px solid #333;
+                overflow: visible !important;
+                /* Remove individual scroll */
+            }
+
+            /* Prevent labels from shrinking */
+            .law-container-wrapper.split-view .filter-group>* {
+                flex-shrink: 0 !important;
+            }
+
+            .law-container-wrapper.split-view .filter-group::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .law-container-wrapper.split-view .filter-group::-webkit-scrollbar-thumb {
+                background: #666;
+                border-radius: 3px;
+            }
+
+            .law-container-wrapper.split-view .filter-group:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .law-container-wrapper.split-view .filter-divider {
+                width: 100%;
+                margin: 12px 0;
+            }
+
+            .law-container-wrapper.split-view .accordion-header {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .law-container-wrapper.split-view .header-info h2 {
+                white-space: normal;
+            }
+
+            .law-container-wrapper.split-view .search-wrapper {
+                gap: 6px;
+            }
+
+            .law-container-wrapper.split-view #lawSearchInput {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .law-container-wrapper.split-view #lawSearchBtn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .law-container-wrapper.split-view .filter-section {
+                margin-top: 5px;
+                padding: 0 5px;
+            }
+
+            .law-container-wrapper.split-view .filter-toggle-row {
+                font-size: 0.8rem;
+            }
+
+            .law-container-wrapper.split-view .search-results {
+                display: flex !important;
+                flex-direction: column;
+                flex: 1;
+                overflow: hidden;
+                margin-top: 0 !important;
+                min-height: 0;
+            }
+
+            .law-container-wrapper.split-view .results-content {
+                max-height: none !important;
+                height: 100% !important;
+                flex: 1;
+                overflow-y: auto;
+                border: none;
+                resize: none;
+                min-height: 0;
+                padding-bottom: 2rem;
+                /* Add padding at bottom for better scroll UX */
+            }
+
+            .law-container-wrapper.split-view .law-grid {
+                flex: 1;
+                /* When split, grid is 1 column (the expanded item) */
+                grid-template-columns: 1fr;
+            }
+
+            .law-container-wrapper.split-view .law-layout-flex {
+                flex: 1;
+                min-width: 0;
+                width: 100%;
+            }
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .result-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-title h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            background: #333;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: #aaa;
+        }
+
+        .snippet {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            padding-left: 10px;
+            border-left: 2px solid #555;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            transition: background 0.2s, border 0.2s;
+            cursor: pointer;
+        }
+
+        .snippet.active-result {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-left: 3px solid var(--color-accent, #4a90e2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .snippet.hidden {
+            display: none;
+        }
+
+        .snippet-label {
+            font-weight: bold;
+            color: var(--color-highlight, #fff);
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .snippet-text {
+            display: block;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .snippet-text mark {
+            background: rgba(255, 255, 0, 0.3);
+            color: white;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .snippet.clickable:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: var(--color-highlight, #fff);
+        }
+
+        .snippet-more {
+            text-align: center;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #fff;
+            margin-top: 5px;
+        }
+
+        .snippet-more:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-clear {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 46px;
+            /* Match height of other buttons */
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .btn-clear:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        .snippet-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        .snippet-text {
+            word-break: break-all;
+        }
+
+        mark {
+            background: #d4a017;
+            color: #000;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #888;
+            padding: 1rem;
+        }
+
+        /* Right Navigation Sidebar */
+        .law-layout-flex {
+            display: block;
+            position: relative;
+            /* Container for absolute positioning context */
+        }
+
+        .law-main-content {
+            /* Full width of the main container */
+            width: 100%;
+        }
+
+        .law-right-nav {
+            width: 180px;
+            /* Match the desired sidebar width */
+            position: absolute;
+            left: 100%;
+            /* Push to the right edge of the container */
+            margin-left: 2rem;
+            /* Add spacing from the grid */
+            top: 20px;
+            /* Align with top of grid */
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            height: auto;
+            min-height: 200px;
+            /* Placeholder height */
+        }
+
+        .law-right-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .law-right-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .law-right-nav a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .law-right-nav a:hover {
+            color: var(--color-text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Scroll margin for smooth scrolling to correct position (offset header) */
+        .accordion-item {
+            scroll-margin-top: 140px;
+        }
+
+        /* Responsive: Hide sidebar on smaller screens */
+        @media (max-width: 1200px) {
+            .law-right-nav {
+                display: none;
+            }
+
+            .law-layout-flex {
+                display: block;
+            }
+        }
+
+        /* Responsive: Hide sidebar if screen is too narrow to fit main content + sidebar */
+        /* 1372px (content) + 2rem (margin) + 180px (sidebar) + 2rem (page margin) ~= 1600px */
+        /* Responsive: Hide sidebar if screen is too narrow to fit main content + sidebar */
+        /* 1372px (content) + 2rem (margin) + 180px (sidebar) + 2rem (page margin) ~= 1600px */
+        @media (max-width: 1600px) {
+            .law-right-nav {
+                display: none;
+            }
+        }
+
+        /* Ordinance Area Layout */
+        /* Ordinance Area Layout */
+        .ordinance-area .law-grid {
+            grid-template-columns: repeat(5, 1fr);
+            /* Force 5 columns for single row as requested */
+        }
+
+        /* Override for Split View: Force 1 column so item takes full width */
+        .law-container-wrapper.split-view .ordinance-area .law-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-divider {
+            width: 100%;
+            grid-column: 1 / -1;
+            border: 0;
+            border-top: 1px solid #444;
+            margin: 10px 0;
+        }
+
+
+
+        /* Overrides for distinct search results */
+        .result-item {
+            margin-bottom: 2rem !important;
+            border: 1px solid #444 !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border-radius: 8px !important;
+            padding: 1.5rem !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .result-title {
+            border-bottom: 1px solid #555 !important;
+            padding-bottom: 0.5rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .result-title h3 {
+            font-size: 1.3rem !important;
+        }
