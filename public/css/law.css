@@ -1128,3 +1128,113 @@
         .result-title h3 {
             font-size: 1.3rem !important;
         }
+
+        /* ==========================================================================
+           MOBILE RESPONSIVE - Filter Section
+           ========================================================================== */
+        @media (max-width: 768px) {
+
+            /* Filter options container - single column on mobile */
+            .filter-options {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+                padding: 12px;
+            }
+
+            /* Filter group - stack vertically on mobile */
+            .filter-group {
+                flex-direction: column !important;
+                flex-wrap: wrap !important;
+                align-items: flex-start !important;
+                gap: 8px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #333;
+            }
+
+            .filter-group:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .filter-group-title {
+                border-right: none !important;
+                padding-right: 0 !important;
+                margin-right: 0 !important;
+                margin-bottom: 4px;
+                width: 100%;
+            }
+
+            /* Checkbox labels - wrap on mobile */
+            .filter-group .checkbox-label {
+                white-space: normal;
+            }
+
+            /* Search section */
+            .search-section {
+                padding: 0 0.5rem;
+            }
+
+            .search-wrapper {
+                flex-wrap: wrap;
+            }
+
+            #lawSearchInput {
+                font-size: 16px !important;
+                /* Prevent iOS zoom */
+                padding: 12px 16px;
+            }
+
+            /* Law grid - single column on mobile */
+            .law-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Ordinance grid - 2 columns on mobile */
+            .ordinance-area .law-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            /* Results content */
+            .results-content {
+                height: 40vh;
+                min-height: 200px;
+            }
+
+            /* Stickey wrapper nav chips */
+            .results-nav {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .nav-chip {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+
+            /* Main container padding */
+            .law-container-wrapper {
+                padding: 0 0.5rem;
+            }
+
+            /* Accordion items */
+            .accordion-header {
+                padding: 0.75rem;
+            }
+
+            .accordion-title {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small screens (< 480px) */
+        @media (max-width: 480px) {
+            .ordinance-area .law-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .filter-toggle-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
