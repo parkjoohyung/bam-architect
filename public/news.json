@@ -1,5 +1,61 @@
 [
     {
+        "title": "\n        Soil Stories Pavilion / Magicline Studio\n      ",
+        "link": "https://www.archdaily.com/1039586/soil-stories-pavilion-magicline-studio",
+        "date": "3/13/2026",
+        "source": "ArchDaily",
+        "snippet": "Set within a 14-acre family estate on the outskirts of Kozhikode, Soil Stories occupies a 60-cent si...",
+        "image": "https://images.adsttc.com/media/images/69b2/b842/1d07/d400/0132/440f/medium_jpg/soil_stories_magiclinestudio_10.jpg?1773320291"
+    },
+    {
+        "title": "\n        MKN House / Triplex Arquitetura\n      ",
+        "link": "https://www.archdaily.com/1039327/mkn-house-triplex-arquitetura",
+        "date": "3/13/2026",
+        "source": "ArchDaily",
+        "snippet": "Set in a wooded area, Casa MKN was designed with the premise of preserving the existing large trees,...",
+        "image": "https://images.adsttc.com/media/images/699f/6569/4750/0000/0118/227a/medium_jpg/22092025_mkn___8_.jpg?1772053924"
+    },
+    {
+        "title": "\n        Kindergarten and Nursery Rosslauf / feld72\n      ",
+        "link": "https://www.archdaily.com/1039094/kindergarten-and-nursery-rosslauf-feld72",
+        "date": "3/13/2026",
+        "source": "ArchDaily",
+        "snippet": "The rectangular building opens up generously to the south. Direct access to the outdoor area of the ...",
+        "image": "https://images.adsttc.com/media/images/699e/e897/451b/b400/0162/5c3e/medium_jpg/02_f72_Rosslauf_Hertha-Hurnaus_4714.jpg?1772021950"
+    },
+    {
+        "title": "\n        Place Tenaquip - Affordable Housing Units / L. McComber \n      ",
+        "link": "https://www.archdaily.com/1039464/place-tenaquip-affordable-housing-units-l-mccomber",
+        "date": "3/13/2026",
+        "source": "ArchDaily",
+        "snippet": "In a transitioning neighbourhood of Lachine, Place Tenaquip transforms a long-abandoned tavern into ...",
+        "image": "https://images.adsttc.com/media/images/69af/0fce/1d07/d400/0132/40b2/medium_jpg/16_PlaceTenaquip_L.McComber.jpg?1773080623"
+    },
+    {
+        "title": "\n        Building with Earth: Traditional Knowledge in Contemporary Architecture \n      ",
+        "link": "https://www.archdaily.com/1039425/building-with-earth-traditional-knowledge-in-contemporary-architecture",
+        "date": "3/13/2026",
+        "source": "ArchDaily",
+        "snippet": "In recent years, earthen construction has gained renewed attention in architecture. Materials such a...",
+        "image": "https://images.adsttc.com/media/images/69ab/0696/314f/6601/8902/b9cd/medium_jpg/building-with-earth-traditional-knowledge-in-contemporary-architecture_1.jpg?1772816029"
+    },
+    {
+        "title": "동일이엔씨, 철강구조물 제작공장 ‘건축 3급’ 인증서 취득 - 철강금속신문",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBESWVLVE9sRlh2WUZkOGxLTUI5Y2lQTVB0MFRucFVCSWFLblhWRmU4MFpoSEk5cVpWa0s0WXoyNkVfMld4Y01aRFdEbVluQTF1all0aFVhNXdxMllJMFIxdXZiN3ZMWlFE?oc=5",
+        "date": "3/13/2026",
+        "source": "Google News (Korea Architecture)",
+        "snippet": "동일이엔씨, 철강구조물 제작공장 ‘건축 3급’ 인증서 취득  철강금속신문...",
+        "image": "favicon.svg"
+    },
+    {
+        "title": "A cognitive layer architecture to support large-language model performance in psychotherapy interactions - Nature",
+        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE16cXVkRThNVVYyMU0yODd0X3FFT25Odmw5Q0ZpT2dCa2FyYTI4QWlGQk8xcllyVEs5Tmtpem8yeTlUY3RiRUduXzhUNGVkcExZTTJkZ3ltZGhLc3Vld1VF?oc=5",
+        "date": "3/12/2026",
+        "source": "Google News (Architecture)",
+        "snippet": "A cognitive layer architecture to support large-language model performance in psychotherapy interact...",
+        "image": "favicon.svg"
+    },
+    {
         "title": "Chilean Smiljan Radić Clarke wins architecture's highest honor - NPR",
         "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPcTNPR2U1OHZzMnhQTlgxVnEzRXkyZmFLamR6SWVXTDhDMVdSQ0s2aHJsMkJzLW1oUUNhV29MTmJDdVZxbU11b2FtRThKRUNoaUZSVjR3YnctaW1SUlhPN1NkSWhvZDJYeXBpV2VkT2FULVJSMHZMbVFGc1NuZ0MxVnI5NzljMGYzUEZaT2ZiYXc3bHhD?oc=5",
         "date": "3/12/2026",
@@ -8,75 +64,19 @@
         "image": "favicon.svg"
     },
     {
-        "title": "Pritzker Prize 2026: Chile’s Smiljan Radić wins ‘Nobel’ of architecture - CNN",
-        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFA3eklzZ3ptSFY2bGFURnIzQ1BHLWhwOUtPRlMyUFBXdkRQWHM5ZXozSkJFaUsyODNPMXE5Um1ZZVFJQmd2YWpkN280SzN0V2FUY1R3Y1BQRC1GaHdaRHFYR0VEY0dQTHRsQ1pBQXBsRGhtRVh5OC1weERNQXQ?oc=5",
+        "title": "IBM Releases a New Blueprint for Quantum-Centric Supercomputing - IBM Newsroom",
+        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQbzh6OW5INHowNHNoLVVEYkR0X0UzSF90MmdpZFVuZkxpeWJSOThnS0RCVWhjUHIta1ViSkVLdkk0SWFuSGYyY3pITHhmOGlIU2tIZzJBbk1Kd0RWaVJJUnVrTFJadGc2dlNsNUc1b3k2RHhZLU03VjQ4Um1YNlQ1dVhNQUx5RWxEb2dIS3hrLW5IWTRjSm1fWVd1RHB4M1FD?oc=5",
         "date": "3/12/2026",
         "source": "Google News (Architecture)",
-        "snippet": "Pritzker Prize 2026: Chile’s Smiljan Radić wins ‘Nobel’ of architecture  CNN...",
+        "snippet": "IBM Releases a New Blueprint for Quantum-Centric Supercomputing  IBM Newsroom...",
         "image": "favicon.svg"
     },
     {
-        "title": "Landscape architecture students shape a more resilient future - University of Minnesota Twin Cities",
-        "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxORktUZ25rMzJ2MEFyYzRmMkpQRjRkYzJLbERaRVJnZ0YxUE4tTWN0bkt5OVQ2SkhwS1dpdTNQM2VtS0Z4Z1FBV093cUdUcWdFOGNNdjlJMEhHNWlCT2k0SXRpTGd0dkhjVUlCUk41T1FXanlvVHQ4VEd6S29oSVphMU5MREhoMlEyOVdJOUVMSl9VMFozeTl2Z1NiZjRZck9G?oc=5",
-        "date": "3/12/2026",
-        "source": "Google News (Architecture)",
-        "snippet": "Landscape architecture students shape a more resilient future  University of Minnesota Twin Cities...",
-        "image": "favicon.svg"
-    },
-    {
-        "title": "\n        Smiljan Radić Clarke Receives the 2026 Pritzker Prize, The Artist of Unspoken Architecture\n      ",
-        "link": "https://www.archdaily.com/1039553/smiljan-radic-clarke-receives-the-2026-pritzker-prize-the-artist-of-unspoken-architecture",
-        "date": "3/12/2026",
-        "source": "ArchDaily",
-        "snippet": "Chilean architect Smiljan Radić Clarke has been announced as the laureate of the 2026 Pritzker Archi...",
-        "image": "https://images.adsttc.com/media/images/69b1/c351/3c49/4901/7d2a/fa4e/medium_jpg/x_37.jpg?1773257573"
-    },
-    {
-        "title": "\n        Kaleidoscopic House  / DOT\n      ",
-        "link": "https://www.archdaily.com/1039549/kaleidoscopic-house-dot",
-        "date": "3/12/2026",
-        "source": "ArchDaily",
-        "snippet": "A house is often a portrait of the people who live in it. In many Indian families, the woman of the ...",
-        "image": "https://images.adsttc.com/media/images/69b1/8c65/1d07/d400/0132/4307/medium_jpg/DoT_Kaleidoscopic_House-3.jpg?1773243568"
-    },
-    {
-        "title": "\n        El Retiro Spa / Mendiola Arregui\n      ",
-        "link": "https://www.archdaily.com/1038988/el-retiro-spa-mendiola-arregui",
-        "date": "3/12/2026",
-        "source": "ArchDaily",
-        "snippet": "This project is born as a retreat space, conceived from introspection. A personal and private spa in...",
-        "image": "https://images.adsttc.com/media/images/6996/f569/f47e/a015/1780/46ca/medium_jpg/el-retiro-spa-mendiola-arregui_9.jpg?1771500969"
-    },
-    {
-        "title": "\n        Family Tomb in Coimbra / Comoco Arquitectos\n      ",
-        "link": "https://www.archdaily.com/1039287/family-tomb-in-coimbra-comoco-arquitectos",
-        "date": "3/12/2026",
-        "source": "ArchDaily",
-        "snippet": "Buildings associated with death, conceived or inspired by funerary rituals and practices, have given...",
-        "image": "https://images.adsttc.com/media/images/69a7/24de/1d07/d400/0132/3b97/medium_jpg/FM_-_Jazigo_04_JPEG.jpg?1772561694"
-    },
-    {
-        "title": "\n        Lantern House / Bercy Fadel + Partners\n      ",
-        "link": "https://www.archdaily.com/1039463/lantern-house-bercy-fadel-plus-partners",
-        "date": "3/12/2026",
-        "source": "ArchDaily",
-        "snippet": "Lantern House sits quietly among the oaks of Austin's Bouldin Creek; a study in light, material, and...",
-        "image": "https://images.adsttc.com/media/images/69af/0bb6/785c/2724/7893/0b08/medium_jpg/lantern-house-bercy-fadel-plus-partners_13.jpg?1773079498"
-    },
-    {
-        "title": "화재에 안전한 목조건축, 내화기술로 길을 찾다! - 대한민국 정책브리핑",
-        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNblhOc0RfUldzeHA3cVFoWU03Q0owWWZPT0FXYXMtNnlDRlJFMm80ZjRTbklLTGgya2NZeWIwY3o5dktGcjd5LVprVjExNzFrOHlDM3ZrUGlweFhvWC1yNXpLZU1qZlNKNy11TkFXZnFrYzRuRHVvRHZNYUlCd3MyUHFXdE1tN3NvVWZhLQ?oc=5",
-        "date": "3/12/2026",
+        "title": "국립산림과학원, 우리 나무로 짓는 목조건축 기술 선보인다 - 대한민국 정책브리핑",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPUk41X3IzZTVWQWltT0JMdGVRMlVoa3NpYXA1QUNtQUZ6NldQZzVOUkZQTnhfWlFTZTdwa1JJQWRDUVlpSmFyWER6cGx5dDJvTUx1SHNURG5HamFpaTJnZVctQjNUVHQzMENfNkF4ZnVybzdvZXNNRWZLbmdBUHBRSzRIMFhxSFR1blRodQ?oc=5",
+        "date": "3/11/2026",
         "source": "Google News (Korea Architecture)",
-        "snippet": "화재에 안전한 목조건축, 내화기술로 길을 찾다!  대한민국 정책브리핑...",
-        "image": "favicon.svg"
-    },
-    {
-        "title": "환경공단, ‘한탄강 국가수질자동측정소’ 개소…패시브 건축 적용 - 전기신문",
-        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5Odjg2VDdyYnJJcnNvUlF2dVVBbkJFWUNFUXo2LWpmZV94WlBlTzdPdDJHbDNMV3FES2cyalNSaXpjaWNick9CSHY0ZHVfYjY5VjdabjlKSm5TY0NaRnFmNjAtMEg5SnNveThlNWtjMXbSAXBBVV95cUxOTnY4NlQ3cmJySXJzb1JRdnVVQW5CRVlDRVF6Ni1qZmVfeFpQZU83T3QyR2wzTFdxREtnMmpTUml6Y2ljYnJPQkh2NGR1X2I2OVY3Wm45SkpuU2NDWkZxZjYwLTBIOUpzb3k4ZTVrYzF2?oc=5",
-        "date": "3/12/2026",
-        "source": "Google News (Korea Architecture)",
-        "snippet": "환경공단, ‘한탄강 국가수질자동측정소’ 개소…패시브 건축 적용  전기신문...",
+        "snippet": "국립산림과학원, 우리 나무로 짓는 목조건축 기술 선보인다  대한민국 정책브리핑...",
         "image": "favicon.svg"
     },
     {
@@ -85,6 +85,14 @@
         "date": "3/11/2026",
         "source": "Google News (Korea Architecture)",
         "snippet": "용인시, ‘임대형기숙사 건축 계획 기준’ 운영…건설노동자 주거수요 증가 선제적 대응 나서  v.daum.net...",
+        "image": "favicon.svg"
+    },
+    {
+        "title": "UNC Charlotte's College of Arts + Architecture Honors Program to be phased out by fall 2026 - Niner Times",
+        "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxQbXFVUDJ0cG40VXRFenlLNkxGU1JMZl8xUWNpbmtMY2pNM21leVVqRmxZR1c0TUZDTExUMkhVZDdfZHdfSHlBbklqNVd5RlNGWTZYU2x3bk1GWUtQeVlzYTNhVXFCd1dyMFoyV2h0VUNsN1RPaFlra3FIWkRGYUxYTkFhX0dObmlYYjhQcHlJby10bWVKX3NjNmtaM3F6VUFLZ2N1MnhNb0tueVN0NUNqMXg0VG52Rmt0S1E1SkljMDlzd09SYWlWa0ZQYnQ4MFlOTm1tUjNzWGMtWW4tNUZlZUNUQmZDSDByM013R1gtSzdqNUJ4VlpsQkw3VXZMUDA?oc=5",
+        "date": "3/10/2026",
+        "source": "Google News (Architecture)",
+        "snippet": "UNC Charlotte's College of Arts + Architecture Honors Program to be phased out by fall 2026  Niner T...",
         "image": "favicon.svg"
     },
     {
@@ -101,14 +109,6 @@
         "date": "3/9/2026",
         "source": "Google News (Architecture)",
         "snippet": "Under the hood: Security architecture of GitHub Agentic Workflows  The GitHub Blog...",
-        "image": "favicon.svg"
-    },
-    {
-        "title": "Implementing Falcon-H1 Hybrid Architecture in NVIDIA Megatron Core | NVIDIA Technical Blog - NVIDIA Developer",
-        "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPdXdrdWFhUjdyR29wa1ZGNW1qRlVZcjdtSGJpZGo4QnpmMG41ZGxTQzlGQUljVGprdHJnMEl3blk5NzdjSFZSbmNhRWVpUUN4aE9OUEtnZnp0MHNSY0Y1NEFzcmdodUUxYUtDWkNYS1dlSkVfcm85UDAtYzhxT053OVVFR2dHNFpONHBrNVpfTGVrMXBmd2lSUktmYUhYbjF3c1Ew?oc=5",
-        "date": "3/9/2026",
-        "source": "Google News (Architecture)",
-        "snippet": "Implementing Falcon-H1 Hybrid Architecture in NVIDIA Megatron Core | NVIDIA Technical Blog  NVIDIA D...",
         "image": "favicon.svg"
     },
     {
