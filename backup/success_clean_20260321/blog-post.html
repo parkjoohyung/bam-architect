@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="건축사사무소밤 블로그" />
+    <meta property="og:title" content="Blog - 건축사사무소밤" />
+    <meta property="og:description" content="건축사사무소밤 블로그" />
+    <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
+
+    <title>Blog - 건축사사무소밤</title>
+
+    <!-- Google Fonts - Quartz Style -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Blog CSS -->
+    <link rel="stylesheet" href="css/blog.css">
+
+    <!-- D3.js for Graph View -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- PixiJS for WebGL Graph Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@25/dist/tween.umd.js"></script>
+</head>
+
+<body class="blog-page">
+    <div id="app">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="./" class="logo">건축사사무소밤</a>
+                <nav class="desktop-nav">
+                    <a href="about.html">About</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html" class="active">Blog</a>
+                    <a href="news.html">News</a>
+                    <a href="law.html">Law</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <button class="mobile-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content - Quartz Layout -->
+        <main id="main-content" style="padding-top: 80px;">
+            <div class="quartz-layout">
+                <!-- Left Sidebar -->
+                <aside class="quartz-sidebar-left">
+                    <a href="blog.html" class="quartz-site-title">Blog</a>
+
+                    <!-- Search Button -->
+                    <button class="quartz-search-btn" id="open-search-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                        Search
+                        <kbd>Ctrl+K</kbd>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button class="quartz-theme-toggle" id="theme-toggle-btn">
+                        <svg id="theme-icon-light" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                            </path>
+                        </svg>
+                        <svg id="theme-icon-dark" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" style="display:none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span id="theme-label">Light mode</span>
+                    </button>
+
+                    <!-- Explorer -->
+                    <div class="quartz-explorer">
+                        <div class="quartz-explorer-title" id="explorer-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                height="16">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            Explorer
+                        </div>
+                        <ul class="quartz-explorer-list" id="explorer-list"></ul>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="quartz-content">
+                    <div class="quartz-article">
+                        <!-- Breadcrumb -->
+                        <nav class="quartz-breadcrumb">
+                            <a href="./">Home</a>
+                            <span>›</span>
+                            <a href="blog.html">Blog</a>
+                            <span>›</span>
+                            <span id="breadcrumb-title">Loading...</span>
+                        </nav>
+
+                        <!-- Page Header -->
+                        <header class="quartz-article-header">
+                            <h1 class="quartz-article-title" id="post-title">Loading...</h1>
+                            <div class="quartz-article-meta" id="post-meta"></div>
+                            <div class="quartz-post-tags" id="post-tags"></div>
+                        </header>
+
+                        <!-- Post Body -->
+                        <div class="quartz-article-body" id="post-body">
+                            <!-- Content injected here -->
+                            <p>Loading content...</p>
+                        </div>
+
+                        <!-- Backlinks -->
+                        <div class="backlinks quartz-backlinks" id="post-backlinks" style="display: none;">
+                            <h3>Backlinks</h3>
+                            <ul id="backlinks-list" class="overflow"></ul>
+                            <div id="backlinks-empty" class="backlinks-empty" style="display: none;">No backlinks found
+                            </div>
+                        </div>
+
+                        <!-- Prev/Next Navigation -->
+                        <div class="post-nav fade-in-up" id="post-nav"
+                            style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--q-lightgray);">
+                            <a href="blog.html" class="btn-link">← Back to List</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Sidebar -->
+                <aside class="quartz-sidebar-right">
+                    <!-- Graph View -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Graph View</div>
+                        <div class="quartz-graph">
+                            <div class="quartz-graph-container" id="graph-container"></div>
+                        </div>
+                    </section>
+
+                    <!-- Table of Contents -->
+                    <section class="quartz-sidebar-section" id="toc-section" style="display: none;">
+                        <button class="toc-header" id="toc-toggle">
+                            <h3>Table of Contents</h3>
+                            <svg class="fold" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="toc" id="toc-container">
+                            <ul class="toc-content" id="toc-list"></ul>
+                        </div>
+                    </section>
+
+                    <!-- Recent Posts -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Recent</div>
+                        <ul class="quartz-backlinks-list" id="recent-posts"></ul>
+                    </section>
+                </aside>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="quartz-footer">
+            <p>Created with ❤️ by 건축사사무소밤 © 2026</p>
+        </footer>
+    </div>
+
+    <!-- Quartz Features (Search, Graph, TOC, Backlinks) -->
+    <script src="js/quartz-features.js"></script>
+
+    <script type="module">
+        import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
+        import '/src/main.js';
+
+        let allPosts = [];
+
+        async function loadPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+
+            if (!postId) {
+                document.getElementById('post-body').innerHTML = '<h1>Invalid URL</h1>';
+                return;
+            }
+
+            try {
+                // 1. Load posts index
+                const indexRes = await fetch('posts.json');
+                allPosts = await indexRes.json();
+                const postMeta = allPosts.find(p => p.id === postId);
+
+                if (!postMeta) {
+                    throw new Error('Post not found');
+                }
+
+                // 2. Load full content for graph/search context
+                // Note: In a real app we might optimize this, but for Quartz graph we need all links
+                const allPostsContent = await Promise.all(allPosts.map(async (post) => {
+                    try {
+                        const mdRes = await fetch(`posts/${post.filename}`);
+                        const text = await mdRes.text();
+                        // Clean up frontmatter and Logseq format
+                        const cleanText = text.replace(/^---[\s\S]*?---\n?/, '')
+                            .split('\n')
+                            .filter(line => !line.match(/^\s*\w+::/)) // Remove properties
+                            .map(line => line.replace(/^(\t*)- /, '$1')) // Remove bullets
+                            .join('\n');
+
+                        return { ...post, content: cleanText };
+                    } catch (e) {
+                        return { ...post, content: '' };
+                    }
+                }));
+
+                const currentPost = allPostsContent.find(p => p.id === postId);
+
+                // 3. Render Post
+                document.getElementById('post-title').innerText = currentPost.title;
+                document.getElementById('breadcrumb-title').innerText = currentPost.title;
+                document.getElementById('post-meta').innerHTML = `<span>${currentPost.date}</span>`;
+                document.title = `${currentPost.title} - 건축사사무소밤`;
+
+                if (currentPost.tags) {
+                    document.getElementById('post-tags').innerHTML = currentPost.tags.map(tag =>
+                        `<a href="blog.html?tag=${tag}" class="quartz-tag">#${tag}</a>`
+                    ).join('');
+                }
+
+                // Convert Markdown to HTML
+                // Use a simpler approach or the one from quartz-features if exported
+                // Here we use marked library but we should match quartz-features logic
+                document.getElementById('post-body').innerHTML = marked.parse(currentPost.content);
+
+                // 4. Render Sidebar Elements
+                renderExplorer(allPosts);
+                renderRecentPosts(allPosts);
+
+                // 5. Initialize Quartz Features (Search, Graph, TOC, Backlinks)
+                if (typeof initQuartzFeatures === 'function') {
+                    // quartz-features.js will handle TOC and Backlinks rendering
+                    // We need to pass the current post ID
+                    initQuartzFeatures(allPostsContent, postId);
+                }
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('post-body').innerHTML = `<h1>Post not found</h1><p>${error.message}</p>`;
+            }
+        }
+
+        function renderExplorer(posts) {
+            const explorerList = document.getElementById('explorer-list');
+            explorerList.innerHTML = posts.map(post => `
+                <li class="quartz-explorer-item">
+                    <a href="blog-post.html?id=${post.id}">${post.title}</a>
+                </li>
+            `).join('');
+        }
+
+        function renderRecentPosts(posts) {
+            const recentList = document.getElementById('recent-posts');
+            recentList.innerHTML = posts.slice(0, 5).map(post =>
+                `<li><a href="blog-post.html?id=${post.id}">${post.title}</a></li>`
+            ).join('');
+        }
+
+        // Theme toggle - Quartz Style
+        const switchTheme = () => {
+            const currentTheme = document.documentElement.getAttribute('saved-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('saved-theme', newTheme);
+            document.body.classList.toggle('dark-mode', newTheme === 'dark');
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        };
+
+        const updateThemeIcon = (theme) => {
+            document.getElementById('theme-icon-light').style.display = theme === 'dark' ? 'none' : 'inline';
+            document.getElementById('theme-icon-dark').style.display = theme === 'dark' ? 'inline' : 'none';
+            document.getElementById('theme-label').textContent = theme === 'dark' ? 'Dark mode' : 'Light mode';
+        };
+
+        document.getElementById('theme-toggle-btn').addEventListener('click', switchTheme);
+
+        // Explorer toggle
+        document.getElementById('explorer-toggle').addEventListener('click', () => {
+            const title = document.getElementById('explorer-toggle');
+            const list = document.getElementById('explorer-list');
+            title.classList.toggle('collapsed');
+            list.style.display = title.classList.contains('collapsed') ? 'none' : 'block';
+        });
+
+        // Search button
+        document.getElementById('open-search-btn').addEventListener('click', () => {
+            if (window.quartzSearch) {
+                window.quartzSearch.open();
+            }
+        });
+
+        // TOC Toggle
+        const tocToggle = document.getElementById('toc-toggle');
+        if (tocToggle) {
+            tocToggle.addEventListener('click', () => {
+                tocToggle.classList.toggle('collapsed');
+                const list = document.getElementById('toc-list');
+                list.classList.toggle('collapsed');
+            });
+        }
+
+        // Initialize theme and load
+        const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const savedTheme = localStorage.getItem('theme') ?? userPref;
+        document.documentElement.setAttribute('saved-theme', savedTheme);
+        document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateThemeIcon(document.documentElement.getAttribute('saved-theme'));
+            loadPost();
+        });
+    </script>
+</body>
+
+</html>

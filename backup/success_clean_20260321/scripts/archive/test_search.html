@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search Test</title>
+    <!-- CSS -->
+    <style>
+        .ordinance-detail-checkbox {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Search Test</h1>
+
+    <!-- Filter UI -->
+    <input type="checkbox" id="ordinanceToggle"> Ordinance Toggle<br>
+    <select id="ordinanceProvinceSelect"></select>
+    <select id="ordinanceCitySelect"></select>
+    <div id="ordinanceDetailFilter"></div>
+
+    <!-- Search UI -->
+    <input type="text" id="lawSearchInput" value="도시계획">
+    <button id="lawSearchBtn">Search</button>
+    <button id="lawSearchClear">Clear</button>
+
+    <h2 id="searchResultsHeader">Results</h2>
+    <div id="searchResults"></div>
+
+    <!-- Scripts -->
+    <!-- Load data first -->
+    <script src="js/law_data_ordinance.js"></script>
+    <!-- Mock lawData -->
+    <script>
+        window.lawData = [];
+    </script>
+    <!-- Load law.js -->
+    <script src="js/law.js"></script>
+
+    <script>
+        // Initialize
+        window.onload = () => {
+            // Mock some functions if missing
+            if (!window.displayResults) {
+                window.displayResults = (results) => {
+                    console.log('Results:', results);
+                    document.getElementById('searchResults').innerText = JSON.stringify(results, null, 2);
+                }
+            }
+
+            // Manually trigger init if needed
+            // law.js runs on DOMContentLoaded usually
+        };
+    </script>
+</body>
+
+</html>

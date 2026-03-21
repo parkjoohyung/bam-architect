@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="건축 뉴스 - 전 세계 건축 트랜드와 소식을 큐레이션하여 전합니다. 건축사사무소밤." />
+
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="https://parkjoohyung.github.io/bam-architect/news.html" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://parkjoohyung.github.io/bam-architect/news.html" />
+    <meta property="og:title" content="News - 건축사사무소밤" />
+    <meta property="og:description" content="Latest architecture news and trends." />
+    <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
+
+    <title>News - 건축사사무소밤</title>
+</head>
+
+<body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <div id="app">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="./" class="logo">건축사사무소밤</a>
+                <nav class="desktop-nav">
+                    <a href="about.html">About</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="news.html" class="active">News</a>
+                    <a href="law.html">Law</a>
+
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <button class="mobile-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content">
+            <section id="news" class="section">
+                <div class="container">
+                    <div class="section-header fade-in-up">
+                        <h2>Architecture News</h2>
+                        <p>Curated architecture news from around the world.</p>
+                    </div>
+
+                    <div class="news-container" id="news-list">
+                        <div style="text-align: center; padding: 4rem; color: var(--color-text-muted);">
+                            Loading news...
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>건축사사무소밤</h3>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Contact</h4>
+                        <p>p.juhyung@daum.net</p>
+                        <p>010-5891-1031</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Social</h4>
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 건축사사무소밤. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const list = document.getElementById('news-list');
+
+            try {
+                const response = await fetch('news.json');
+                if (!response.ok) throw new Error('Failed to load news');
+                const newsItems = await response.json();
+
+                if (newsItems.length === 0) {
+                    list.innerHTML = '<div style="text-align: center; padding: 4rem;">No news available at the moment.</div>';
+                    return;
+                }
+
+                list.innerHTML = newsItems.map((item, index) => `
+                    <article class="news-item fade-in-up" style="animation-delay: ${index * 0.05}s">
+                        <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="news-link">
+                            <span class="news-date">${item.date}</span>
+                            <div class="news-info">
+                                <h3>${item.title}</h3>
+                                <span class="news-source">${item.source}</span>
+                            </div>
+                        </a>
+                    </article>
+                `).join('');
+
+                // Trigger animations
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+            } catch (error) {
+                console.error('Error loading news:', error);
+                list.innerHTML = '<div style="text-align: center; padding: 4rem; color: red;">Failed to load news.</div>';
+            }
+        });
+    </script>
+    <style>
+        .news-container {
+            max-width: 900px;
+            margin: 0 auto;
+            margin-top: 3rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .news-item {
+            border-bottom: 1px solid var(--color-border);
+            transition: background-color 0.2s;
+        }
+
+        .news-link {
+            display: flex;
+            align-items: baseline;
+            gap: 2rem;
+            text-decoration: none;
+            color: inherit;
+            padding: 1.2rem 1rem;
+        }
+
+        .news-link:hover {
+            background: rgba(255, 255, 255, 0.03);
+            /* Light theme: rgba(0,0,0,0.03) handled by variables usually, but simple override here */
+        }
+
+        .news-date {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            min-width: 100px;
+            white-space: nowrap;
+        }
+
+        .news-info {
+            flex: 1;
+        }
+
+        .news-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .news-source {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            background: rgba(127, 127, 127, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .news-link {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .news-date {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</body>
+
+</html>
