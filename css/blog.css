@@ -1,0 +1,1109 @@
+/* =========================================
+   건축사사무소밤 블로그 - Quartz v4 정확 스타일
+   Based on: https://quartz.jzhao.xyz/
+   ========================================= */
+
+/* =========================================
+   CSS Variables - Quartz 정확한 색상
+   ========================================= */
+:root {
+    /* Light Mode (Default) */
+    --q-light: #faf8f8;
+    --q-lightgray: #e5e5e5;
+    --q-gray: #b8b8b8;
+    --q-darkgray: #4e4e4e;
+    --q-dark: #2b2b2b;
+    --q-secondary: #284b63;
+    --q-tertiary: #84a59d;
+    --q-highlight: rgba(143, 159, 169, 0.15);
+    --q-text-highlight: rgba(255, 242, 54, 0.5);
+
+    /* Layout */
+    --q-sidebar-width: 320px;
+    --q-content-width: 850px;
+    --q-page-max-width: 1500px;
+    --q-gap: 2rem;
+
+    /* Typography */
+    --q-font-body: 'Source Sans Pro', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    --q-font-header: 'Source Sans Pro', 'Noto Sans KR', sans-serif;
+    --q-font-code: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    --q-base-font-size: 16px;
+    --q-line-height: 1.65;
+}
+
+/* Dark Mode - Quartz Style (saved-theme attribute) */
+:root[saved-theme="dark"],
+[data-theme="dark"],
+.dark-mode {
+    --q-light: #161618;
+    --q-lightgray: #393639;
+    --q-gray: #646464;
+    --q-darkgray: #d4d4d4;
+    --q-dark: #ebebec;
+    --q-secondary: #7b97aa;
+    --q-tertiary: #84a59d;
+    --q-highlight: rgba(143, 159, 169, 0.15);
+    --q-text-highlight: rgba(179, 170, 2, 0.5);
+    color-scheme: dark;
+}
+
+:root[saved-theme="light"] {
+    color-scheme: light;
+}
+
+/* =========================================
+   Base Reset & Global
+   ========================================= */
+.blog-page {
+    background-color: var(--q-light);
+    color: var(--q-darkgray);
+    font-family: var(--q-font-body);
+    font-size: var(--q-base-font-size);
+    line-height: var(--q-line-height);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* =========================================
+   3-Column Layout - Quartz 정확 구조
+   ========================================= */
+.quartz-layout {
+    display: grid;
+    grid-template-columns: var(--q-sidebar-width) minmax(0, var(--q-content-width)) var(--q-sidebar-width);
+    gap: var(--q-gap);
+    max-width: var(--q-page-max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+    min-height: calc(100vh - 80px);
+}
+
+/* Left Sidebar */
+.quartz-sidebar-left {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 1.5rem 0;
+}
+
+/* Center Content */
+.quartz-content {
+    min-width: 0;
+    padding: 1.5rem 0;
+}
+
+/* Right Sidebar */
+.quartz-sidebar-right {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 1.5rem 0;
+}
+
+/* =========================================
+   Explorer (Left Sidebar) - Quartz Style
+   ========================================= */
+.quartz-explorer {
+    margin-bottom: 1.5rem;
+}
+
+.quartz-site-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--q-dark);
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    display: block;
+}
+
+.quartz-site-title:hover {
+    color: var(--q-secondary);
+}
+
+/* Search Button - Quartz Style */
+.quartz-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--q-lightgray);
+    border: none;
+    border-radius: 8px;
+    color: var(--q-gray);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+}
+
+.quartz-search-btn:hover {
+    background: var(--q-highlight);
+    color: var(--q-darkgray);
+}
+
+.quartz-search-btn kbd {
+    margin-left: auto;
+    padding: 0.1rem 0.4rem;
+    background: var(--q-light);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: var(--q-font-code);
+}
+
+/* Theme Toggle */
+.quartz-theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
+    border: none;
+    background: none;
+    color: var(--q-darkgray);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.quartz-theme-toggle:hover {
+    color: var(--q-secondary);
+}
+
+/* Explorer Tree */
+.quartz-explorer-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--q-dark);
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.quartz-explorer-title svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
+}
+
+.quartz-explorer-title.collapsed svg {
+    transform: rotate(-90deg);
+}
+
+.quartz-explorer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 0.5rem;
+}
+
+.quartz-explorer-item {
+    margin: 0.25rem 0;
+}
+
+.quartz-explorer-item a {
+    display: block;
+    padding: 0.4rem 0.75rem;
+    color: var(--q-darkgray);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+}
+
+.quartz-explorer-item a:hover {
+    background: var(--q-highlight);
+    color: var(--q-dark);
+}
+
+.quartz-explorer-item a.active {
+    background: var(--q-highlight);
+    color: var(--q-secondary);
+    border-left-color: var(--q-secondary);
+    font-weight: 500;
+}
+
+/* =========================================
+   Article Content - Quartz Typography
+   ========================================= */
+.quartz-article {
+    background: var(--q-light);
+}
+
+.quartz-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--q-gray);
+    margin-bottom: 1rem;
+}
+
+.quartz-breadcrumb a {
+    color: var(--q-secondary);
+    text-decoration: none;
+}
+
+.quartz-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.quartz-article-header {
+    margin-bottom: 2rem;
+}
+
+.quartz-article-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--q-dark);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.2;
+}
+
+.quartz-article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--q-gray);
+}
+
+.quartz-read-time {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.quartz-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+}
+
+.quartz-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.6rem;
+    background: var(--q-highlight);
+    color: var(--q-secondary);
+    font-size: 0.8rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.quartz-tag::before {
+    content: '#';
+}
+
+.quartz-tag:hover {
+    background: var(--q-secondary);
+    color: var(--q-light);
+}
+
+/* Article Body */
+.quartz-article-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--q-darkgray);
+}
+
+.quartz-article-body h1,
+.quartz-article-body h2,
+.quartz-article-body h3,
+.quartz-article-body h4 {
+    font-family: var(--q-font-header);
+    color: var(--q-dark);
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    scroll-margin-top: 100px;
+}
+
+.quartz-article-body h2 {
+    font-size: 1.5rem;
+}
+
+.quartz-article-body h3 {
+    font-size: 1.25rem;
+}
+
+.quartz-article-body h4 {
+    font-size: 1.1rem;
+}
+
+.quartz-article-body p {
+    margin-bottom: 1.25rem;
+}
+
+.quartz-article-body a {
+    color: var(--q-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.quartz-article-body a:hover {
+    color: var(--q-tertiary);
+}
+
+/* Internal Links (Wikilinks) - Quartz Style */
+.quartz-article-body a.internal-link {
+    background: var(--q-highlight);
+    padding: 0 0.1rem;
+    border-radius: 5px;
+    line-height: 1.4rem;
+}
+
+/* Code Blocks */
+.quartz-article-body pre {
+    background: var(--q-lightgray);
+    border: 1px solid var(--q-lightgray);
+    border-radius: 5px;
+    padding: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-family: var(--q-font-code);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.quartz-article-body code {
+    font-family: var(--q-font-code);
+    font-size: 0.9em;
+    background: var(--q-lightgray);
+    padding: 0.1rem 0.2rem;
+    border-radius: 5px;
+}
+
+.quartz-article-body pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Blockquotes */
+.quartz-article-body blockquote {
+    margin: 1rem 0;
+    border-left: 3px solid var(--q-secondary);
+    padding-left: 1rem;
+    color: var(--q-darkgray);
+}
+
+/* Tables */
+.quartz-article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.quartz-article-body th,
+.quartz-article-body td {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--q-lightgray);
+}
+
+.quartz-article-body th {
+    font-weight: 600;
+    border-bottom: 2px solid var(--q-gray);
+}
+
+/* Images */
+.quartz-article-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+/* Lists */
+.quartz-article-body ul,
+.quartz-article-body ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.quartz-article-body li {
+    margin-bottom: 0.4rem;
+}
+
+/* =========================================
+   Right Sidebar Components
+   ========================================= */
+.quartz-sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.quartz-sidebar-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--q-dark);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Graph View - Quartz Style */
+.quartz-graph {
+    background: var(--q-lightgray);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.quartz-graph-container {
+    height: 200px;
+    position: relative;
+}
+
+.quartz-graph-container svg {
+    width: 100%;
+    height: 100%;
+}
+
+.quartz-graph-node circle {
+    fill: var(--q-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quartz-graph-node:hover circle {
+    fill: var(--q-tertiary);
+    r: 6;
+}
+
+.quartz-graph-node.current circle {
+    fill: var(--q-tertiary);
+    r: 7;
+}
+
+.quartz-graph-link {
+    stroke: var(--q-gray);
+    stroke-opacity: 0.4;
+}
+
+.quartz-graph-label {
+    font-size: 10px;
+    fill: var(--q-darkgray);
+    pointer-events: none;
+}
+
+/* Table of Contents - Quartz Style */
+.quartz-toc {
+    border-left: 1px solid var(--q-lightgray);
+    padding-left: 1rem;
+}
+
+.quartz-toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.quartz-toc-list li {
+    margin: 0.4rem 0;
+}
+
+.quartz-toc-list a {
+    color: var(--q-gray);
+    text-decoration: none;
+    display: block;
+    padding: 0.2rem 0;
+    transition: color 0.15s;
+}
+
+.quartz-toc-list a:hover {
+    color: var(--q-dark);
+}
+
+.quartz-toc-list a.active {
+    color: var(--q-secondary);
+    font-weight: 500;
+}
+
+.quartz-toc-list .toc-h3 {
+    padding-left: 1rem;
+    font-size: 0.85rem;
+}
+
+.quartz-toc-list .toc-h4 {
+    padding-left: 1.5rem;
+    font-size: 0.8rem;
+}
+
+/* Backlinks - Quartz Style */
+.quartz-backlinks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quartz-backlinks-list li {
+    margin: 0.5rem 0;
+}
+
+.quartz-backlinks-list a {
+    color: var(--q-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+}
+
+.quartz-backlinks-list a:hover {
+    color: var(--q-tertiary);
+    text-decoration: underline;
+}
+
+.quartz-backlinks-empty {
+    color: var(--q-gray);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* =========================================
+   Search Overlay - Quartz Style
+   ========================================= */
+.quartz-search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+}
+
+.quartz-search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.quartz-search-modal {
+    background: var(--q-light);
+    border: 1px solid var(--q-lightgray);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.quartz-search-input {
+    width: 100%;
+    padding: 1.25rem;
+    border: none;
+    background: transparent;
+    color: var(--q-dark);
+    font-size: 1.1rem;
+    font-family: var(--q-font-body);
+    outline: none;
+    border-bottom: 1px solid var(--q-lightgray);
+}
+
+.quartz-search-input::placeholder {
+    color: var(--q-gray);
+}
+
+.quartz-search-results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.quartz-search-item {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--q-lightgray);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.quartz-search-item:hover {
+    background: var(--q-highlight);
+}
+
+.quartz-search-item:last-child {
+    border-bottom: none;
+}
+
+.quartz-search-item-title {
+    font-weight: 600;
+    color: var(--q-dark);
+    margin-bottom: 0.25rem;
+}
+
+.quartz-search-item-excerpt {
+    font-size: 0.85rem;
+    color: var(--q-gray);
+}
+
+.quartz-search-item mark {
+    background: var(--q-text-highlight);
+    color: inherit;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* Search Preview */
+.quartz-search-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 450px;
+    /* Fixed height for the body */
+}
+
+.quartz-search-results {
+    border-right: 1px solid var(--q-lightgray);
+    overflow-y: auto;
+    height: 100%;
+    /* Fill the body height */
+    max-height: none;
+    /* Remove max-height */
+}
+
+.quartz-search-preview {
+    padding: 1.5rem;
+    overflow-y: auto;
+    height: 100%;
+    /* Fill the body height */
+    background: var(--q-light);
+}
+
+.quartz-search-preview-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--q-gray);
+    text-align: center;
+}
+
+.quartz-search-preview-empty svg {
+    margin-bottom: 1rem;
+    color: var(--q-lightgray);
+}
+
+.preview-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--q-dark);
+    margin: 0 0 1rem 0;
+}
+
+.preview-meta {
+    font-size: 0.85rem;
+    color: var(--q-gray);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--q-lightgray);
+    display: flex;
+    gap: 1rem;
+}
+
+.preview-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.preview-content img {
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+/* =========================================
+   Blog List Page - Quartz Style
+   ========================================= */
+.quartz-post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quartz-post-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--q-lightgray);
+}
+
+.quartz-post-item:first-child {
+    padding-top: 0;
+}
+
+.quartz-post-item a {
+    text-decoration: none;
+    display: block;
+}
+
+.quartz-post-item-meta {
+    font-size: 0.85rem;
+    color: var(--q-gray);
+    margin-bottom: 0.5rem;
+}
+
+.quartz-post-item-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--q-dark);
+    margin-bottom: 0.5rem;
+    transition: color 0.15s;
+}
+
+.quartz-post-item:hover .quartz-post-item-title {
+    color: var(--q-secondary);
+}
+
+.quartz-post-item-excerpt {
+    font-size: 0.95rem;
+    color: var(--q-darkgray);
+    line-height: 1.5;
+}
+
+/* =========================================
+   TOC & Backlinks - Quartz Style
+   ========================================= */
+.toc {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+button.toc-header {
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+    color: var(--q-darkgray);
+    display: flex;
+    align-items: center;
+    font-family: var(--q-font-header);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+button.toc-header h3 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+button.toc-header .fold {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+    opacity: 0.8;
+}
+
+button.toc-header.collapsed .fold {
+    transform: rotateZ(-90deg);
+}
+
+ul.toc-content {
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+ul.toc-content.collapsed {
+    display: none;
+}
+
+ul.toc-content>li>a {
+    color: var(--q-gray);
+    display: block;
+    padding: 0.2rem 0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    padding-left: 0.8rem;
+    opacity: 0.7;
+}
+
+ul.toc-content>li>a:hover {
+    color: var(--q-secondary);
+    opacity: 1;
+}
+
+ul.toc-content>li>a.in-view {
+    color: var(--q-secondary);
+    border-left-color: var(--q-secondary);
+    opacity: 1;
+    font-weight: 600;
+}
+
+/* TOC Depth Indentation */
+.toc-depth-1 {
+    padding-left: 0 !important;
+}
+
+.toc-depth-2 {
+    padding-left: 1rem !important;
+}
+
+.toc-depth-3 {
+    padding-left: 2rem !important;
+}
+
+.toc-depth-4 {
+    padding-left: 3rem !important;
+}
+
+.toc-depth-5 {
+    padding-left: 4rem !important;
+}
+
+.toc-depth-6 {
+    padding-left: 5rem !important;
+}
+
+/* Backlinks */
+.backlinks {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--q-lightgray);
+}
+
+.backlinks h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--q-dark);
+}
+
+.backlinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.backlinks li {
+    font-size: 0.95rem;
+}
+
+.backlinks li a {
+    color: var(--q-gray);
+    text-decoration: none;
+    transition: color 0.2s;
+    background-color: transparent;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.backlinks li a:hover {
+    color: var(--q-secondary);
+    background-color: var(--q-highlight);
+    border-color: var(--q-lightgray);
+}
+
+.backlinks-empty {
+    color: var(--q-gray);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   Navigation - Quartz Style
+   ========================================= */
+.quartz-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--q-lightgray);
+}
+
+.quartz-nav-item {
+    flex: 1;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--q-darkgray);
+    transition: all 0.15s;
+}
+
+.quartz-nav-item:hover {
+    color: var(--q-secondary);
+}
+
+.quartz-nav-item.next {
+    text-align: right;
+}
+
+.quartz-nav-label {
+    font-size: 0.8rem;
+    color: var(--q-gray);
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.quartz-nav-title {
+    font-weight: 500;
+}
+
+/* =========================================
+   Footer - Quartz Style
+   ========================================= */
+.quartz-footer {
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.85rem;
+    color: var(--q-gray);
+    border-top: 1px solid var(--q-lightgray);
+    margin-top: 3rem;
+}
+
+.quartz-footer a {
+    color: var(--q-secondary);
+    text-decoration: none;
+}
+
+.quartz-footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   Responsive Design - Quartz Breakpoints
+   ========================================= */
+@media (max-width: 1400px) {
+    .quartz-layout {
+        grid-template-columns: 280px minmax(0, 1fr) 280px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .quartz-layout {
+        grid-template-columns: 250px minmax(0, 1fr);
+    }
+
+    .quartz-sidebar-right {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .quartz-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .quartz-sidebar-left {
+        position: static;
+        max-height: none;
+        padding: 1rem 0;
+    }
+
+    .quartz-explorer {
+        display: none;
+    }
+
+    .quartz-article-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* =========================================
+   Print Styles
+   ========================================= */
+@media print {
+
+    .quartz-sidebar-left,
+    .quartz-sidebar-right,
+    .quartz-search-btn,
+    .quartz-theme-toggle {
+        display: none !important;
+    }
+
+    .quartz-layout {
+        display: block;
+    }
+
+    .quartz-article {
+        max-width: 100%;
+    }
+}
+
+/* =========================================
+   Scrollbar Styling
+   ========================================= */
+.quartz-sidebar-left::-webkit-scrollbar,
+.quartz-sidebar-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+.quartz-sidebar-left::-webkit-scrollbar-track,
+.quartz-sidebar-right::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.quartz-sidebar-left::-webkit-scrollbar-thumb,
+.quartz-sidebar-right::-webkit-scrollbar-thumb {
+    background: var(--q-lightgray);
+    border-radius: 3px;
+}
+
+.quartz-sidebar-left::-webkit-scrollbar-thumb:hover,
+.quartz-sidebar-right::-webkit-scrollbar-thumb:hover {
+    background: var(--q-gray);
+}
+
+/* =========================================
+   Hover Preview - Quartz Style
+   ========================================= */
+.quartz-hover-preview {
+    width: 380px;
+    max-width: 90vw;
+    max-height: 400px;
+    background: var(--q-light);
+    border: 1px solid var(--q-lightgray);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    overflow-y: auto;
+    font-family: var(--q-font-body);
+    font-size: 0.95rem;
+    color: var(--q-darkgray);
+}
+
+.quartz-preview-content-inner {
+    padding: 1.5rem;
+}
+
+.quartz-preview-meta {
+    font-size: 0.8rem;
+    color: var(--q-gray);
+    margin-bottom: 0.5rem;
+    font-family: var(--q-font-code);
+}
+
+.quartz-preview-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--q-dark);
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+}
+
+.quartz-hover-preview .quartz-article-body {
+    font-size: 0.9em;
+}
+
+.quartz-hover-preview img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}

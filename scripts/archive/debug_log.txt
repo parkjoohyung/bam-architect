@@ -1,0 +1,21 @@
+Starting CJS test...
+Reading from D:\park\05.web\js\law_data_ordinance.js
+Read 387421 bytes.
+Start: ﻿window.ordinanceData = [
+    {
+        "id": 1,
+Stripped length: 387418
+Parsing...
+Error: window is not defined
+Stack: ReferenceError: window is not defined
+    at eval (eval at <anonymous> (D:\park\05.web\scripts\test_read.cjs:28:18), <anonymous>:3:1)
+    at Object.<anonymous> (D:\park\05.web\scripts\test_read.cjs:28:51)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+Done.

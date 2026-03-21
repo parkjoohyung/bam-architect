@@ -31,6 +31,16 @@
             grid-template-columns: repeat(5, 1fr);
         }
 
+        /* 4-column layout for link cards */
+        .link-area .law-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* 4-column layout for competition cards */
+        .competition-area .law-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
         .section-title {
             position: absolute;
             top: -12px;
@@ -55,9 +65,9 @@
             /* Increased to ensure header visibility */
         }
 
-        /* Span full width when expanded */
         .accordion-item.expanded {
             grid-column: 1 / -1;
+            /* Ensure specificity for nested items */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             height: calc(100vh - 160px);
             /* Slightly shorter to fit better */
@@ -65,6 +75,11 @@
             border-color: var(--color-text-main);
             display: flex;
             flex-direction: column;
+        }
+
+        .nested-ordinance-grid .accordion-item.expanded {
+            grid-column: 1 / -1 !important;
+            width: 100%;
         }
 
         .accordion-header {
@@ -79,11 +94,17 @@
             flex-shrink: 0;
         }
 
+        /* Enforce hidden state for nested items by default */
+        .nested-ordinance-grid .accordion-item:not(.expanded) .accordion-content {
+            display: none !important;
+            height: 0 !important;
+        }
+
         .accordion-header:hover {
             background: rgba(255, 255, 255, 0.04);
         }
 
-        .accordion-item.expanded .accordion-header {
+        .accordion-item.expanded>.accordion-header {
             border-bottom-color: var(--color-border);
             background: rgba(255, 255, 255, 0.05);
         }
@@ -110,7 +131,7 @@
             display: none;
         }
 
-        .accordion-item.expanded .accordion-content {
+        .accordion-item.expanded>.accordion-content {
             display: flex;
             flex-direction: column;
             flex: 1;
@@ -174,7 +195,7 @@
             margin-top: -3px;
         }
 
-        .accordion-item.expanded .icon-toggle {
+        .accordion-item.expanded>.accordion-header .icon-toggle {
             transform: rotate(-45deg);
             margin-top: 3px;
         }
@@ -310,6 +331,33 @@
 
         .checkbox-label input {
             accent-color: var(--color-accent);
+        }
+
+        .ordinance-detail-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px !important;
+            font-size: 0.85rem !important;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.2s;
+        }
+
+        .ordinance-detail-checkbox:hover {
+            color: #fff;
+        }
+
+        #ordinanceProvinceSelect,
+        #ordinanceCitySelect {
+            background-color: #121212 !important;
+            color: #eee !important;
+            border: 1px solid #444;
+        }
+
+        #ordinanceProvinceSelect option,
+        #ordinanceCitySelect option {
+            background-color: #121212 !important;
+            color: #eee !important;
         }
 
         .filter-divider {
@@ -1094,6 +1142,12 @@
             /* Force 5 columns for single row as requested */
         }
 
+        /* Nested grid for Seoul items - horizontal layout */
+        .nested-ordinance-grid {
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 10px;
+        }
+
         /* Override for Split View: Force 1 column so item takes full width */
         .law-container-wrapper.split-view .ordinance-area .law-grid {
             grid-template-columns: 1fr;
@@ -1238,3 +1292,553 @@
                 gap: 8px;
             }
         }
+
+        /* Force white background for iframes */
+        .iframe-wrapper iframe {
+            background-color: #fff !important;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Nested Ordinance Grid Fix */
+        .nested-ordinance-grid {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 0.75rem !important;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .nested-ordinance-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .nested-ordinance-grid {
+            grid-template-columns: repeat(5, 1fr) !important;
+        }
+
+        .nested-ordinance-grid .accordion-item {
+            grid-column: span 1;
+        }
+
+        /* FORCE nested ordinance children to hide if not expanded */
+        .nested-ordinance-grid .accordion-item .accordion-content {
+            .law-right-nav {
+                display: none;
+            }
+        }
+
+        /* Ordinance Area Layout */
+        /* Ordinance Area Layout */
+        .ordinance-area .law-grid {
+            grid-template-columns: repeat(5, 1fr);
+            /* Force 5 columns for single row as requested */
+        }
+
+        /* Nested grid for Seoul items - horizontal layout */
+        .nested-ordinance-grid {
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 10px;
+        }
+
+        /* Override for Split View: Force 1 column so item takes full width */
+        .law-container-wrapper.split-view .ordinance-area .law-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-divider {
+            width: 100%;
+            grid-column: 1 / -1;
+            border: 0;
+            border-top: 1px solid #444;
+            margin: 10px 0;
+        }
+
+
+
+        /* Overrides for distinct search results */
+        .result-item {
+            margin-bottom: 2rem !important;
+            border: 1px solid #444 !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border-radius: 8px !important;
+            padding: 1.5rem !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .result-title {
+            border-bottom: 1px solid #555 !important;
+            padding-bottom: 0.5rem !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .result-title h3 {
+            font-size: 1.3rem !important;
+        }
+
+        /* ==========================================================================
+           MOBILE RESPONSIVE - Filter Section
+           ========================================================================== */
+        @media (max-width: 768px) {
+
+            /* Filter options container - single column on mobile */
+            .filter-options {
+                grid-template-columns: 1fr !important;
+                gap: 1rem;
+                padding: 12px;
+            }
+
+            /* Filter group - stack vertically on mobile */
+            .filter-group {
+                flex-direction: column !important;
+                flex-wrap: wrap !important;
+                align-items: flex-start !important;
+                gap: 8px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #333;
+            }
+
+            .filter-group:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .filter-group-title {
+                border-right: none !important;
+                padding-right: 0 !important;
+                margin-right: 0 !important;
+                margin-bottom: 4px;
+                width: 100%;
+            }
+
+            /* Checkbox labels - wrap on mobile */
+            .filter-group .checkbox-label {
+                white-space: normal;
+            }
+
+            /* Search section */
+            .search-section {
+                padding: 0 0.5rem;
+            }
+
+            .search-wrapper {
+                flex-wrap: wrap;
+            }
+
+            #lawSearchInput {
+                font-size: 16px !important;
+                /* Prevent iOS zoom */
+                padding: 12px 16px;
+            }
+
+            /* Law grid - single column on mobile */
+            .law-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Ordinance grid - 2 columns on mobile */
+            .ordinance-area .law-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            /* Results content */
+            .results-content {
+                height: 40vh;
+                min-height: 200px;
+            }
+
+            /* Stickey wrapper nav chips */
+            .results-nav {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .nav-chip {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+
+            /* Main container padding */
+            .law-container-wrapper {
+                padding: 0 0.5rem;
+            }
+
+            /* Accordion items */
+            .accordion-header {
+                padding: 0.75rem;
+            }
+
+            .accordion-title {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small screens (< 480px) */
+        @media (max-width: 480px) {
+            .ordinance-area .law-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .filter-toggle-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* Force white background for iframes */
+        .iframe-wrapper iframe {
+            background-color: #fff !important;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Nested Ordinance Grid Fix */
+        .nested-ordinance-grid {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 0.75rem !important;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .nested-ordinance-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        .nested-ordinance-grid {
+            grid-template-columns: repeat(5, 1fr) !important;
+        }
+
+        .nested-ordinance-grid .accordion-item {
+            grid-column: span 1;
+        }
+
+        /* FORCE nested ordinance children to hide if not expanded */
+        .nested-ordinance-grid .accordion-item .accordion-content {
+            display: none !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
+
+        .nested-ordinance-grid .accordion-item.expanded>.accordion-content {
+            display: flex !important;
+            height: 100% !important;
+            overflow: auto !important;
+        }
+
+        /* External link icon for Building Types (Standardized) */
+        .btn-icon {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            background: transparent;
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            border-color: var(--color-text-main);
+            color: var(--color-text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+/* ========================================
+   Building Types Table - Premium Design
+   ======================================== */
+.building-types-tool {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.table-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.table-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.table-search:focus-within {
+    border-color: #6a9fd8;
+    background: rgba(106,159,216,0.06);
+}
+
+.search-icon {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.table-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.table-search input::placeholder {
+    color: #666;
+}
+
+.table-info {
+    font-size: 0.8rem;
+    color: #888;
+    white-space: nowrap;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+}
+
+.table-info span {
+    color: #a8c7f0;
+    font-weight: 600;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    table-layout: auto;
+}
+
+/* Header Row (Sort) */
+.data-table .header-row th {
+    background: #1e2533;
+    color: #b8ccee;
+    padding: 0.7rem 0.9rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #2e3a50;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.data-table .header-row th:hover {
+    background: #253047;
+    color: #d0e4ff;
+}
+
+.data-table .header-row th.sort-asc,
+.data-table .header-row th.sort-desc {
+    background: #2a3d5e;
+    color: #7eb8ff;
+}
+
+.data-table .header-row .sort-icon {
+    opacity: 0.4;
+    margin-left: 4px;
+    font-size: 0.9rem;
+    transition: opacity 0.15s;
+}
+
+.data-table .header-row th:hover .sort-icon {
+    opacity: 0.8;
+}
+
+.data-table .header-row th.sort-asc .sort-icon {
+    opacity: 1;
+    content: '';
+}
+
+.data-table .header-row th.sort-desc .sort-icon {
+    opacity: 1;
+}
+
+/* Filter Row */
+.data-table .filter-row th {
+    background: #181e2a;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 2px solid #2e3a50;
+    position: sticky;
+    top: 36px;
+    z-index: 2;
+}
+
+.data-table .filter-row input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid #3a3a4a;
+    border-radius: 5px;
+    color: #ccc;
+    font-size: 0.78rem;
+    padding: 0.35rem 0.6rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.data-table .filter-row input:focus {
+    border-color: #5b8fcf;
+    background: rgba(91,143,207,0.08);
+}
+
+.data-table .filter-row input::placeholder {
+    color: #555;
+}
+
+/* Body Rows */
+.data-table tbody tr {
+    border-bottom: 1px solid #252525;
+    transition: background 0.12s;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.016);
+}
+
+.data-table tbody tr:hover {
+    background: rgba(106,159,216,0.08);
+}
+
+.data-table tbody td {
+    padding: 0.55rem 0.9rem;
+    color: #d0d0d0;
+    vertical-align: top;
+    line-height: 1.5;
+    border-right: 1px solid #1e1e1e;
+}
+
+.data-table tbody td:last-child {
+    border-right: none;
+}
+
+/* First column - group number badge */
+.data-table tbody td:first-child {
+    font-weight: 700;
+    color: #7eb8ff;
+    text-align: center;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* 시설군 column */
+.data-table tbody td:nth-child(2) {
+    font-weight: 500;
+    color: #a8d4a8;
+    white-space: nowrap;
+    font-size: 0.82rem;
+}
+
+/* 호수 column */
+.data-table tbody td:nth-child(3) {
+    text-align: center;
+    color: #c4a87a;
+    white-space: nowrap;
+    font-size: 0.82rem;
+}
+
+/* 용도군 column */
+.data-table tbody td:nth-child(4) {
+    font-weight: 500;
+    color: #e0c880;
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+
+/* 세부용도 column - wrap */
+.data-table tbody td:nth-child(5) {
+    max-width: 420px;
+    word-break: keep-all;
+    font-size: 0.83rem;
+}
+
+/* 비고 column - wrap */
+.data-table tbody td:nth-child(6) {
+    max-width: 180px;
+    word-break: keep-all;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.data-table mark {
+    background: rgba(255, 210, 50, 0.35);
+    color: #ffe580;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.loading-cell {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Pagination */
+.table-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+.page-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #3a3a4a;
+    border-radius: 6px;
+    color: #ccc;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+}
+
+.page-btn:hover {
+    background: rgba(106,159,216,0.12);
+    border-color: #5b8fcf;
+    color: #a8c7f0;
+}
+
+.page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-size: 0.85rem;
+    color: #888;
+    min-width: 60px;
+    text-align: center;
+}

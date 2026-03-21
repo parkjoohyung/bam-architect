@@ -17,10 +17,49 @@
     <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
 
     <title>Law - 건축사사무소밤</title>
-    <link rel="stylesheet" href="css/law.css?v=19">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Critical CSS to prevent FOUC (White Flash) -->
+    <style>
+        :root {
+            /* Dark Navy Palette (Quartz Blog Dark Mode) */
+            --color-bg: #161618;
+            --color-surface: #1e1e20;
+            --color-text-main: #ebebec;
+            --color-text-muted: #d4d4d4;
+            --color-accent: #7B97AA;
+            --color-accent-secondary: #84a59d;
+            --color-border: #393639;
+            --color-highlight: rgba(123, 151, 170, 0.2);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+        }
+
+        /* Prevent transitions during load */
+        .preload * {
+            -webkit-transition: none !important;
+            -moz-transition: none !important;
+            -ms-transition: none !important;
+            -o-transition: none !important;
+            transition: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="css/law.css?v=27">
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.remove('preload');
+        });
+    </script>
 </head>
 
-<body>
+<body class="preload">
     <!-- Skip link for accessibility -->
     <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
 
@@ -35,7 +74,7 @@
                     <a href="blog.html">Blog</a>
                     <a href="news.html">News</a>
                     <a href="law.html" class="active">Law</a>
-                    <a href="ai-studio.html">AI Studio</a>
+
                     <a href="contact.html">Contact</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -81,6 +120,7 @@
                                     <button id="btnToggleFilters" class="btn-text">상세 선택 ▼</button>
                                 </div>
                                 <div id="filterOptions" class="filter-options hidden">
+
                                     <!-- 국계법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
@@ -159,6 +199,8 @@
                                         <label class="checkbox-label"><input type="checkbox" name="lawFilter"
                                                 value="dev_rules" checked> 시행규칙</label>
                                     </div>
+
+
                                     <!-- 건축물관리법 그룹 -->
                                     <div class="filter-group">
                                         <div class="filter-group-title">
@@ -202,22 +244,32 @@
                                     </div>
                                     <!-- 구분선: 조례 -->
                                     <div class="filter-divider"></div>
-                                    <!-- 조례 (서울시) 그룹 -->
-                                    <div class="filter-group">
+                                    <!-- 조례 필터 그룹 -->
+                                    <div class="filter-group ordinance-filter-group">
                                         <div class="filter-group-title">
-                                            <label class="checkbox-label"><input type="checkbox" class="group-filter"
-                                                    checked> 조례 (서울시)</label>
+                                            <label class="checkbox-label" style="font-weight: 600;">
+                                                <input type="checkbox" id="ordinanceToggle" checked>
+                                                <span>조례 영역</span>
+                                            </label>
                                         </div>
-                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
-                                                value="seoul_building_ord" checked> 건축</label>
-                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
-                                                value="seoul_planning_ord" checked> 도시계획</label>
-                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
-                                                value="seoul_planning_rules" checked> 도시계획규칙</label>
-                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
-                                                value="seoul_parking_ord" checked> 주차장</label>
-                                        <label class="checkbox-label"><input type="checkbox" name="lawFilter"
-                                                value="seoul_outdoor_ad_ord" checked> 옥외광고물</label>
+                                        <div class="ordinance-selectors"
+                                            style="display: flex; gap: 0.5rem; align-items: center; flex-direction: column; align-items: stretch;">
+                                            <div style="display: flex; gap: 0.5rem;">
+                                                <select id="ordinanceProvinceSelect"
+                                                    style="padding: 4px; border-radius: 4px; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-main); flex: 1;">
+                                                    <option value="">시/도 선택</option>
+                                                </select>
+
+                                                <select id="ordinanceCitySelect" disabled
+                                                    style="padding: 4px; border-radius: 4px; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-main); flex: 1;">
+                                                    <option value="">시/군/구 전체</option>
+                                                </select>
+                                            </div>
+                                            <!-- Dynamic Checkboxes Container -->
+                                            <div id="ordinanceDetailFilter"
+                                                style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -822,6 +874,7 @@
                                 </div> <!-- End law-grid for Acts -->
                             </div> <!-- End law-section-container law-area -->
 
+
                             <!-- Criteria/Rules Area -->
                             <div class="law-section-container rules-area">
                                 <h3 class="section-title">기준/규칙</h3>
@@ -905,124 +958,408 @@
                                 </div>
                             </div>
 
-                            <!-- Ordinance Area (Seoul City) -->
+                            <!-- Ordinance Area (Dynamic) -->
                             <div class="law-section-container ordinance-area">
                                 <h3 class="section-title">조례</h3>
-                                <div class="law-grid">
-                                    <!-- 1. Seoul City Building Ordinance -->
-                                    <div class="accordion-item" id="seoul_building_ord"
-                                        data-law-id="seoul_building_ord">
-                                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                                            <span class="accordion-title">서울 건축 조례</span>
-                                            <div class="header-actions">
-                                                <a href="https://www.law.go.kr/자치법규/서울특별시건축조례" target="_blank"
-                                                    class="btn-external">↗</a>
-                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
-                                            </div>
+                                <div class="law-grid" id="ordinance_grid_container">
+                                    <!-- Dynamic Content Loaded Here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Link Section -->
+                        <div class="law-section-container link-area">
+                            <h3 class="section-title">링크</h3>
+                            <div class="law-grid">
+                                <!-- Design Competition Info -->
+                                <div class="accordion-item" id="comp_info_card">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span class="accordion-title">현상설계정보</span>
+                                        <div class="header-actions">
+                                            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTMwTQommz0-7Y61Pub2rnZILJa4LssHEUqipvXGWJxJumxCIKsAg9uIC_mI0PFMPo3tuXBq2WBf12k/pubhtml?gid=1093091332&single=true"
+                                                target="_blank" class="btn-external">↗</a>
+                                            <button class="btn-toggle"><span class="icon-toggle"></span></button>
                                         </div>
-                                        <div class="accordion-content">
-                                            <div class="iframe-wrapper">
-                                                <iframe
-                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2070477&chrClsCd=010202&gubun="
-                                                    title="서울 건축 조례"></iframe>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="nested-accordion-list">
+                                            <!-- 1. Architecture HUB -->
+                                            <div class="accordion-item" id="comp_hub_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">건축허브</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://hub.go.kr" target="_blank"
+                                                            class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://hub.go.kr" title="건축허브"
+                                                            referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://hub.go.kr" target="_blank"
+                                                                class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 2. Scorer -->
+                                            <div class="accordion-item" id="comp_scorer_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">스코어러</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://scorer.co.kr" target="_blank"
+                                                            class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://scorer.co.kr" title="스코어러"
+                                                            referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://scorer.co.kr" target="_blank"
+                                                                class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 3. Project Seoul -->
+                                            <div class="accordion-item" id="comp_project_seoul_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">프로젝트서울</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://project.seoul.go.kr" target="_blank"
+                                                            class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://project.seoul.go.kr" title="프로젝트서울"
+                                                            referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://project.seoul.go.kr" target="_blank"
+                                                                class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 4. Busan Architecture Competition -->
+                                            <div class="accordion-item" id="comp_busan_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">건축설계공모(부산)</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://making.busan.go.kr" target="_blank"
+                                                            class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://making.busan.go.kr" title="건축설계공모(부산)"
+                                                            referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://making.busan.go.kr" target="_blank"
+                                                                class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 5. Masil Wide -->
+                                            <div class="accordion-item" id="comp_masil_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">마실와이드</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://masilwide.com" target="_blank"
+                                                            class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://masilwide.com" title="마실와이드"
+                                                            referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://masilwide.com" target="_blank"
+                                                                class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 6. Seumter Competition -->
+                                            <div class="accordion-item" id="comp_seumter_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">설계공모 (세움터)</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://cloud.eais.go.kr/moct/awp/aia01/AWPAIA01L01"
+                                                            target="_blank" class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe
+                                                            data-src="https://cloud.eais.go.kr/moct/awp/aia01/AWPAIA01L01"
+                                                            title="설계공모 (세움터)" referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://cloud.eais.go.kr/moct/awp/aia01/AWPAIA01L01"
+                                                                target="_blank" class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- 7. G2B Competition -->
+                                            <div class="accordion-item" id="comp_g2b_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">설계공모 (나라장터)</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://www.g2b.go.kr" target="_blank"
+                                                            class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://www.g2b.go.kr" title="설계공모 (나라장터)"
+                                                            referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://www.g2b.go.kr" target="_blank"
+                                                                class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <!-- 9. Unbuilt -->
+                                            <div class="accordion-item" id="comp_unbuilt_nested">
+                                                <div class="accordion-header"
+                                                    onclick="toggleAccordion(this); event.stopPropagation();">
+                                                    <span class="accordion-title">언빌트</span>
+                                                    <div class="header-actions">
+                                                        <a href="https://xn--ob0bv3xfnk.kr/competitions/notice"
+                                                            target="_blank" class="btn-external">↗</a>
+                                                        <button class="btn-toggle"><span
+                                                                class="icon-toggle"></span></button>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-content">
+                                                    <div class="iframe-wrapper">
+                                                        <iframe data-src="https://xn--ob0bv3xfnk.kr/competitions/notice"
+                                                            title="언빌트" referrerpolicy="no-referrer"></iframe>
+                                                        <div class="iframe-fallback">
+                                                            <p class="fallback-message">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                                            <a href="https://xn--ob0bv3xfnk.kr/competitions/notice"
+                                                                target="_blank" class="btn-fallback-open">새 창에서 열기</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- 2. Seoul City Urban Planning Ordinance -->
-                                    <div class="accordion-item" id="seoul_planning_ord"
-                                        data-law-id="seoul_planning_ord">
-                                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                                            <span class="accordion-title">서울 도시계획 조례</span>
-                                            <div class="header-actions">
-                                                <a href="https://www.law.go.kr/자치법규/서울특별시도시계획조례" target="_blank"
-                                                    class="btn-external">↗</a>
-                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
-                                            </div>
+                                <!-- Torji Eum -->
+                                <div class="accordion-item" id="eum_card">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span class="accordion-title">
+                                            <a href="https://www.eum.go.kr/web/am/amMain.jsp" target="_blank"
+                                                style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;"
+                                                onclick="event.stopPropagation()">토지e음</a>
+                                        </span>
+                                        <div class="header-actions">
+                                            <a href="https://www.eum.go.kr/web/am/amMain.jsp" target="_blank"
+                                                class="btn-external">↗</a>
+                                            <button class="btn-toggle"><span class="icon-toggle"></span></button>
                                         </div>
-                                        <div class="accordion-content">
-                                            <div class="iframe-wrapper">
-                                                <iframe
-                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2099911&chrClsCd=010202&gubun="
-                                                    title="서울 도시계획 조례"></iframe>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="iframe-wrapper">
+                                            <iframe data-src="https://www.eum.go.kr/web/am/amMain.jsp" title="토지e음"
+                                                referrerpolicy="no-referrer"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- V-World -->
+                                <div class="accordion-item" id="vworld_card">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span class="accordion-title">
+                                            <a href="https://map.vworld.kr/" target="_blank"
+                                                style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;"
+                                                onclick="event.stopPropagation()">브이월드</a>
+                                        </span>
+                                        <div class="header-actions">
+                                            <a href="https://map.vworld.kr/" target="_blank" class="btn-external">↗</a>
+                                            <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="iframe-wrapper"
+                                            style="display: flex; align-items: center; justify-content: center; background: #f5f5f5; color: #666; text-align: center; flex-direction: column; gap: 1rem;">
+                                            <p style="margin: 0; padding: 0 1rem;">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                            <a href="https://map.vworld.kr/" target="_blank" class="quartz-btn"
+                                                style="background: #007bff; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none;">새
+                                                창에서 열기</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Land Info Map -->
+                                <div class="accordion-item" id="nlip_card">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span class="accordion-title">
+                                            <a href="https://map.ngii.go.kr/mn/mainPage.do" target="_blank"
+                                                style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;"
+                                                onclick="event.stopPropagation()">국토정보맵</a>
+                                        </span>
+                                        <div class="header-actions">
+                                            <a href="https://map.ngii.go.kr/mn/mainPage.do" target="_blank"
+                                                class="btn-external">↗</a>
+                                            <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="iframe-wrapper"
+                                            style="display: flex; align-items: center; justify-content: center; background: #f5f5f5; color: #666; text-align: center; flex-direction: column; gap: 1rem;">
+                                            <p style="margin: 0; padding: 0 1rem;">보안 정책으로 인해 미리보기를 지원하지 않습니다.</p>
+                                            <a href="https://map.ngii.go.kr/mn/mainPage.do" target="_blank"
+                                                class="quartz-btn"
+                                                style="background: #007bff; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none;">새
+                                                창에서 열기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tool Area -->
+                        <div class="law-section-container tool-area">
+                            <h3 class="section-title">도구</h3>
+                            <div class="law-grid">
+                                <!-- Building Types Tool -->
+                                <div class="accordion-item" id="building_types_tool">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span class="accordion-title">시행령별표1 (건축물 용도)</span>
+                                        <div class="header-actions">
+                                            <a href="https://www.law.go.kr/LSW/lsBylInfoPLinkR.do?lsiSeq=267115&lsNm=%EA%B1%B4%EC%B6%95%EB%B2%95%EC%8B%9C%ED%96%89%EB%A0%B9&bylNo=0001&bylBrNo=00&bylCls=BE&bylEfYd=20240217&bylEfYdYn=Y"
+                                                target="_blank" class="btn-external" onclick="event.stopPropagation()"
+                                                title="법령 원문 보기 (새 창)">↗</a>
+                                            <button class="btn-toggle"><span class="icon-toggle"></span></button>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="building-types-tool">
+                                            <!-- Table Controls -->
+                                            <div class="table-controls">
+                                                <div class="table-search">
+                                                    <input type="text" id="buildingTypeSearch"
+                                                        placeholder="전체 검색 (예: 주택, 근린생활, 공장...)">
+                                                </div>
+                                                <div class="table-info">
+                                                    총 <span id="tableRowCount">0</span>개 항목
+                                                </div>
+                                            </div>
+
+                                            <!-- Data Table -->
+                                            <div class="table-wrapper">
+                                                <table id="buildingTypesTable" class="data-table">
+                                                    <thead>
+                                                        <tr class="header-row">
+                                                            <th data-sort="군">군 <span class="sort-icon">⇅</span></th>
+                                                            <th data-sort="시설군">시설군 <span class="sort-icon">⇅</span>
+                                                            </th>
+                                                            <th data-sort="번호">호수 <span class="sort-icon">⇅</span></th>
+                                                            <th data-sort="유형">용도군 <span class="sort-icon">⇅</span></th>
+                                                            <th data-sort="종류">세부용도 <span class="sort-icon">⇅</span>
+                                                            </th>
+                                                            <th data-sort="비고">비고 <span class="sort-icon">⇅</span></th>
+                                                        </tr>
+                                                        <tr class="filter-row">
+                                                            <th><input type="text" data-column="군" placeholder="군 필터">
+                                                            </th>
+                                                            <th><input type="text" data-column="시설군"
+                                                                    placeholder="시설군 필터"></th>
+                                                            <th><input type="text" data-column="번호" placeholder="호 필터">
+                                                            </th>
+                                                            <th><input type="text" data-column="유형"
+                                                                    placeholder="용도군 필터"></th>
+                                                            <th><input type="text" data-column="종류"
+                                                                    placeholder="세부용도 필터"></th>
+                                                            <th><input type="text" data-column="비고" placeholder="비고 필터">
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="buildingTypesBody">
+                                                        <!-- JavaScript will populate this -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <!-- Pagination -->
+                                            <div class="table-pagination">
+                                                <button id="prevPage" class="page-btn"
+                                                    onclick="changePage(-1)">이전</button>
+                                                <span id="pageInfo">1 / 1</span>
+                                                <button id="nextPage" class="page-btn"
+                                                    onclick="changePage(1)">다음</button>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- 3. Seoul City Urban Planning Ordinance Rules -->
-                                    <div class="accordion-item" id="seoul_planning_rules"
-                                        data-law-id="seoul_planning_rules">
-                                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                                            <span class="accordion-title">서울 도시계획 조례 시행규칙</span>
-                                            <div class="header-actions">
-                                                <a href="https://www.law.go.kr/자치법규/서울특별시도시계획조례시행규칙" target="_blank"
-                                                    class="btn-external">↗</a>
-                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-content">
-                                            <div class="iframe-wrapper">
-                                                <iframe
-                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1976247&chrClsCd=010202&gubun="
-                                                    title="서울 도시계획 조례 시행규칙"></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 4. Seoul City Parking Ordinance -->
-                                    <div class="accordion-item" id="seoul_parking_ord" data-law-id="seoul_parking_ord">
-                                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                                            <span class="accordion-title">서울 주차장 관리및설치 조례</span>
-                                            <div class="header-actions">
-                                                <a href="https://www.law.go.kr/자치법규/서울특별시주차장설치및관리조례" target="_blank"
-                                                    class="btn-external">↗</a>
-                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-content">
-                                            <div class="iframe-wrapper">
-                                                <iframe
-                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2070413&chrClsCd=010202&gubun="
-                                                    title="서울 주차장 관리및설치 조례"></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 5. Seoul City Outdoor Advertising Ordinance -->
-                                    <div class="accordion-item" id="seoul_outdoor_ad_ord"
-                                        data-law-id="seoul_outdoor_ad_ord">
-                                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                                            <span class="accordion-title">서울 옥외광고물 조례</span>
-                                            <div class="header-actions">
-                                                <a href="https://www.law.go.kr/자치법규/서울특별시옥외광고물등의관리와옥외광고산업진흥에관한조례"
-                                                    target="_blank" class="btn-external">↗</a>
-                                                <button class="btn-toggle"><span class="icon-toggle"></span></button>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-content">
-                                            <div class="iframe-wrapper">
-                                                <iframe
-                                                    data-src="https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2099885&chrClsCd=010202&gubun="
-                                                    title="서울 옥외광고물 조례"></iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div> <!-- End law-grid for Ordinances -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Old Eum Area Removed -->
+    </div>
+    </div>
+    </div>
+    </div>
 
-            </section>
-        </main>
 
-        <!-- No Footer needed for utility page -->
+    </section>
+    </main>
+
+    <!-- No Footer needed for utility page -->
     </div>
     <script type="module" src="/src/main.js"></script>
-    <script src="js/law_data_list.js" charset="utf-8"></script>
-    <script src="js/law.js?v=13"></script>
+    <!-- law_data_list.js merged into law.js -->
+    <!-- <script src="js/law_data_ordinance.js?v=31" charset="utf-8"></script> -->
+    <script src="js/ordinance_list.js?v=3"></script>
+    <script src="js/law.js?v=70"></script>
+    <script src="js/building_types.js"></script>
 </body>
 
 </html>

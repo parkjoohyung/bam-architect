@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Blog Post - 건축사사무소밤" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://parkjoohyung.github.io/bam-architect/blog-post.html" />
-    <meta property="og:title" content="Blog Post - 건축사사무소밤" />
-    <meta property="og:description" content="View our latest architectural works and news." />
+    <meta name="description" content="건축사사무소밤 블로그" />
+    <meta property="og:title" content="Blog - 건축사사무소밤" />
+    <meta property="og:description" content="건축사사무소밤 블로그" />
     <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
 
     <title>Blog - 건축사사무소밤</title>
+
+    <!-- Google Fonts - Quartz Style -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Blog CSS -->
+    <link rel="stylesheet" href="css/blog.css">
+
+    <!-- D3.js for Graph View -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- PixiJS for WebGL Graph Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@25/dist/tween.umd.js"></script>
 </head>
 
-<body>
+<body class="blog-page">
     <div id="app">
         <!-- Header -->
         <header class="site-header">
@@ -25,10 +36,9 @@
                 <nav class="desktop-nav">
                     <a href="about.html">About</a>
                     <a href="projects.html">Projects</a>
-                    <a href="blog.html">Blog</a>
+                    <a href="blog.html" class="active">Blog</a>
                     <a href="news.html">News</a>
                     <a href="law.html">Law</a>
-                    <a href="ai-studio.html">AI Studio</a>
                     <a href="contact.html">Contact</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -38,251 +48,286 @@
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main>
-            <article class="post-container section" style="padding-top: 180px;">
-                <div class="container" style="max-width: 800px;">
-                    <!-- Content will be injected here by JS -->
-                    <div id="post-content">
-                        <header class="post-header fade-in-up">
-                            <span class="blog-date" id="post-date"></span>
-                            <h1 id="post-title">Loading...</h1>
+        <!-- Main Content - Quartz Layout -->
+        <main id="main-content" style="padding-top: 80px;">
+            <div class="quartz-layout">
+                <!-- Left Sidebar -->
+                <aside class="quartz-sidebar-left">
+                    <a href="blog.html" class="quartz-site-title">Blog</a>
+
+                    <!-- Search Button -->
+                    <button class="quartz-search-btn" id="open-search-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                        Search
+                        <kbd>Ctrl+K</kbd>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button class="quartz-theme-toggle" id="theme-toggle-btn">
+                        <svg id="theme-icon-light" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                            </path>
+                        </svg>
+                        <svg id="theme-icon-dark" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" style="display:none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span id="theme-label">Light mode</span>
+                    </button>
+
+                    <!-- Explorer -->
+                    <div class="quartz-explorer">
+                        <div class="quartz-explorer-title" id="explorer-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                height="16">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            Explorer
+                        </div>
+                        <ul class="quartz-explorer-list" id="explorer-list"></ul>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="quartz-content">
+                    <div class="quartz-article">
+                        <!-- Breadcrumb -->
+                        <nav class="quartz-breadcrumb">
+                            <a href="./">Home</a>
+                            <span>›</span>
+                            <a href="blog.html">Blog</a>
+                            <span>›</span>
+                            <span id="breadcrumb-title">Loading...</span>
+                        </nav>
+
+                        <!-- Page Header -->
+                        <header class="quartz-article-header">
+                            <h1 class="quartz-article-title" id="post-title">Loading...</h1>
+                            <div class="quartz-article-meta" id="post-meta"></div>
+                            <div class="quartz-post-tags" id="post-tags"></div>
                         </header>
-                        <div class="post-body fade-in-up" id="post-body" style="animation-delay: 0.1s;">
-                            <!-- Body content -->
+
+                        <!-- Post Body -->
+                        <div class="quartz-article-body" id="post-body">
+                            <!-- Content injected here -->
+                            <p>Loading content...</p>
+                        </div>
+
+                        <!-- Backlinks -->
+                        <div class="backlinks quartz-backlinks" id="post-backlinks" style="display: none;">
+                            <h3>Backlinks</h3>
+                            <ul id="backlinks-list" class="overflow"></ul>
+                            <div id="backlinks-empty" class="backlinks-empty" style="display: none;">No backlinks found
+                            </div>
+                        </div>
+
+                        <!-- Prev/Next Navigation -->
+                        <div class="post-nav fade-in-up" id="post-nav"
+                            style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--q-lightgray);">
+                            <a href="blog.html" class="btn-link">← Back to List</a>
                         </div>
                     </div>
-                    <div class="post-nav fade-in-up"
-                        style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
-                        <a href="blog.html" class="btn-link">← Back to List</a>
-                    </div>
-                </div>
-            </article>
+                </section>
+
+                <!-- Right Sidebar -->
+                <aside class="quartz-sidebar-right">
+                    <!-- Graph View -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Graph View</div>
+                        <div class="quartz-graph">
+                            <div class="quartz-graph-container" id="graph-container"></div>
+                        </div>
+                    </section>
+
+                    <!-- Table of Contents -->
+                    <section class="quartz-sidebar-section" id="toc-section" style="display: none;">
+                        <button class="toc-header" id="toc-toggle">
+                            <h3>Table of Contents</h3>
+                            <svg class="fold" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="toc" id="toc-container">
+                            <ul class="toc-content" id="toc-list"></ul>
+                        </div>
+                    </section>
+
+                    <!-- Recent Posts -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Recent</div>
+                        <ul class="quartz-backlinks-list" id="recent-posts"></ul>
+                    </section>
+                </aside>
+            </div>
         </main>
 
         <!-- Footer -->
-        <footer class="site-footer">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <h3>건축사사무소밤</h3>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Contact</h4>
-                        <p>p.juhyung@daum.net</p>
-                        <p>010-5891-1031</p>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Social</h4>
-                        <a href="#">Instagram</a>
-                        <a href="#">LinkedIn</a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2026 건축사사무소밤. All rights reserved.</p>
-                </div>
-            </div>
+        <footer class="quartz-footer">
+            <p>Created with ❤️ by 건축사사무소밤 © 2026</p>
         </footer>
     </div>
+
+    <!-- Quartz Features (Search, Graph, TOC, Backlinks) -->
+    <script src="js/quartz-features.js"></script>
+
     <script type="module">
         import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
         import '/src/main.js';
+
+        let allPosts = [];
 
         async function loadPost() {
             const urlParams = new URLSearchParams(window.location.search);
             const postId = urlParams.get('id');
 
             if (!postId) {
-                document.getElementById('post-content').innerHTML = '<h1>Invalid URL</h1>';
+                document.getElementById('post-body').innerHTML = '<h1>Invalid URL</h1>';
                 return;
             }
 
             try {
-                // 1. Get index to find filename
-                const indexRes = await fetch('posts.json'); // Changed to relative path
-                const posts = await indexRes.json();
-                const postMeta = posts.find(p => p.id === postId);
+                // 1. Load posts index
+                const indexRes = await fetch('posts.json');
+                allPosts = await indexRes.json();
+                const postMeta = allPosts.find(p => p.id === postId);
 
                 if (!postMeta) {
-                    throw new Error('Post not found in index');
+                    throw new Error('Post not found');
                 }
 
-                // 2. key info
-                document.getElementById('post-title').innerText = postMeta.title;
-                document.getElementById('post-date').innerText = postMeta.date;
-                document.title = `${postMeta.title} - 건축사사무소밤`;
+                // 2. Load full content for graph/search context
+                // Note: In a real app we might optimize this, but for Quartz graph we need all links
+                const allPostsContent = await Promise.all(allPosts.map(async (post) => {
+                    try {
+                        const mdRes = await fetch(`posts/${post.filename}`);
+                        const text = await mdRes.text();
+                        // Clean up frontmatter and Logseq format
+                        const cleanText = text.replace(/^---[\s\S]*?---\n?/, '')
+                            .split('\n')
+                            .filter(line => !line.match(/^\s*\w+::/)) // Remove properties
+                            .map(line => line.replace(/^(\t*)- /, '$1')) // Remove bullets
+                            .join('\n');
 
-                // Update Meta Description for SEO
-                let metaDesc = document.querySelector('meta[name="description"]');
-                if (!metaDesc) {
-                    metaDesc = document.createElement('meta');
-                    metaDesc.name = 'description';
-                    document.head.appendChild(metaDesc);
+                        return { ...post, content: cleanText };
+                    } catch (e) {
+                        return { ...post, content: '' };
+                    }
+                }));
+
+                const currentPost = allPostsContent.find(p => p.id === postId);
+
+                // 3. Render Post
+                document.getElementById('post-title').innerText = currentPost.title;
+                document.getElementById('breadcrumb-title').innerText = currentPost.title;
+                document.getElementById('post-meta').innerHTML = `<span>${currentPost.date}</span>`;
+                document.title = `${currentPost.title} - 건축사사무소밤`;
+
+                if (currentPost.tags) {
+                    document.getElementById('post-tags').innerHTML = currentPost.tags.map(tag =>
+                        `<a href="blog.html?tag=${tag}" class="quartz-tag">#${tag}</a>`
+                    ).join('');
                 }
-                metaDesc.content = `${postMeta.title} - ${postMeta.date}`;
 
-                // 3. Load Markdown
-                const mdRes = await fetch(`posts/${postMeta.filename}`); // Changed to relative path
-                if (!mdRes.ok) throw new Error('Markdown file not found');
-                const mdText = await mdRes.text();
+                // Convert Markdown to HTML
+                // Use a simpler approach or the one from quartz-features if exported
+                // Here we use marked library but we should match quartz-features logic
+                document.getElementById('post-body').innerHTML = marked.parse(currentPost.content);
 
-                // 4. Clean Content
-                // - Remove Logseq attributes (lines with '::')
-                // - Remove leading dashes from Outliner format (e.g. "- ## Title" -> "## Title")
-                const cleanMd = mdText.split('\n')
-                    .filter(line => !line.includes('::'))
-                    .map(line => line.replace(/^\s*-\s?/, '')) // Remove leading dash and optional space
-                    .join('\n');
+                // 4. Render Sidebar Elements
+                renderExplorer(allPosts);
+                renderRecentPosts(allPosts);
 
-                // 5. Render
-                document.getElementById('post-body').innerHTML = marked.parse(cleanMd);
-
-                // 6. Navigation (Previous / Next)
-                // posts array is sorted by date (newest first)
-                // index 0: newest
-                // index N: oldest
-                const currentIndex = posts.findIndex(p => p.id === postId);
-
-                // Newer post (index - 1) -> Next Post (Wait, traditionally Next is newer, Prev is older? Or Next Page is older?)
-                // Let's use explicit labels "이전 글 (Older)", "다음 글 (Newer)" or just Titles.
-                // Standard convention: "Previous" = Newer (Left), "Next" = Older (Right) sometimes.
-                // Let's use: < Previous (Newer) | Next (Older) > 
-                // Wait, usually "Previous Post" implies chronologically previous (Older).
-                // Let's just use "이전글", "다음글" and see.
-
-                // If sorted by Date DESC:
-                // i-1 is NEWER
-                // i+1 is OLDER
-
-                const newerPost = posts[currentIndex - 1]; // To be shown as '다음글' (Next / Newer) or '이전글'?
-                const olderPost = posts[currentIndex + 1]; // To be shown as '이전글' (Previous / Older)
-
-                // Let's stick to standard reversed chronological blog:
-                // Left: Newer Post (다음글 usually means Next in list, which is older... ambiguous)
-                // Let's use "이전글(Older)" and "다음글(Newer)" ? 
-                // Actually, "Next" usually means "Next to read" which could be the next chronological one.
-                // Let's just calculate them and render.
-
-                const navContainer = document.querySelector('.post-nav');
-                navContainer.innerHTML = `
-                    <div class="nav-links">
-                        ${olderPost ? `<a href="blog-post.html?id=${olderPost.id}" class="nav-item prev">
-                            <span class="nav-label">이전글</span>
-                            <span class="nav-title">${olderPost.title}</span>
-                        </a>` : '<div></div>'}
-                        
-                        ${newerPost ? `<a href="blog-post.html?id=${newerPost.id}" class="nav-item next">
-                            <span class="nav-label">다음글</span>
-                            <span class="nav-title">${newerPost.title}</span>
-                        </a>` : '<div></div>'}
-                    </div>
-                    <div style="text-align: center; margin-top: 2rem;">
-                         <a href="blog.html" class="btn-link">목록으로</a>
-                    </div>
-                `;
+                // 5. Initialize Quartz Features (Search, Graph, TOC, Backlinks)
+                if (typeof initQuartzFeatures === 'function') {
+                    // quartz-features.js will handle TOC and Backlinks rendering
+                    // We need to pass the current post ID
+                    initQuartzFeatures(allPostsContent, postId);
+                }
 
             } catch (error) {
                 console.error(error);
-                document.getElementById('post-content').innerHTML = `<h1>Post not found</h1><p>${error.message}</p>`;
+                document.getElementById('post-body').innerHTML = `<h1>Post not found</h1><p>${error.message}</p>`;
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadPost);
+        function renderExplorer(posts) {
+            const explorerList = document.getElementById('explorer-list');
+            explorerList.innerHTML = posts.map(post => `
+                <li class="quartz-explorer-item">
+                    <a href="blog-post.html?id=${post.id}">${post.title}</a>
+                </li>
+            `).join('');
+        }
+
+        function renderRecentPosts(posts) {
+            const recentList = document.getElementById('recent-posts');
+            recentList.innerHTML = posts.slice(0, 5).map(post =>
+                `<li><a href="blog-post.html?id=${post.id}">${post.title}</a></li>`
+            ).join('');
+        }
+
+        // Theme toggle - Quartz Style
+        const switchTheme = () => {
+            const currentTheme = document.documentElement.getAttribute('saved-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('saved-theme', newTheme);
+            document.body.classList.toggle('dark-mode', newTheme === 'dark');
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        };
+
+        const updateThemeIcon = (theme) => {
+            document.getElementById('theme-icon-light').style.display = theme === 'dark' ? 'none' : 'inline';
+            document.getElementById('theme-icon-dark').style.display = theme === 'dark' ? 'inline' : 'none';
+            document.getElementById('theme-label').textContent = theme === 'dark' ? 'Dark mode' : 'Light mode';
+        };
+
+        document.getElementById('theme-toggle-btn').addEventListener('click', switchTheme);
+
+        // Explorer toggle
+        document.getElementById('explorer-toggle').addEventListener('click', () => {
+            const title = document.getElementById('explorer-toggle');
+            const list = document.getElementById('explorer-list');
+            title.classList.toggle('collapsed');
+            list.style.display = title.classList.contains('collapsed') ? 'none' : 'block';
+        });
+
+        // Search button
+        document.getElementById('open-search-btn').addEventListener('click', () => {
+            if (window.quartzSearch) {
+                window.quartzSearch.open();
+            }
+        });
+
+        // TOC Toggle
+        const tocToggle = document.getElementById('toc-toggle');
+        if (tocToggle) {
+            tocToggle.addEventListener('click', () => {
+                tocToggle.classList.toggle('collapsed');
+                const list = document.getElementById('toc-list');
+                list.classList.toggle('collapsed');
+            });
+        }
+
+        // Initialize theme and load
+        const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const savedTheme = localStorage.getItem('theme') ?? userPref;
+        document.documentElement.setAttribute('saved-theme', savedTheme);
+        document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateThemeIcon(document.documentElement.getAttribute('saved-theme'));
+            loadPost();
+        });
     </script>
-    <style>
-        .blog-date {
-            display: block;
-            font-family: var(--font-body);
-            color: var(--color-text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .post-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            line-height: 1.2;
-        }
-
-        .post-body p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            color: var(--color-text-main);
-        }
-
-        /* Navigation Styles */
-        .nav-links {
-            display: flex;
-            justify-content: space-between;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: var(--color-text-main);
-            padding: 1rem;
-            border: 1px solid var(--color-border);
-            border-radius: 4px;
-            width: 48%;
-            transition: background-color 0.2s;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-item.next {
-            text-align: right;
-            align-items: flex-end;
-        }
-
-        .nav-label {
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-title {
-            font-weight: 500;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .btn-link {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--color-border);
-            text-decoration: none;
-            color: var(--color-text-muted);
-            transition: all 0.2s;
-        }
-
-        .btn-link:hover {
-            border-color: var(--color-text-main);
-            color: var(--color-text-main);
-        }
-
-        @media (max-width: 768px) {
-            .post-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .nav-links {
-                flex-direction: column;
-            }
-
-            .nav-item {
-                width: 100%;
-                text-align: left !important;
-                align-items: flex-start !important;
-            }
-        }
-    </style>
 </body>
 
 </html>

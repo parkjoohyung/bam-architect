@@ -1,0 +1,13 @@
+/* Explicitly define nested grid layout */
+.nested-ordinance-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 0.75rem !important;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .nested-ordinance-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

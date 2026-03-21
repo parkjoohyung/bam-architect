@@ -11,7 +11,12 @@ echo.
 cd /d "%~dp0"
 call npm install puppeteer --no-save >nul 2>&1
 
+echo Scraping latest Annex 1 to Excel...
+node scrape_annex_one.js
+
 node update_laws.js
+echo Updating building types data...
+node convert_building_types.js
 
 echo.
 echo Update process finished.

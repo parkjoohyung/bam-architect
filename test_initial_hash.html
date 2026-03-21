@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Initial Hash</title>
+</head>
+
+<body>
+    <iframe id="myFrame" src="about:blank" width="1000" height="800"></iframe>
+    <script>
+        const frame = document.getElementById('myFrame');
+        const targetSrc = "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2070413&chrClsCd=010202&gubun=ELIS#J23:2";
+        const baseSrc = "https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=2070413&chrClsCd=010202&gubun=ELIS";
+
+        frame.src = targetSrc;
+
+        frame.onload = () => {
+            console.log("Iframe loaded");
+            // Dynamic content might still be loading, wait a bit
+            setTimeout(() => {
+                // Force hashchange
+                console.log("Triggering hashchange");
+                frame.src = baseSrc + "#dummy";
+                setTimeout(() => {
+                    frame.src = targetSrc;
+                }, 50);
+            }, 1000);
+
+            // remove onload so it doesn't fire again if something reloads
+            frame.onload = null;
+        };
+    </script>
+</body>
+
+</html>

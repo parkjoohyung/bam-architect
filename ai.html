@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mixboard - 건축사사무소밤</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="description" content="AI Creative Board for Architecture - Mixboard with Flux 2 Klein & Nanobanana">
+    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="/css/ai.css">
+    <!-- Fabric.js for the Mixboard canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="ai-page">
+    <div id="app">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a href="./" class="logo">건축사사무소밤</a>
+                <nav class="desktop-nav">
+                    <a href="about.html">About</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="news.html">News</a>
+                    <a href="law.html">Law</a>
+                    <a href="ai.html" class="active">AI</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <button class="mobile-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="ai-workspace">
+            <!-- Left Sidebar: Simplified with Accordions -->
+            <aside class="ai-sidebar left-sidebar animate-in-left" id="sidebar-left">
+                <div class="sidebar-header">
+                    <h2>AI Studio</h2>
+                </div>
+                
+                <div class="accordion-item active">
+                    <button class="accordion-header">
+                        <span>Creative Tools</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="tool-grid">
+                            <button class="tool-btn active" id="tool-select" title="Select/Move">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+                            </button>
+                            <button class="tool-btn" id="tool-brush" title="Inpaint Brush">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20l4-4"/><path d="M15 17l4-4"/><path d="M12 14l4-4"/><path d="M9 11l4-4"/><path d="M2.5 17.5l10-10a2.5 2.5 0 1 1 3.5 3.5l-10 10a2.5 2.5 0 0 1-1.5.5H3v-1.5a2.5 2.5 0 0 1 .5-1.5z"/></svg>
+                            </button>
+                            <button class="tool-btn" id="tool-erase" title="Erase Mask">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20H7L3 16l4-4 4-4 4 4 4 4-4 4"/></svg>
+                            </button>
+                            <button class="tool-btn" id="tool-upload" title="Upload Image">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            </button>
+                        </div>
+                        <div class="control-group spacer-top">
+                            <label>Brush Size</label>
+                            <input type="range" id="brush-size" min="1" max="100" value="30" class="ai-range">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Model & Settings</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="control-group">
+                            <label>Engine</label>
+                            <select id="model-selector" class="ai-select">
+                                <option value="flux-2-klein">Flux 2 Klein (Fal.ai Paid)</option>
+                                <option value="gemini-3.1-flash">Gemini 3.1 Flash (Latest)</option>
+                                <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite (Fast)</option>
+                                <option value="nanobanana-2">Nano Banana 2 (Gemini 2.5 Image)</option>
+                                <option value="gemini-3.1-pro-paid">Gemini 3.1 Pro (Advanced)</option>
+                            </select>
+                        </div>
+                        <button class="secondary-btn full-width" id="btn-config">API Settings</button>
+                    </div>
+                </div>
+
+                <div class="accordion-item active">
+                    <button class="accordion-header">
+                        <span>Generation</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <textarea id="ai-prompt" placeholder="Architecture prompt..." class="ai-textarea"></textarea>
+                        <div class="action-buttons">
+                            <button class="primary-btn" id="btn-generate">Generate</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center: Canvas -->
+            <section class="ai-canvas-container">
+                <div class="canvas-wrapper">
+                    <canvas id="mixboard-canvas"></canvas>
+                </div>
+                <div class="canvas-controls">
+                    <button id="zoom-in" title="Zoom In">+</button>
+                    <button id="zoom-out" title="Zoom Out">-</button>
+                    <button id="zoom-selection" title="Zoom to Selection">🔍</button>
+                    <button id="zoom-fit" title="Zoom to Fit">⛶</button>
+                    <button id="reset-canvas" title="Reset Canvas">⟲</button>
+                </div>
+            </section>
+
+            <!-- Right Sidebar: JSON (Collapsible) -->
+            <aside class="ai-sidebar right-sidebar animate-in-right">
+                <div class="accordion-item active" style="height: 100%; display: flex; flex-direction: column;">
+                    <button class="accordion-header">
+                        <span>JSON Intelligence</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content flex-grow">
+                        <div class="json-panel">
+                            <textarea id="json-display" class="code-block ai-textarea-json" spellcheck="false">{ "ready": true }</textarea>
+                        </div>
+                        <div class="extraction-tools">
+                            <button class="small-btn" id="btn-extract">Extract</button>
+                            <button class="small-btn" id="btn-copy-json">Copy</button>
+                            <button class="small-btn primary-small" id="btn-show-edit">Edit</button>
+                            <button class="small-btn primary-small" id="btn-apply-json">Apply</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>History</span>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="history-list" id="history-list"></div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+
+        <!-- AI Edit Modal -->
+        <div id="edit-modal" class="modal hidden">
+            <div class="modal-content glass edit-modal-content">
+                <div class="modal-header">
+                    <h2>Advanced AI Edit</h2>
+                    <button class="close-modal" id="close-edit">×</button>
+                </div>
+                
+                <div class="edit-preview-container">
+                    <canvas id="edit-preview-canvas"></canvas>
+                </div>
+
+                <div class="edit-controls-row">
+                    <div class="control-group">
+                        <label>Edit Mode</label>
+                        <div class="tool-grid">
+                            <button class="tool-btn active" id="edit-mode-inpaint">Inpaint</button>
+                            <button class="tool-btn" id="edit-mode-outpaint">Outpaint</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Brush Size</label>
+                        <input type="range" id="edit-brush-size" min="1" max="100" value="40" class="ai-range">
+                        <button class="small-btn spacer-top" id="btn-clear-mask" style="margin-top: 0.5rem; width: 100%;">Clear Mask</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>AI Transformation Prompt</label>
+                    <textarea id="edit-prompt" class="ai-textarea" placeholder="e.g., 'Replace windows with arched wooden frames', 'Extend the building to the left'"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="secondary-btn" id="cancel-edit">Cancel</button>
+                    <button class="primary-btn" id="confirm-edit">Apply AI Transformation</button>
+                </div>
+            </div>
+        </div>
+        <div id="ai-loader" class="loader-overlay hidden">
+            <div class="loader-content">
+                <div class="spinner"></div>
+                <p id="loader-text">Invoking Nanobanana API...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div id="config-modal" class="modal hidden">
+        <div class="modal-content glass">
+            <h2>API Configuration</h2>
+            <p>Enter your API keys to enable real-time generation.</p>
+            <div class="input-group">
+                <label>Gemini API Key</label>
+                <input type="password" id="api-key-gemini" placeholder="AIxxxx...">
+            </div>
+            <div class="input-group">
+                <label>Flux API Key (Fal.ai)</label>
+                <input type="password" id="api-key-flux" placeholder="key-xxxx...">
+            </div>
+            <button class="primary-btn" id="save-config">Save & Close</button>
+        </div>
+    </div>
+
+    <script type="module" src="/js/ai_logic.js"></script>
+</body>
+</html>

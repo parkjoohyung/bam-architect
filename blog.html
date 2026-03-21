@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="건축사사무소밤 블로그 - 건축 설계, 건축법 해설, 건축 트랜드 정보를 공유합니다." />
-
-    <!-- Canonical URL for SEO -->
-    <link rel="canonical" href="https://parkjoohyung.github.io/bam-architect/blog.html" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://parkjoohyung.github.io/bam-architect/blog.html" />
+    <meta name="description" content="건축사사무소밤 블로그 - 건축 설계, 법령, 프로젝트 소식" />
     <meta property="og:title" content="Blog - 건축사사무소밤" />
-    <meta property="og:description" content="Read our latest news and architectural insights." />
+    <meta property="og:description" content="건축사사무소밤 블로그 - 건축 설계와 프로젝트 소식" />
     <meta property="og:image" content="https://parkjoohyung.github.io/bam-architect/og-image.png" />
 
     <title>Blog - 건축사사무소밤</title>
+
+    <!-- Google Fonts - Quartz Style -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Blog CSS -->
+    <link rel="stylesheet" href="css/blog.css">
+
+    <!-- D3.js for Graph View -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- PixiJS for WebGL Graph Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@25/dist/tween.umd.js"></script>
 </head>
 
-<body>
-    <!-- Skip link for accessibility -->
-    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
-
+<body class="blog-page">
     <div id="app">
         <!-- Header -->
         <header class="site-header">
@@ -34,7 +39,6 @@
                     <a href="blog.html" class="active">Blog</a>
                     <a href="news.html">News</a>
                     <a href="law.html">Law</a>
-                    <a href="ai-studio.html">AI Studio</a>
                     <a href="contact.html">Contact</a>
                 </nav>
                 <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -44,61 +48,134 @@
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main id="main-content">
-            <!-- Blog List -->
-            <section id="blog" class="section">
-                <div class="container">
-                    <div class="search-bar fade-in-up" style="margin-bottom: 2rem;">
-                        <input type="text" id="search-input" placeholder="Search posts..."
-                            style="width: 100%; padding: 1rem; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-main); font-family: inherit;">
-                    </div>
+        <!-- Main Content - Quartz Layout -->
+        <main id="main-content" style="padding-top: 80px;">
+            <div class="quartz-layout">
+                <!-- Left Sidebar -->
+                <aside class="quartz-sidebar-left">
+                    <a href="blog.html" class="quartz-site-title">Blog</a>
 
-                    <div class="blog-container" id="blog-list">
-                        <!-- Content will be injected by JS -->
-                        <div style="text-align: center; padding: 4rem; color: var(--color-text-muted);">Loading posts...
+                    <!-- Search Button -->
+                    <button class="quartz-search-btn" id="open-search-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                        Search
+                        <kbd>Ctrl+K</kbd>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button class="quartz-theme-toggle" id="theme-toggle-btn">
+                        <svg id="theme-icon-light" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" style="display:none;">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path
+                                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                            </path>
+                        </svg>
+                        <svg id="theme-icon-dark" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <span id="theme-label">Dark mode</span>
+                    </button>
+
+                    <!-- Explorer -->
+                    <div class="quartz-explorer">
+                        <div class="quartz-explorer-title" id="explorer-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                height="16">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                            Explorer
                         </div>
+                        <ul class="quartz-explorer-list" id="explorer-list"></ul>
                     </div>
-                </div>
-            </section>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="quartz-content">
+                    <div class="quartz-article">
+                        <!-- Breadcrumb -->
+                        <nav class="quartz-breadcrumb">
+                            <a href="./">Home</a>
+                            <span>›</span>
+                            <span>Blog</span>
+                        </nav>
+
+                        <!-- Page Header -->
+                        <header class="quartz-article-header">
+                            <h1 class="quartz-article-title">Blog</h1>
+                            <p style="color: var(--q-gray); margin: 0;">건축 설계, 건축법 해설, 프로젝트 이야기</p>
+                        </header>
+
+                        <!-- Tag Filter (if active) -->
+                        <div id="tag-filter" style="margin-bottom: 1.5rem; display: none;">
+                            <span style="color: var(--q-gray);">Filtered by:</span>
+                            <span id="active-tag" class="quartz-tag"></span>
+                            <a href="blog.html" style="margin-left: 0.5rem; color: var(--q-secondary);">× Clear
+                                filter</a>
+                        </div>
+
+                        <!-- Post List -->
+                        <ul class="quartz-post-list" id="blog-list">
+                            <li style="padding: 2rem 0; color: var(--q-gray); text-align: center;">
+                                포스트를 불러오는 중...
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Right Sidebar -->
+                <aside class="quartz-sidebar-right">
+                    <!-- Graph View -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Graph View</div>
+                        <div class="quartz-graph">
+                            <div class="quartz-graph-container" id="graph-container"></div>
+                        </div>
+                    </section>
+
+                    <!-- Tags -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Tags</div>
+                        <div class="quartz-tags" id="tag-cloud" style="gap: 0.5rem;"></div>
+                    </section>
+
+                    <!-- Recent Posts -->
+                    <section class="quartz-sidebar-section">
+                        <div class="quartz-sidebar-title">Recent</div>
+                        <ul class="quartz-backlinks-list" id="recent-posts"></ul>
+                    </section>
+                </aside>
+            </div>
         </main>
 
         <!-- Footer -->
-        <footer class="site-footer">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <h3>건축사사무소밤</h3>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Contact</h4>
-                        <p>p.juhyung@daum.net</p>
-                        <p>010-5891-1031</p>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Social</h4>
-                        <a href="#">Instagram</a>
-                        <a href="#">LinkedIn</a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2026 건축사사무소밤. All rights reserved.</p>
-                </div>
-            </div>
+        <footer class="quartz-footer">
+            <p>Created with ❤️ by 건축사사무소밤 © 2026</p>
         </footer>
     </div>
+
+    <!-- Quartz Features (Search & Graph) -->
+    <script src="js/quartz-features.js"></script>
+
     <script type="module">
         import '/src/main.js';
 
         let allPosts = [];
+        let filteredPosts = [];
 
+        // Load posts
         async function loadPosts() {
             try {
                 const response = await fetch('posts.json');
-                const posts = await response.json();
+                allPosts = await response.json();
 
-                // Fetch content for each post (for search) - keeping this logic
-                allPosts = await Promise.all(posts.map(async (post) => {
+                // Load content for all posts
+                allPosts = await Promise.all(allPosts.map(async (post) => {
                     try {
                         const mdRes = await fetch(`posts/${post.filename}`);
                         const text = await mdRes.text();
@@ -106,140 +183,140 @@
                             .filter(line => !line.includes('::'))
                             .map(line => line.replace(/^\s*-\s?/, ''))
                             .join(' ');
-                        return { ...post, content: cleanText };
+
+                        // Extract description
+                        const descMatch = text.match(/description:\s*(.+)/);
+                        const description = descMatch ? descMatch[1].trim() :
+                            text.split('\n').find(l => l.length > 20 && !l.startsWith('#') && !l.includes('::') && !l.startsWith('---')) || '';
+
+                        return { ...post, content: cleanText, description };
                     } catch (e) {
-                        console.warn(`Failed to load content for ${post.id}`, e);
-                        return { ...post, content: '' };
+                        return { ...post, content: '', description: '' };
                     }
                 }));
 
-                renderPosts(allPosts);
+                filteredPosts = [...allPosts];
+
+                // Check for tag filter
+                const urlParams = new URLSearchParams(window.location.search);
+                const tagFilter = urlParams.get('tag');
+                if (tagFilter) {
+                    filteredPosts = allPosts.filter(post => post.tags?.includes(tagFilter));
+                    document.getElementById('tag-filter').style.display = 'block';
+                    document.getElementById('active-tag').textContent = tagFilter;
+                }
+
+                renderPosts(filteredPosts);
+                renderExplorer();
+                renderTags();
+                renderRecentPosts();
+
+                // Initialize Quartz features (search & graph)
+                if (typeof initQuartzFeatures === 'function') {
+                    initQuartzFeatures(allPosts);
+                }
             } catch (error) {
                 console.error('Error loading posts:', error);
-                document.getElementById('blog-list').innerHTML = '<div style="padding: 2rem; color: red;">Failed to load posts.</div>';
+                document.getElementById('blog-list').innerHTML = '<li style="padding: 2rem 0; color: red;">포스트를 불러오는데 실패했습니다.</li>';
             }
         }
 
-        function renderPosts(posts, query = '') {
-            const listContainer = document.getElementById('blog-list');
-
+        function renderPosts(posts) {
+            const container = document.getElementById('blog-list');
             if (!posts.length) {
-                listContainer.innerHTML = '<div style="padding: 2rem;">No posts found.</div>';
+                container.innerHTML = '<li style="padding: 2rem 0; text-align: center; color: var(--q-gray);">포스트가 없습니다.</li>';
                 return;
             }
 
-            listContainer.innerHTML = posts.map((post, index) => {
-                let titleHtml = post.title;
-
-                if (query) {
-                    if (post.title.toLowerCase().includes(query)) {
-                        const regex = new RegExp(`(${query})`, 'gi');
-                        titleHtml = post.title.replace(regex, '<mark class="search-highlight">$1</mark>');
-                    }
-                }
-
-                // Using list layout similar to news.html
-                return `
-            <article class="blog-item fade-in-up" style="animation-delay: ${index * 0.05}s">
-                <a href="blog-post.html?id=${post.id}" class="blog-link">
-                    <span class="blog-date">${post.date}</span>
-                    <div class="blog-info">
-                        <h3>${titleHtml}</h3>
-                    </div>
-                </a>
-            </article>
-          `;
-            }).join('');
-
-            // Trigger animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
-            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+            container.innerHTML = posts.map(post => `
+                <li class="quartz-post-item">
+                    <a href="blog-post.html?id=${post.id}">
+                        <div class="quartz-post-item-meta">${post.date}</div>
+                        <h3 class="quartz-post-item-title">${post.title}</h3>
+                        <p class="quartz-post-item-excerpt">${post.description || ''}</p>
+                    </a>
+                </li>
+            `).join('');
         }
 
-        const searchInput = document.getElementById('search-input');
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const filteredPosts = allPosts.filter(post =>
-                post.title.toLowerCase().includes(query) ||
-                post.date.includes(query) ||
-                (post.content && post.content.toLowerCase().includes(query))
-            );
-            renderPosts(filteredPosts, query);
+        function renderExplorer() {
+            const explorerList = document.getElementById('explorer-list');
+            explorerList.innerHTML = allPosts.map(post => `
+                <li class="quartz-explorer-item">
+                    <a href="blog-post.html?id=${post.id}">${post.title}</a>
+                </li>
+            `).join('');
+        }
+
+        function renderTags() {
+            const tagCloud = document.getElementById('tag-cloud');
+            const tagCounts = {};
+            allPosts.forEach(post => {
+                if (post.tags) {
+                    post.tags.forEach(tag => {
+                        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                    });
+                }
+            });
+
+            const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+            tagCloud.innerHTML = sortedTags.length
+                ? sortedTags.map(([tag, count]) => `<a href="blog.html?tag=${tag}" class="quartz-tag">${tag}</a>`).join('')
+                : '<span style="color: var(--q-gray); font-size: 0.9rem;">No tags</span>';
+        }
+
+        function renderRecentPosts() {
+            const recentList = document.getElementById('recent-posts');
+            recentList.innerHTML = allPosts.slice(0, 5).map(post =>
+                `<li><a href="blog-post.html?id=${post.id}">${post.title}</a></li>`
+            ).join('');
+        }
+
+        // Theme toggle - Quartz Style
+        const switchTheme = () => {
+            const currentTheme = document.documentElement.getAttribute('saved-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('saved-theme', newTheme);
+            document.body.classList.toggle('dark-mode', newTheme === 'dark');
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        };
+
+        const updateThemeIcon = (theme) => {
+            document.getElementById('theme-icon-light').style.display = theme === 'dark' ? 'none' : 'inline';
+            document.getElementById('theme-icon-dark').style.display = theme === 'dark' ? 'inline' : 'none';
+            document.getElementById('theme-label').textContent = theme === 'dark' ? 'Dark mode' : 'Light mode';
+        };
+
+        document.getElementById('theme-toggle-btn').addEventListener('click', switchTheme);
+
+        // Explorer toggle
+        document.getElementById('explorer-toggle').addEventListener('click', () => {
+            const title = document.getElementById('explorer-toggle');
+            const list = document.getElementById('explorer-list');
+            title.classList.toggle('collapsed');
+            list.style.display = title.classList.contains('collapsed') ? 'none' : 'block';
         });
 
-        document.addEventListener('DOMContentLoaded', loadPosts);
+        // Search button
+        document.getElementById('open-search-btn').addEventListener('click', () => {
+            if (window.quartzSearch) {
+                window.quartzSearch.open();
+            }
+        });
+
+        // Initialize theme on page load (before DOMContentLoaded to prevent flash)
+        const userPref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const savedTheme = localStorage.getItem('theme') ?? userPref;
+        document.documentElement.setAttribute('saved-theme', savedTheme);
+        document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            updateThemeIcon(document.documentElement.getAttribute('saved-theme'));
+            loadPosts();
+        });
     </script>
-    <style>
-        .blog-container {
-            max-width: 900px;
-            margin: 0 auto;
-            border-top: 1px solid var(--color-border);
-        }
-
-        .blog-item {
-            border-bottom: 1px solid var(--color-border);
-            transition: background-color 0.2s;
-        }
-
-        .blog-link {
-            display: flex;
-            align-items: baseline;
-            gap: 2rem;
-            text-decoration: none;
-            color: inherit;
-            padding: 1.2rem 1rem;
-        }
-
-        .blog-link:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .blog-date {
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            min-width: 100px;
-            white-space: nowrap;
-        }
-
-        .blog-info {
-            flex: 1;
-        }
-
-        .blog-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .blog-link {
-                flex-direction: column;
-                gap: 0.5rem;
-                padding: 1.5rem 0;
-            }
-
-            .blog-date {
-                font-size: 0.8rem;
-            }
-        }
-
-        .search-highlight {
-            background-color: rgba(255, 255, 0, 0.4);
-            color: #fff;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-    </style>
 </body>
 
 </html>
