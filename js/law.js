@@ -1,22 +1,46 @@
 // Merged from law_data_list.js
-console.log('LAW.JS STARTED V39');
+
 window.LAW_JS_STATUS = 'Running';
 
 // // Helper: build reliable jump URL & hash from articleNum
 window.buildArticleJumpInfo = (baseSrc, artNum, lawId = null, forcedTitle = null) => {
-    // Keep the exact baseSrc unmodified so we don't trigger a reload if we only change the hash
     let cleanBase = baseSrc.split('#')[0];
     
     if (!artNum) return { src: cleanBase, hash: '', type: 'base' };
     
+    // Parse Article Number (e.g. 제42조, 제42조의2)
     const match = artNum.match(/(?:제)?(\d+)조(?:의(\d+))?/);
     if (match) {
         const main = match[1];
         const sub = match[2] ? match[2] : '0';
         
+        // Pretty URL handling (e.g. law.go.kr/법령/건축법)
+        if (cleanBase.includes('/법령/')) {
+            let prettyArt = `제${main}조`;
+            if (sub !== '0') prettyArt += `의${sub}`;
+            
+            // Pretty URL jumping works best when appended to path
+            // e.g. /법령/건축법/제42조
+            const baseUrlEncoded = cleanBase.split('/법령/')[0] + '/법령/';
+            const lawName = cleanBase.split('/법령/')[1].split('/')[0];
+            
+            // Return BOTH for smart setIframeSrcSafe
+            return { 
+                src: `${baseUrlEncoded}${lawName}/${encodeURIComponent(prettyArt)}`, 
+                hash: `#J${main}:${sub}`, // Include hash for potential smooth scroll fallback
+                type: 'pretty_path', 
+                main, sub, lawName 
+            };
+        }
+        
+        // Standard lsInfoP.do handling
         // law.go.kr lsInfoP.do pages use #J{main}:{sub} anchors for articles.
-        // By ONLY changing the hash, the iframe will smoothly scroll without flickering.
-        return { src: cleanBase, hash: `#J${main}:${sub}`, type: 'lsInfo_hash_only', main, sub };
+        return { 
+            src: cleanBase, 
+            hash: `#J${main}:${sub}`, 
+            type: 'lsInfo_hash_only', 
+            main, sub 
+        };
     }
     return { src: cleanBase, hash: '' };
 };
@@ -354,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Lazy Rendering for Nested Cities
         if (!isOpen && item._ordinanceData && item.querySelector('.nested-ordinance-grid') && item.querySelector('.nested-ordinance-grid').children.length === 0) {
-            console.log('Lazy rendering ordinances for:', item.id);
+
             const grid = item.querySelector('.nested-ordinance-grid');
             const uniquePrefix = item.id;
             item._ordinanceData.forEach((ord, idx) => {
@@ -412,6 +436,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const anyOtherOpen = document.querySelector('.accordion-item.expanded');
             if (!anyOtherOpen && !resultsActive) {
                 wrapper.classList.remove('split-view');
+                // Clean up resizer inline styles
+                const overlay = document.getElementById('searchOverlay');
+                if (overlay) {
+                    overlay.style.removeProperty('width');
+                    overlay.style.removeProperty('--sidebar-width');
+                }
             }
         }
     };
@@ -435,6 +465,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.innerWidth > 1024) {
             const wrapper = document.querySelector('.law-container-wrapper');
             wrapper.classList.remove('split-view');
+            // Clean up resizer inline styles
+            const overlay = document.getElementById('searchOverlay');
+            if (overlay) {
+                overlay.style.removeProperty('width');
+                overlay.style.removeProperty('--sidebar-width');
+            }
             document.querySelectorAll('.accordion-item').forEach(item => {
                 item.classList.remove('expanded');
             });
@@ -458,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.LAW_TRY_INIT_CALLED = true;
         try {
             if (window.ordinanceList) {
-                console.log('OrdinanceList loaded, initializing filters...');
+
                 if (typeof initOrdinanceFilters === 'function') {
                     initOrdinanceFilters();
                 } else if (window.initOrdinanceFilters) {
@@ -544,25 +580,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         window.ordinanceIdMap = idMap;
-        console.log('[DEBUG] ordinanceIdMap built with', idMap.size, 'entries.');
-        window.ordinanceSearchData = ordinanceContent;
-        console.log(`Content Loaded: ${lawData.length} Law Items, ${ordinanceContent.length} Ordinance Items`);
+
     });
 
 
-    // === Rendering Functions (Kept for future use if needed, but not called) ===
 
-    function renderFilters(list) {
-        // ... existing code ...
-    }
-
-    function renderLawList(list) {
-        // ... existing code ...
-    }
-
-    function createAccordionItem(item) {
-        // ... existing code ...
-    }
 
 
     // === Filter Event Logic ===
@@ -725,9 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log('Performing Search:', query);
-        console.log('requestOrdinanceEnabled:', typeof requestOrdinanceEnabled !== 'undefined' ? requestOrdinanceEnabled : 'undefined');
-        console.log('window.ordinanceData:', window.ordinanceData ? 'Present' : 'Missing');
+
 
         // Search Modes
         let searchMode = 'simple';
@@ -857,15 +877,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            console.log(`[Search Debug] Province: '${currentProvince}', ActiveTitles: ${activeOrdinanceTitles ? activeOrdinanceTitles.size : 'null (All)'}`);
-            if (activeOrdinanceTitles && activeOrdinanceTitles.size === 0) {
-                console.warn('[Search Debug] Strict mode active but NO titles allowed. This will result in 0 ordinance matches.');
-            }
 
-            console.log('Searching Ordinances... Strict Mode:', !!currentProvince, activeOrdinanceTitles ? `(${activeOrdinanceTitles.size} active)` : '(All)');
-            if (activeOrdinanceTitles) {
-                console.log('Active Titles Sample:', Array.from(activeOrdinanceTitles).slice(0, 3));
-            }
 
             // Helper to get region label from ID
             const getRegionLabel = (id) => {
@@ -967,145 +979,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            /* window.ordinanceData.forEach((group, gIndex) => {
-                const regionId = `region_${gIndex}`;
 
-                // Determine if metro or city structure
-                let isMetro = group.type === 'metro';
-                if (!group.type && group.rows && !Array.isArray(group.rows)) isMetro = true;
-                if (group.ordinances && Array.isArray(group.ordinances) && !group.rows) isMetro = true;
-
-                const processOrdinance = (ord, oIndex, prefixId, regionLabel) => {
-                    // Strict Filter Check
-                    if (activeOrdinanceTitles !== null && !activeOrdinanceTitles.has(ord.title)) {
-                        return;
-                    }
-
-                    let matches = [];
-                    const titleMatch = ord.title.includes(query);
-
-                    // Title Match Snippet
-                    if (titleMatch) {
-                        matches.push({
-                            articleNum: '',
-                            articleLabel: regionLabel || '조례',
-                            snippet: ord.title.replace(new RegExp(query, 'g'), `<mark>${query}</mark>`),
-                            fullText: ''
-                        });
-                    }
-
-                    // Article-level search (same logic as law articles)
-                    if (ord.fullText) {
-                        const parsedArticles = parseOrdinanceArticles(ord.fullText);
-
-                        if (parsedArticles.length > 0) {
-                            // Per-article search (matches law search behavior)
-                            parsedArticles.forEach(article => {
-                                const content = article.fullText;
-                                let articleMatches = [];
-                                let matchedTerms = [];
-
-                                searchTerms.forEach(term => {
-                                    let startIndex = 0;
-                                    let termMatches = [];
-                                    let count = 0;
-                                    while ((startIndex = content.indexOf(term, startIndex)) > -1 && count < 5) {
-                                        const start = Math.max(0, startIndex - 30);
-                                        const end = Math.min(content.length, startIndex + term.length + 50);
-                                        termMatches.push({ term, start, end });
-                                        startIndex += term.length;
-                                        count++;
-                                    }
-                                    if (termMatches.length > 0) {
-                                        matchedTerms.push(term);
-                                        articleMatches = articleMatches.concat(termMatches);
-                                    }
-                                });
-
-                                let shouldInclude = false;
-                                if (searchMode === 'simple' || searchMode === 'or') shouldInclude = matchedTerms.length > 0;
-                                else if (searchMode === 'and') shouldInclude = matchedTerms.length === searchTerms.length;
-
-                                if (shouldInclude && articleMatches.length > 0) {
-                                    const uniqueSnippets = [];
-                                    const seenRanges = [];
-                                    articleMatches.forEach(m => {
-                                        const isDuplicate = seenRanges.some(r => (m.start >= r.start && m.start <= r.end) || (m.end >= r.start && m.end <= r.end));
-                                        if (!isDuplicate) {
-                                            let snippetText = content.substring(m.start, m.end);
-                                            searchTerms.forEach(term => snippetText = snippetText.replace(new RegExp(term, 'g'), `<mark>${term}</mark>`));
-                                            uniqueSnippets.push(snippetText);
-                                            seenRanges.push({ start: m.start, end: m.end });
-                                        }
-                                    });
-
-                                    if (uniqueSnippets.length > 0) {
-                                        matches.push({
-                                            articleNum: article.num,
-                                            articleLabel: article.fullLabel + (uniqueSnippets.length > 1 ? ` (${uniqueSnippets.length}곳)` : ''),
-                                            snippet: uniqueSnippets.slice(0, 3).join(' ... <br><br> ... '),
-                                            fullText: article.fullText
-                                        });
-                                    }
-                                }
-                            });
-                        } else {
-                            // Fallback: blob search for ordinances without parseable articles
-                            let textMatches = [];
-                            searchTerms.forEach(term => {
-                                let startIndex = 0;
-                                let count = 0;
-                                while ((startIndex = ord.fullText.indexOf(term, startIndex)) > -1 && count < 5) {
-                                    const start = Math.max(0, startIndex - 30);
-                                    const end = Math.min(ord.fullText.length, startIndex + term.length + 50);
-                                    textMatches.push({ term, start, end, snippet: ord.fullText.substring(start, end) });
-                                    startIndex += term.length;
-                                    count++;
-                                }
-                            });
-                            textMatches.forEach(m => {
-                                let snippet = m.snippet;
-                                searchTerms.forEach(term => {
-                                    snippet = snippet.replace(new RegExp(term, 'g'), `<mark>${term}</mark>`);
-                                });
-                                matches.push({
-                                    articleNum: '',
-                                    articleLabel: (regionLabel || '조례') + ' (본문)',
-                                    snippet: '... ' + snippet + ' ...',
-                                    fullText: ''
-                                });
-                            });
-                        }
-                    }
-
-                    if (matches.length > 0) {
-                        ordinanceResults.push({
-                            id: `${prefixId}_ord_${oIndex}`,
-                            title: ord.title,
-                            count: matches.length,
-                            matches: matches,
-                            type: 'ordinance'
-                        });
-                    }
-                };
-
-                if (isMetro) {
-                    let ordinances = [];
-                    if (group.rows && Array.isArray(group.rows)) ordinances = group.rows.flatMap(r => r.ordinances || []);
-                    else if (group.ordinances) ordinances = group.ordinances;
-
-                    ordinances.forEach((ord, oIndex) => processOrdinance(ord, oIndex, regionId, group.region));
-
-                } else if (group.rows) {
-                    group.rows.forEach((row, rIndex) => {
-                        if (row.ordinances) {
-                            row.ordinances.forEach((ord, oIndex) => {
-                                processOrdinance(ord, oIndex, `${regionId}_city_${rIndex}`, row.region);
-                            });
-                        }
-                    });
-                }
-            }); */
         }
 
         const combinedResults = [...lawResults, ...ordinanceResults];
@@ -1314,37 +1188,70 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.querySelector('.law-container-wrapper');
 
     const setIframeSrcSafe = (iframe, jump) => {
-        const targetUrl = `${jump.src}${jump.hash}`;
-        const currentSrc = iframe.src ? decodeURIComponent(iframe.src) : '';
+        const targetUrl = jump.hash ? `${jump.src}${jump.hash}` : jump.src;
+        let currentSrc = '';
+        try {
+            // Attempt to get actual internal src if same-origin (unlikely for law.go.kr, but good practice)
+            currentSrc = iframe.contentWindow.location.href;
+        } catch(e) {
+            currentSrc = iframe.src || '';
+        }
         
-        console.log(`[ANTIGRAVITY] Navigating to: ${targetUrl} (Type: ${jump.type})`);
-        
-        // If the base URL is the same and we're just changing the hash, 
-        // do not force a reload. This allows smooth, flicker-free scrolling.
+        currentSrc = decodeURIComponent(currentSrc);
         const currentBase = currentSrc.split('#')[0];
-        const targetBase = targetUrl.split('#')[0];
+        const targetBaseRaw = jump.src.split('#')[0];
         
-        if (currentBase === targetBase && currentSrc !== '') {
-            iframe.src = targetUrl; // Hash change only: smooth scroll
-        } else {
-            // Different law or first load: use about:blank to ensure clean load
-            iframe.src = 'about:blank';
-            setTimeout(() => {
+        // Detect if it's the same fundamental law page
+        // For Pretty URLs, we're comparing /법령/건축법-BASE vs target
+        const isSameLaw = currentBase.includes(targetBaseRaw) || targetBaseRaw.includes(currentBase);
+
+        if (isSameLaw && currentSrc !== '') {
+            // Smooth navigation using hash only if bases match enough 
+            // Most law.go.kr pages (LSW or Pretty) support #Jxx:x anchors
+            if (currentSrc.includes(jump.hash)) {
+                // If already at this hash, force a small bounce to re-trigger internal scroll logic
+                iframe.src = targetBaseRaw + '#_scrolling';
+                setTimeout(() => { iframe.src = targetUrl; }, 10);
+            } else {
+                // Changing only the hash doesn't flicker and triggers scrolling in most law.go.kr views
                 iframe.src = targetUrl;
-            }, 30);
+            }
+        } else {
+            // Different law: full reload. We skip about:blank to avoid white flicker.
+            iframe.src = targetUrl;
         }
     };
 
     if (!targetItem) {
         wrapper.classList.add('split-view');
+        
         const openTargetCard = (attempt) => {
             const el = document.getElementById(lawId);
             if (el) {
+                // Expand all parents upwards
                 let curr = el;
-                while(curr && curr.classList) {
-                    if(curr.classList.contains('accordion-item')) curr.classList.add('expanded');
+                while (curr && curr.classList) {
+                    if (curr.classList.contains('accordion-item')) {
+                        if (!curr.classList.contains('expanded')) {
+                            // If it's a header with onclick, try to trigger it
+                            const header = curr.querySelector(':scope > .accordion-header');
+                            if (header) {
+                                // Instead of direct class add, use the toggle function if possible
+                                // or just force it open
+                                curr.classList.add('expanded');
+                                const content = curr.querySelector(':scope > .accordion-content');
+                                if (content) {
+                                    content.style.setProperty('display', 'flex', 'important');
+                                    content.style.setProperty('height', '100%', 'important');
+                                }
+                            } else {
+                                curr.classList.add('expanded');
+                            }
+                        }
+                    }
                     curr = curr.parentElement;
                 }
+                
                 const iframe = el.querySelector('iframe');
                 if (iframe && iframe.dataset.src) {
                     const titleEl = el.querySelector('.accordion-title');
@@ -1354,10 +1261,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
             } else if (attempt > 0) {
-                setTimeout(() => openTargetCard(attempt - 1), 150);
+                // If lawId is an ordinance (region_N_city_M_ord_K), try to expand the parents first
+                if (lawId.startsWith('region_')) {
+                    const parts = lawId.split('_');
+                    const regionId = `${parts[0]}_${parts[1]}`;
+                    const regionEl = document.getElementById(regionId);
+                    if (regionEl && !regionEl.classList.contains('expanded')) {
+                        const header = regionEl.querySelector('.accordion-header');
+                        if (header) header.click();
+                    }
+                    
+                    if (parts.length > 3) { // It has a city level
+                        const cityId = `${parts[0]}_${parts[1]}_${parts[2]}_${parts[3]}`;
+                        const cityEl = document.getElementById(cityId);
+                        if (cityEl && !cityEl.classList.contains('expanded')) {
+                            const header = cityEl.querySelector('.accordion-header');
+                            if (header) header.click();
+                        }
+                    }
+                }
+                setTimeout(() => openTargetCard(attempt - 1), 200);
             }
         };
-        openTargetCard(5);
+        openTargetCard(8);
         return;
     }
 
@@ -1428,8 +1354,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Resizer Implementation ---
     const searchLayout = document.getElementById('searchOverlay');
     if (searchLayout) {
+        // Clear any existing resizer (useful for HMR)
+        document.querySelectorAll('.resizer').forEach(r => r.remove());
+
         const resizer = document.createElement('div');
         resizer.className = 'resizer';
+        
+        // Add a visual handle
+        const handle = document.createElement('div');
+        handle.className = 'resizer-handle';
+        handle.innerHTML = '<span></span><span></span><span></span>';
+        resizer.appendChild(handle);
+
         // Insert resizer after the search overlay
         if (searchLayout.nextSibling) {
             searchLayout.parentNode.insertBefore(resizer, searchLayout.nextSibling);
@@ -1438,36 +1374,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let isResizing = false;
+        let startX = 0;
+        let startWidth = 0;
 
-        resizer.addEventListener('mousedown', (e) => {
-            isResizing = true;
-            resizer.classList.add('resizing');
-            document.body.style.cursor = 'col-resize';
-            document.body.style.userSelect = 'none';
-        });
+        // NOTE: When using setPointerCapture, all pointer events are
+        // redirected to the CAPTURING element (the resizer), NOT to document.
+        // Therefore we bind move/up listeners on the resizer itself.
 
-        document.addEventListener('mousemove', (e) => {
+        function onPointerMove(e) {
             if (!isResizing) return;
-            const newWidth = e.clientX - searchLayout.getBoundingClientRect().left;
+            
+            const deltaX = e.clientX - startX;
+            const newWidth = Math.max(280, Math.min(window.innerWidth * 0.8, startWidth + deltaX));
+            
+            // Direct style set (no rAF) — immediate feedback, no stale-state risk
+            searchLayout.style.width = newWidth + 'px';
+            searchLayout.style.setProperty('--sidebar-width', newWidth + 'px');
+        }
 
-            // Constraints
-            const minW = 280;
-            const maxW = window.innerWidth * 0.6;
+        function onPointerUp(e) {
+            if (!isResizing) return;
+            isResizing = false;
+            
+            resizer.classList.remove('resizing');
+            document.body.classList.remove('resizing-active');
+            
+            // Restore CSS transition
+            searchLayout.style.removeProperty('transition');
+            
+            // Release pointer capture
+            try { resizer.releasePointerCapture(e.pointerId); } catch(_) {}
+            
+            // Clean up listeners from resizer
+            resizer.removeEventListener('pointermove', onPointerMove);
+            resizer.removeEventListener('pointerup', onPointerUp);
+            resizer.removeEventListener('pointercancel', onPointerUp);
+        }
 
-            if (newWidth >= minW && newWidth <= maxW) {
-                searchLayout.style.setProperty('--sidebar-width', `${newWidth} px`);
-                // Force width update (redundancy for safety)
-                searchLayout.style.width = `${newWidth} px`;
-            }
+        resizer.addEventListener('pointerdown', function(e) {
+            // Only left mouse button or touch
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+            
+            const wrapper = searchLayout.closest('.law-container-wrapper');
+            if (!wrapper || !wrapper.classList.contains('split-view')) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+            
+            isResizing = true;
+            startX = e.clientX;
+            startWidth = searchLayout.getBoundingClientRect().width;
+            
+            // Kill CSS transition on the sidebar during resize — this is the
+            // primary cause of "jumping": the transition animates width towards
+            // the CSS-variable default while JS tries to set a new value.
+            searchLayout.style.transition = 'none';
+            
+            resizer.classList.add('resizing');
+            document.body.classList.add('resizing-active');
+            
+            // Capture pointer: all future pointer events go to *this* element
+            resizer.setPointerCapture(e.pointerId);
+            
+            // Listeners on the resizer (NOT document) because of pointer capture
+            resizer.addEventListener('pointermove', onPointerMove);
+            resizer.addEventListener('pointerup', onPointerUp);
+            resizer.addEventListener('pointercancel', onPointerUp);
         });
 
-        document.addEventListener('mouseup', () => {
-            if (isResizing) {
-                isResizing = false;
-                resizer.classList.remove('resizing');
-                document.body.style.cursor = '';
-                document.body.style.userSelect = '';
-            }
+        resizer.addEventListener('dblclick', () => {
+            searchLayout.style.removeProperty('width');
+            searchLayout.style.removeProperty('--sidebar-width');
         });
     }
 
@@ -1534,7 +1511,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            console.log('Generating checkboxes for:', uniqueOrds.length, 'ordinances');
+
             uniqueOrds.forEach((ord, index) => {
                 const label = document.createElement('label');
                 label.className = 'ordinance-detail-checkbox';
@@ -1663,7 +1640,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === Ordinance Filter Logic (Re-injected) ===
     function initOrdinanceFilters() {
-        console.log('initOrdinanceFilters called');
+
         window._debugLogs = window._debugLogs || [];
         window._debugLogs.push('initOrdinanceFilters called');
 
@@ -1707,7 +1684,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check if ordinanceList is defined
         const regions = window.ordinanceList || [];
-        console.log('initOrdinanceFilters active, regions count:', regions.length);
+
         window._debugLogs.push(`regions count: ${regions.length} `);
 
         if (regions.length === 0) {
@@ -1733,7 +1710,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const sortedProvinces = Array.from(provinceMap.keys()).sort();
-            console.log('Populating provinces:', sortedProvinces); // Debug Log
+
 
             sortedProvinces.forEach(prov => {
                 const option = document.createElement('option');

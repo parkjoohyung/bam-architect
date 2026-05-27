@@ -37,7 +37,6 @@
                     <a href="about.html">About</a>
                     <a href="projects.html">Projects</a>
                     <a href="blog.html" class="active">Blog</a>
-                    <a href="news.html">News</a>
                     <a href="law.html">Law</a>
                     <a href="contact.html">Contact</a>
                 </nav>
@@ -228,7 +227,46 @@
                 document.getElementById('post-title').innerText = currentPost.title;
                 document.getElementById('breadcrumb-title').innerText = currentPost.title;
                 document.getElementById('post-meta').innerHTML = `<span>${currentPost.date}</span>`;
-                document.title = `${currentPost.title} - 건축사사무소밤`;
+                
+                // --- Dynamic SEO Update ---
+                const postTitle = `${currentPost.title} - 건축사사무소밤`;
+                const postDesc = currentPost.description || currentPost.content.substring(0, 160).replace(/\n/g, ' ');
+                const postUrl = window.location.href;
+
+                document.title = postTitle;
+                document.querySelector('meta[name="description"]').setAttribute('content', postDesc);
+                document.querySelector('meta[property="og:title"]').setAttribute('content', postTitle);
+                document.querySelector('meta[property="og:description"]').setAttribute('content', postDesc);
+                document.querySelector('meta[property="og:url"]')?.setAttribute('content', postUrl);
+
+                // Add JSON-LD Schema
+                const schemaData = {
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        {
+                            "@type": "BreadcrumbList",
+                            "itemListElement": [
+                                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://parkjoohyung.github.io/bam-architect/" },
+                                { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://parkjoohyung.github.io/bam-architect/blog.html" },
+                                { "@type": "ListItem", "position": 3, "name": currentPost.title }
+                            ]
+                        },
+                        {
+                            "@type": "BlogPosting",
+                            "headline": currentPost.title,
+                            "description": postDesc,
+                            "datePublished": currentPost.date.replace(/\./g, '-'),
+                            "author": { "@type": "Organization", "name": "건축사사무소밤" },
+                            "publisher": { "@type": "Organization", "name": "건축사사무소밤" },
+                            "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl }
+                        }
+                    ]
+                };
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.text = JSON.stringify(schemaData);
+                document.head.appendChild(script);
+                // --------------------------
 
                 if (currentPost.tags) {
                     document.getElementById('post-tags').innerHTML = currentPost.tags.map(tag =>

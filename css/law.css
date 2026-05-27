@@ -730,26 +730,33 @@
                 align-items: flex-start;
                 max-width: 100% !important;
                 width: 100% !important;
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
+                padding: 0 !important;
+                margin: 0 !important;
             }
 
             /* Resizer Handle */
             .resizer {
-                width: 12px;
+                width: 16px;
+                min-width: 16px;
                 cursor: col-resize;
                 flex-shrink: 0;
-                align-self: stretch;
                 display: none;
                 justify-content: center;
-                position: sticky;
-                top: 100px;
-                height: calc(100vh - 120px);
-                z-index: 900;
+                align-items: center;
+                position: relative;
+                z-index: 1000;
+                background: transparent;
+                transition: background 0.2s;
+                touch-action: none;
+                user-select: none;
             }
 
             .law-container-wrapper.split-view .resizer {
                 display: flex;
+            }
+
+            .resizer:hover, .resizer.resizing {
+                background: rgba(255, 255, 255, 0.05);
             }
 
             .resizer::after {
@@ -762,8 +769,63 @@
 
             .resizer:hover::after,
             .resizer.resizing::after {
-                width: 3px;
+                width: 2px;
                 background: #4a9eff;
+            }
+
+            /* Handle bar in the middle */
+            .resizer-handle {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 24px;
+                height: 48px;
+                background: #333;
+                border: 1px solid #444;
+                border-radius: 4px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3px;
+                pointer-events: none; /* Let events go to .resizer */
+                z-index: 901;
+                transition: background 0.2s;
+            }
+
+            .resizer:hover .resizer-handle {
+                background: #444;
+                border-color: #555;
+            }
+
+            .resizer-handle span {
+                width: 12px;
+                height: 1px;
+                background: #888;
+            }
+
+            /* Prevent everything else during resize */
+            body.resizing-active {
+                cursor: col-resize !important;
+                user-select: none !important;
+                -webkit-user-select: none !important;
+            }
+
+            body.resizing-active iframe {
+                pointer-events: none !important;
+            }
+
+            /* Smooth width transition for the sidebar (disabled during resize) */
+            .law-container-wrapper.split-view .search-overlay {
+                transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+
+            body.resizing-active .law-container-wrapper.split-view .search-overlay {
+                transition: none !important;
+            }
+
+            body.resizing-active .law-container-wrapper.split-view * {
+                transition: none !important;
             }
 
             .law-container-wrapper.split-view .search-overlay {
@@ -771,6 +833,7 @@
                 min-width: 280px;
                 max-width: 60vw;
                 flex-shrink: 0;
+                margin: 0 !important;
                 position: sticky;
                 top: 100px;
                 height: calc(100vh - 120px);
@@ -781,8 +844,8 @@
                 background: #262626;
                 border-radius: 8px;
                 border: 1px solid #333;
-                overflow: visible;
-                /* Allow children to handle their own overflow */
+                overflow: hidden;
+                /* Prevent content from overflowing onto the resizer */
             }
 
             .law-container-wrapper.split-view .search-section {
@@ -1752,7 +1815,7 @@
     white-space: nowrap;
 }
 
-/* Ω√º≥±∫ column */
+/* ÏãúÏÑ§Íµ∞ column */
 .data-table tbody td:nth-child(2) {
     font-weight: 500;
     color: #a8d4a8;
@@ -1760,7 +1823,7 @@
     font-size: 0.82rem;
 }
 
-/* »£ºˆ column */
+/* Ìò∏Ïàò column */
 .data-table tbody td:nth-child(3) {
     text-align: center;
     color: #c4a87a;
@@ -1768,7 +1831,7 @@
     font-size: 0.82rem;
 }
 
-/* øÎµµ±∫ column */
+/* Ïö©ÎèÑÍµ∞ column */
 .data-table tbody td:nth-child(4) {
     font-weight: 500;
     color: #e0c880;
@@ -1776,14 +1839,14 @@
     font-size: 0.85rem;
 }
 
-/* ºº∫ŒøÎµµ column - wrap */
+/* ÏÑ∏Î∂ÄÏö©ÎèÑ column - wrap */
 .data-table tbody td:nth-child(5) {
     max-width: 420px;
     word-break: keep-all;
     font-size: 0.83rem;
 }
 
-/* ∫Ò∞Ì column - wrap */
+/* ÎπÑÍ≥† column - wrap */
 .data-table tbody td:nth-child(6) {
     max-width: 180px;
     word-break: keep-all;

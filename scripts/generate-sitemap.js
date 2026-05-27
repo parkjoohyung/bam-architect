@@ -21,9 +21,7 @@ const pages = [
   { path: '/about.html', priority: '0.8', changefreq: 'monthly' },
   { path: '/projects.html', priority: '0.9', changefreq: 'weekly' },
   { path: '/blog.html', priority: '0.9', changefreq: 'daily' },
-  { path: '/news.html', priority: '0.8', changefreq: 'daily' },
   { path: '/law.html', priority: '0.7', changefreq: 'weekly' },
-  { path: '/ai-studio.html', priority: '0.6', changefreq: 'monthly' },
   { path: '/contact.html', priority: '0.7', changefreq: 'monthly' },
 ];
 
