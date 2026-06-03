@@ -247,11 +247,12 @@
 }
 
 .quartz-breadcrumb a {
-    color: var(--q-secondary);
+    color: var(--q-gray);
     text-decoration: none;
 }
 
 .quartz-breadcrumb a:hover {
+    color: var(--q-secondary);
     text-decoration: underline;
 }
 
