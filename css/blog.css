@@ -454,7 +454,8 @@
 
 /* Graph View - Quartz Style */
 .quartz-graph {
-    background: var(--q-lightgray);
+    background: var(--q-light);
+    border: 1px solid var(--q-lightgray);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -462,6 +463,7 @@
 .quartz-graph-container {
     height: 200px;
     position: relative;
+    background: transparent !important;
 }
 
 .quartz-graph-container svg {
