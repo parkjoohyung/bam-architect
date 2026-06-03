@@ -21,12 +21,27 @@ async function scrapeAndSave() {
     }
 
     // Extract text content
-    console.log('Extracting text content...');
-    const content = await page.evaluate(() => {
-        // Try precise selector first, then fallback to body
-        const el = document.querySelector('.text') || document.querySelector('#contentBody') || document.body;
-        return el ? el.innerText : '';
-    });
+    console.log('Extracting text content from frames...');
+    // Artificial delay for frames to fully settle
+    await new Promise(r => setTimeout(r, 4000));
+    
+    let content = '';
+    console.log(`Found ${page.frames().length} frames in total.`);
+    for (const [index, frame] of page.frames().entries()) {
+        try {
+            const url = frame.url();
+            const text = await frame.evaluate(() => {
+                const el = document.getElementById('conScroll') || document.getElementById('contentBody') || document.querySelector('.text') || document.body;
+                return el ? el.innerText : '';
+            });
+            console.log(`  - Frame ${index}: url="${url}", textLength=${text ? text.length : 0}`);
+            if (text && text.length > content.length && (text.includes('단독주택') || text.includes('용도별'))) {
+                content = text;
+            }
+        } catch (e) {
+            console.log(`  - Frame ${index} error: ${e.message}`);
+        }
+    }
 
     await browser.close();
 
@@ -35,6 +50,7 @@ async function scrapeAndSave() {
         return;
     }
 
+    fs.writeFileSync('temp_content.txt', content, 'utf8');
     console.log('Parsing content length:', content.length);
     // Simple parser logic (heuristic)
     // Structure typically: "1. 단독주택[줄바꿈] 가. 단독주택[줄바꿈] 나. 다중주택..."

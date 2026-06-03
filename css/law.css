@@ -740,10 +740,13 @@
                 min-width: 16px;
                 cursor: col-resize;
                 flex-shrink: 0;
+                align-self: stretch;
+                position: sticky;
+                top: 100px;
+                height: calc(100vh - 120px);
                 display: none;
                 justify-content: center;
                 align-items: center;
-                position: relative;
                 z-index: 1000;
                 background: transparent;
                 transition: background 0.2s;
@@ -813,26 +816,21 @@
 
             body.resizing-active iframe {
                 pointer-events: none !important;
+                visibility: hidden !important; /* Hiding iframes during drag gives a massive FPS boost */
+            }
+            
+            body.resizing-active .law-layout-flex {
+                pointer-events: none !important;
             }
 
-            /* Smooth width transition for the sidebar (disabled during resize) */
-            .law-container-wrapper.split-view .search-overlay {
-                transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            }
-
-            body.resizing-active .law-container-wrapper.split-view .search-overlay {
-                transition: none !important;
-            }
-
-            body.resizing-active .law-container-wrapper.split-view * {
-                transition: none !important;
-            }
+            /* No transition on sidebar width — it caused snap-back during resize */
 
             .law-container-wrapper.split-view .search-overlay {
                 width: var(--sidebar-width, 350px);
                 min-width: 280px;
                 max-width: 60vw;
                 flex-shrink: 0;
+                will-change: width;
                 margin: 0 !important;
                 position: sticky;
                 top: 100px;

@@ -1373,46 +1373,50 @@ document.addEventListener('DOMContentLoaded', () => {
             searchLayout.parentNode.appendChild(resizer);
         }
 
-        let isResizing = false;
         let startX = 0;
         let startWidth = 0;
+        let isDragging = false;
+        let maxAllowedWidth = 0;
+        let rafId = null;
+        let currentDelta = 0;
 
-        // NOTE: When using setPointerCapture, all pointer events are
-        // redirected to the CAPTURING element (the resizer), NOT to document.
-        // Therefore we bind move/up listeners on the resizer itself.
+        function updateWidth() {
+            // Prevent going smaller than 280px or larger than 80% of screen
+            const newWidth = Math.max(280, Math.min(maxAllowedWidth, startWidth + currentDelta));
+            searchLayout.style.width = newWidth + 'px';
+            rafId = null;
+        }
 
         function onPointerMove(e) {
-            if (!isResizing) return;
+            if (!isDragging) return;
+            e.preventDefault();
+            currentDelta = e.clientX - startX;
             
-            const deltaX = e.clientX - startX;
-            const newWidth = Math.max(280, Math.min(window.innerWidth * 0.8, startWidth + deltaX));
-            
-            // Direct style set (no rAF) — immediate feedback, no stale-state risk
-            searchLayout.style.width = newWidth + 'px';
-            searchLayout.style.setProperty('--sidebar-width', newWidth + 'px');
+            // Throttle style updates using requestAnimationFrame
+            if (!rafId) {
+                rafId = requestAnimationFrame(updateWidth);
+            }
         }
 
         function onPointerUp(e) {
-            if (!isResizing) return;
-            isResizing = false;
+            if (!isDragging) return;
+            isDragging = false;
+            
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
             
             resizer.classList.remove('resizing');
             document.body.classList.remove('resizing-active');
             
-            // Restore CSS transition
-            searchLayout.style.removeProperty('transition');
-            
-            // Release pointer capture
-            try { resizer.releasePointerCapture(e.pointerId); } catch(_) {}
-            
-            // Clean up listeners from resizer
-            resizer.removeEventListener('pointermove', onPointerMove);
-            resizer.removeEventListener('pointerup', onPointerUp);
-            resizer.removeEventListener('pointercancel', onPointerUp);
+            document.removeEventListener('pointermove', onPointerMove);
+            document.removeEventListener('pointerup', onPointerUp);
+            document.removeEventListener('pointercancel', onPointerUp);
         }
 
         resizer.addEventListener('pointerdown', function(e) {
-            // Only left mouse button or touch
+            // Only allow left click (or touch)
             if (e.pointerType === 'mouse' && e.button !== 0) return;
             
             const wrapper = searchLayout.closest('.law-container-wrapper');
@@ -1421,30 +1425,27 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
             
-            isResizing = true;
+            isDragging = true;
             startX = e.clientX;
+            // Get current actual width of the overlay
             startWidth = searchLayout.getBoundingClientRect().width;
-            
-            // Kill CSS transition on the sidebar during resize — this is the
-            // primary cause of "jumping": the transition animates width towards
-            // the CSS-variable default while JS tries to set a new value.
-            searchLayout.style.transition = 'none';
+            maxAllowedWidth = window.innerWidth * 0.8;
+            currentDelta = 0;
             
             resizer.classList.add('resizing');
             document.body.classList.add('resizing-active');
-            
-            // Capture pointer: all future pointer events go to *this* element
+
+            // Force capture to ensure we don't lose the pointer if it moves fast
             resizer.setPointerCapture(e.pointerId);
-            
-            // Listeners on the resizer (NOT document) because of pointer capture
-            resizer.addEventListener('pointermove', onPointerMove);
-            resizer.addEventListener('pointerup', onPointerUp);
-            resizer.addEventListener('pointercancel', onPointerUp);
+
+            document.addEventListener('pointermove', onPointerMove);
+            document.addEventListener('pointerup', onPointerUp);
+            document.addEventListener('pointercancel', onPointerUp);
         });
 
         resizer.addEventListener('dblclick', () => {
+            // Reset to default CSS width
             searchLayout.style.removeProperty('width');
-            searchLayout.style.removeProperty('--sidebar-width');
         });
     }
 
