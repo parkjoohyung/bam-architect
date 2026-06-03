@@ -31,35 +31,35 @@ $$\text{용적률} = \frac{\text{용적률 산정용 연면적}}{\text{대지면
 대지 정보를 아래에 입력하면 자동으로 건폐율과 용적률이 계산됩니다.
 
 <div style="background: var(--q-lightgray); border: 1px solid var(--q-gray); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; max-width: 480px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); font-family: sans-serif;">
-    <h4 style="margin-top: 0; margin-bottom: 1.25rem; font-size: 1.1rem; color: var(--q-dark); border-bottom: 1px solid var(--q-gray); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-        📊 실시간 건축 규모 시뮬레이터
-    </h4>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-        <div>
-            <label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--q-darkgray);">대지면적 (㎡)</label>
-            <input type="number" id="calc-land" value="200" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--q-gray); background: var(--q-light); color: var(--q-dark); font-size: 0.9rem;" oninput="runCalculator()">
-        </div>
-        <div>
-            <label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--q-darkgray);">건축면적 (㎡)</label>
-            <input type="number" id="calc-build" value="120" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--q-gray); background: var(--q-light); color: var(--q-dark); font-size: 0.9rem;" oninput="runCalculator()">
-        </div>
-    </div>
-    <div style="margin-bottom: 1.5rem;">
-        <label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--q-darkgray);">용적률 산정용 연면적 (㎡)</label>
-        <input type="number" id="calc-floor" value="360" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--q-gray); background: var(--q-light); color: var(--q-dark); font-size: 0.9rem;" oninput="runCalculator()">
-        <span style="font-size: 0.75rem; color: var(--q-gray); display: block; margin-top: 0.25rem;">* 지하층, 지상층 주차장 등은 산정에서 제외</span>
-    </div>
+<h4 style="margin-top: 0; margin-bottom: 1.25rem; font-size: 1.1rem; color: var(--q-dark); border-bottom: 1px solid var(--q-gray); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+📊 실시간 건축 규모 시뮬레이터
+</h4>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+<div>
+<label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--q-darkgray);">대지면적 (㎡)</label>
+<input type="number" id="calc-land" value="200" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--q-gray); background: var(--q-light); color: var(--q-dark); font-size: 0.9rem;" oninput="runCalculator()">
+</div>
+<div>
+<label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--q-darkgray);">건축면적 (㎡)</label>
+<input type="number" id="calc-build" value="120" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--q-gray); background: var(--q-light); color: var(--q-dark); font-size: 0.9rem;" oninput="runCalculator()">
+</div>
+</div>
+<div style="margin-bottom: 1.5rem;">
+<label style="display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--q-darkgray);">용적률 산정용 연면적 (㎡)</label>
+<input type="number" id="calc-floor" value="360" style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--q-gray); background: var(--q-light); color: var(--q-dark); font-size: 0.9rem;" oninput="runCalculator()">
+<span style="font-size: 0.75rem; color: var(--q-gray); display: block; margin-top: 0.25rem;">* 지하층, 지상층 주차장 등은 산정에서 제외</span>
+</div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid var(--q-gray); padding-top: 1.25rem; background: rgba(0,0,0,0.02); border-radius: 0 0 8px 8px;">
-        <div style="text-align: center; padding: 0.5rem; background: var(--q-light); border-radius: 8px; border: 1px solid var(--q-lightgray);">
-            <div style="font-size: 0.8rem; color: var(--q-gray); margin-bottom: 0.25rem; font-weight: 600;">건폐율 결과</div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--q-secondary);"><span id="res-coverage">60.00</span> %</div>
-        </div>
-        <div style="text-align: center; padding: 0.5rem; background: var(--q-light); border-radius: 8px; border: 1px solid var(--q-lightgray);">
-            <div style="font-size: 0.8rem; color: var(--q-gray); margin-bottom: 0.25rem; font-weight: 600;">용적률 결과</div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--q-secondary);"><span id="res-far">180.00</span> %</div>
-        </div>
-    </div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid var(--q-gray); padding-top: 1.25rem; background: rgba(0,0,0,0.02); border-radius: 0 0 8px 8px;">
+<div style="text-align: center; padding: 0.5rem; background: var(--q-light); border-radius: 8px; border: 1px solid var(--q-lightgray);">
+<div style="font-size: 0.8rem; color: var(--q-gray); margin-bottom: 0.25rem; font-weight: 600;">건폐율 결과</div>
+<div style="font-size: 1.5rem; font-weight: 700; color: var(--q-secondary);"><span id="res-coverage">60.00</span> %</div>
+</div>
+<div style="text-align: center; padding: 0.5rem; background: var(--q-light); border-radius: 8px; border: 1px solid var(--q-lightgray);">
+<div style="font-size: 0.8rem; color: var(--q-gray); margin-bottom: 0.25rem; font-weight: 600;">용적률 결과</div>
+<div style="font-size: 1.5rem; font-weight: 700; color: var(--q-secondary);"><span id="res-far">180.00</span> %</div>
+</div>
+</div>
 </div>
 
 <script>
