@@ -743,6 +743,7 @@
 .quartz-post-item a {
     text-decoration: none;
     display: block;
+    color: var(--q-dark);
 }
 
 .quartz-post-item-meta {
@@ -754,12 +755,12 @@
 .quartz-post-item-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--q-dark);
+    color: inherit;
     margin-bottom: 0.5rem;
     transition: color 0.15s;
 }
 
-.quartz-post-item:hover .quartz-post-item-title {
+.quartz-post-item:hover a {
     color: var(--q-secondary);
 }
 
