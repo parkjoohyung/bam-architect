@@ -296,6 +296,37 @@
                     initQuartzFeatures(allPostsContent, postId);
                 }
 
+                // 6. Render Prev/Next Navigation
+                const currentIndex = allPosts.findIndex(p => p.id === postId);
+                const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+                const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+                let navigationHtml = '';
+                if (prevPost) {
+                    navigationHtml += `<a href="blog-post.html?id=${prevPost.id}" class="btn-link">← 이전 글</a>`;
+                }
+                if (nextPost) {
+                    navigationHtml += `<a href="blog-post.html?id=${nextPost.id}" class="btn-link">다음 글 →</a>`;
+                }
+                
+                const postNav = document.getElementById('post-nav');
+                postNav.style.display = 'flex';
+                postNav.style.justifyContent = 'space-between';
+                postNav.style.alignItems = 'center';
+
+                const existingLinks = postNav.querySelector('.prev-next-links');
+                if (existingLinks) {
+                    existingLinks.remove();
+                }
+
+                if (navigationHtml) {
+                    const prevNextContainer = document.createElement('div');
+                    prevNextContainer.className = 'prev-next-links';
+                    prevNextContainer.style.cssText = 'display: flex; gap: 1.5rem;';
+                    prevNextContainer.innerHTML = navigationHtml;
+                    postNav.appendChild(prevNextContainer);
+                }
+
             } catch (error) {
                 console.error(error);
                 document.getElementById('post-body').innerHTML = `<h1>Post not found</h1><p>${error.message}</p>`;
