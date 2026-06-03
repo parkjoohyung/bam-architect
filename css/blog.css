@@ -551,14 +551,14 @@
 }
 
 .quartz-backlinks-list a {
-    color: var(--q-secondary);
+    color: var(--q-darkgray);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.15s;
 }
 
 .quartz-backlinks-list a:hover {
-    color: var(--q-tertiary);
+    color: var(--q-secondary);
     text-decoration: underline;
 }
 
@@ -839,8 +839,8 @@ ul.toc-content>li>a:hover {
 }
 
 ul.toc-content>li>a.in-view {
-    color: var(--q-secondary);
-    border-left-color: var(--q-secondary);
+    color: var(--q-dark);
+    border-left-color: var(--q-dark);
     opacity: 1;
     font-weight: 600;
 }
