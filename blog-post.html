@@ -285,6 +285,14 @@
                 // Here we use marked library but we should match quartz-features logic
                 document.getElementById('post-body').innerHTML = marked.parse(currentPost.content);
 
+                // Execute scripts in the injected HTML
+                const scripts = document.getElementById('post-body').querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+
                 // 4. Render Sidebar Elements
                 renderExplorer(allPosts);
                 renderRecentPosts(allPosts);
