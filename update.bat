@@ -12,11 +12,16 @@ cd /d "%~dp0"
 call npm install puppeteer --no-save >nul 2>&1
 
 echo Scraping latest Annex 1 to Excel...
-node scrape_annex_one.js
+node scripts/scrape_annex_one.js
 
-node update_laws.js
+echo Updating national laws data...
+node scripts/update_laws.js
+
 echo Updating building types data...
-node convert_building_types.js
+node scripts/convert_building_types.js
+
+echo Updating ordinance data (local bylaws)...
+node scripts/scrape_ordinance.js
 
 echo.
 echo Update process finished.
