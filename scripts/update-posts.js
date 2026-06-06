@@ -95,13 +95,14 @@ function extractInternalLinks(content) {
     return [...new Set(links)];
 }
 
-// Helper to recursively get markdown files
+// Helper to recursively get markdown files (ignoring hidden files/folders)
 function getMarkdownFilesRecursive(dir, baseDir = dir) {
     let results = [];
     if (!fs.existsSync(dir)) return results;
 
     const list = fs.readdirSync(dir);
     list.forEach(file => {
+        if (file.startsWith('.')) return; // Skip dotfiles/folders like .obsidian
         const filePath = path.join(dir, file);
         const stat = fs.statSync(filePath);
         if (stat && stat.isDirectory()) {
