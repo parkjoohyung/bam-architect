@@ -2686,7 +2686,9 @@ window.initInteractiveExcalidraw = function() {
                     // frameId가 있는 텍스트는 frame 요소가 이미 라벨을 렌더링하므로 스킵
                     if (el.frameId) return;
                     let fill = resolveColor(el.strokeColor);
-                    if (el.text && el.text.trim().startsWith('•')) {
+                    if (el.link && el.link.trim() !== '') {
+                        fill = 'var(--q-secondary, #284b63)';
+                    } else if (el.text && el.text.trim().startsWith('•')) {
                         fill = 'var(--q-darkgray, #4e4e4e)';
                     }
                     const lines = el.text.split('\n');
@@ -2797,7 +2799,9 @@ window.initInteractiveExcalidraw = function() {
                                     svgHtml += `  <rect x="${subEl.x * s + dx}" y="${subEl.y * s + dy}" width="${subEl.width * s}" height="${subEl.height * s}" rx="${subRx}" ry="${subRx}" fill="${fill}" stroke="${subStroke}" stroke-width="${(subEl.strokeWidth || 1.5) * s}" />\n`;
                                 } else if (subEl.type === 'text') {
                                     let fill = resolveColor(subEl.strokeColor);
-                                    if (subEl.text && subEl.text.trim().startsWith('•')) {
+                                    if (subEl.link && subEl.link.trim() !== '') {
+                                        fill = 'var(--q-secondary, #284b63)';
+                                    } else if (subEl.text && subEl.text.trim().startsWith('•')) {
                                         fill = 'var(--q-darkgray, #4e4e4e)';
                                     }
                                     const lines = subEl.text.split('\n');
