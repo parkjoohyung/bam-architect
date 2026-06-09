@@ -2905,10 +2905,12 @@ window.initInteractiveExcalidraw = function() {
             const viewportCursor = isCleanInline ? 'default' : 'grab';
             const viewportHeight = isCleanInline ? 'auto' : '100%';
             
+            if (!isMainDrawPage) {
+                container.style.height = `${height}px`;
+            }
             if (isCleanInline) {
                 container.style.border = 'none';
                 container.style.background = 'transparent';
-                container.style.height = `${height}px`;
                 container.style.overflow = 'visible';
             }
             
