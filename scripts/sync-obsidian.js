@@ -15,12 +15,34 @@ const __dirname = path.dirname(__filename);
 // 설정
 const CONFIG = {
     // Obsidian 폴더 경로
-    obsidianPath: 'C:/Users/park/OneDrive/Park/obsidian/blog',
+    obsidianPath: 'D:/park/05.web/public/posts/web_blog',
     // 블로그 posts 폴더
     postsPath: path.join(__dirname, '..', 'posts'),
     // posts.json 경로
     indexPath: path.join(__dirname, '..', 'posts.json')
 };
+
+// 재귀적으로 마크다운 파일 찾기
+function getMarkdownFiles(dir, baseDir = dir) {
+    let results = [];
+    if (!fs.existsSync(dir)) return results;
+    
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat && stat.isDirectory()) {
+            if (file !== '.obsidian' && file !== '.git') {
+                results = results.concat(getMarkdownFiles(filePath, baseDir));
+            }
+        } else if (file.endsWith('.md') && !file.startsWith('.')) {
+            // baseDir 기준의 상대 경로 저장 (폴더 구조 유지 목적)
+            const relativePath = path.relative(baseDir, filePath).replace(/\\/g, '/');
+            results.push(relativePath);
+        }
+    });
+    return results;
+}
 
 // 프론트매터 파싱
 function parseFrontmatter(content) {
@@ -73,7 +95,8 @@ function parseFrontmatter(content) {
 
 // 파일명을 ID로 변환 (한글 지원)
 function generateId(filename) {
-    return filename
+    const filenameOnly = path.basename(filename);
+    return filenameOnly
         .replace(/\.md$/, '')
         .replace(/\s+/g, '-')
         .toLowerCase();
@@ -144,9 +167,8 @@ async function syncObsidianNotes() {
         return;
     }
 
-    // 마크다운 파일 수집
-    const files = fs.readdirSync(CONFIG.obsidianPath)
-        .filter(f => f.endsWith('.md') && !f.startsWith('.'));
+    // 마크다운 파일 수집 (재귀 스캔)
+    const files = getMarkdownFiles(CONFIG.obsidianPath);
 
     console.log(`📄 발견된 마크다운 파일: ${files.length}개\n`);
 
@@ -158,14 +180,16 @@ async function syncObsidianNotes() {
         const content = fs.readFileSync(filePath, 'utf-8');
         const { frontmatter, content: bodyContent } = parseFrontmatter(content);
 
-        // publish: true 필터링
-        if (frontmatter.publish !== true && frontmatter.publish !== 'true') {
+        // publish: true 필터링 (단, _draw.md 파일과 .canvas 파일은 publish 여부와 상관없이 허용)
+        const isDrawOrCanvas = file.endsWith('_draw.md') || file.endsWith('.canvas');
+        if (frontmatter.publish !== true && frontmatter.publish !== 'true' && !isDrawOrCanvas) {
             console.log(`⏭️  스킵 (publish ≠ true): ${file}`);
             continue;
         }
 
-        const id = generateId(file);
-        const title = frontmatter.title || file.replace('.md', '');
+        const filenameOnly = path.basename(file);
+        const id = generateId(filenameOnly);
+        const title = frontmatter.title || filenameOnly.replace('.md', '');
         const date = formatDate(frontmatter.date);
         const tags = frontmatter.tags || [];
         const description = frontmatter.description || extractDescription(bodyContent);
@@ -185,8 +209,12 @@ async function syncObsidianNotes() {
             links: linkGraph[id]
         });
 
-        // 파일 복사
+        // 파일 복사 (하위 폴더 구조 생성 후 복사)
         const destPath = path.join(CONFIG.postsPath, file);
+        const destDir = path.dirname(destPath);
+        if (!fs.existsSync(destDir)) {
+            fs.mkdirSync(destDir, { recursive: true });
+        }
         fs.copyFileSync(filePath, destPath);
 
         console.log(`✅ 동기화: ${title} (${date})`);
@@ -199,10 +227,12 @@ async function syncObsidianNotes() {
 
     // posts.json 저장
     fs.writeFileSync(CONFIG.indexPath, JSON.stringify(posts, null, 2), 'utf-8');
+    const publicIndexPath = path.join(__dirname, '..', 'public', 'posts.json');
+    fs.writeFileSync(publicIndexPath, JSON.stringify(posts, null, 2), 'utf-8');
 
     console.log(`\n✨ 동기화 완료!`);
     console.log(`   - 총 ${posts.length}개 포스트`);
-    console.log(`   - posts.json 저장됨`);
+    console.log(`   - posts.json 및 public/posts.json 저장됨`);
     console.log(`   - posts/ 폴더에 파일 복사됨`);
 
     // 통계

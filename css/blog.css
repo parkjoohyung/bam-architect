@@ -15,13 +15,13 @@
     --q-dark: #2b2b2b;
     --q-secondary: #284b63;
     --q-tertiary: #84a59d;
-    --q-highlight: rgba(143, 159, 169, 0.15);
-    --q-text-highlight: rgba(255, 242, 54, 0.5);
+    --q-highlight: rgba(0, 0, 0, 0.05);
+    --q-text-highlight: rgba(0, 0, 0, 0.08);
 
     /* Layout */
     --q-sidebar-width: 320px;
-    --q-content-width: 850px;
-    --q-page-max-width: 1500px;
+    --q-content-width: 1000px;
+    --q-page-max-width: 1700px;
     --q-gap: 2rem;
 
     /* Typography */
@@ -39,12 +39,12 @@
     --q-light: #161618;
     --q-lightgray: #393639;
     --q-gray: #646464;
-    --q-darkgray: #d4d4d4;
-    --q-dark: #ebebec;
+    --q-darkgray: #a0a0a5;
+    --q-dark: #d4d4d4;
     --q-secondary: #7b97aa;
     --q-tertiary: #84a59d;
-    --q-highlight: rgba(143, 159, 169, 0.15);
-    --q-text-highlight: rgba(179, 170, 2, 0.5);
+    --q-highlight: rgba(255, 255, 255, 0.08);
+    --q-text-highlight: rgba(255, 255, 255, 0.15);
     color-scheme: dark;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .quartz-site-title:hover {
-    color: var(--q-secondary);
+    opacity: 0.8;
 }
 
 /* Search Button - Quartz Style */
@@ -167,10 +167,20 @@
     color: var(--q-darkgray);
     cursor: pointer;
     font-size: 0.9rem;
+    outline: none !important;
 }
 
 .quartz-theme-toggle:hover {
-    color: var(--q-secondary);
+    color: var(--q-dark);
+}
+
+.quartz-theme-toggle:focus,
+.quartz-theme-toggle:active,
+.quartz-theme-toggle:focus-visible {
+    outline: none !important;
+    border: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 /* Explorer Tree */
@@ -203,12 +213,58 @@
     padding-left: 0.5rem;
 }
 
+/* Folder Tree Structure */
+.quartz-explorer-folder {
+    list-style: none;
+    margin: 0.25rem 0;
+}
+
+.quartz-explorer-folder-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    color: var(--q-dark);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s;
+    user-select: none;
+}
+
+.quartz-explorer-folder-title:hover {
+    background: var(--q-highlight);
+}
+
+.quartz-explorer-folder-title svg.folder-icon {
+    color: var(--q-darkgray);
+    flex-shrink: 0;
+}
+
+.quartz-explorer-folder-title svg.arrow-icon {
+    margin-left: auto;
+    color: var(--q-gray);
+    transition: transform 0.2s ease;
+}
+
+.quartz-explorer-folder-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 1px solid var(--q-lightgray);
+    margin-left: 1.25rem;
+}
+
 .quartz-explorer-item {
     margin: 0.25rem 0;
 }
 
 .quartz-explorer-item a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 0.4rem 0.75rem;
     color: var(--q-darkgray);
     text-decoration: none;
@@ -218,16 +274,18 @@
     border-left: 2px solid transparent;
 }
 
+.quartz-explorer-item svg.file-icon {
+    color: var(--q-darkgray);
+    flex-shrink: 0;
+}
+
 .quartz-explorer-item a:hover {
     background: var(--q-highlight);
     color: var(--q-dark);
 }
 
 .quartz-explorer-item a.active {
-    background: var(--q-highlight);
-    color: var(--q-secondary);
-    border-left-color: var(--q-secondary);
-    font-weight: 500;
+    font-weight: 700;
 }
 
 /* =========================================
@@ -252,8 +310,12 @@
 }
 
 .quartz-breadcrumb a:hover {
-    color: var(--q-secondary);
+    color: var(--q-dark);
     text-decoration: underline;
+}
+:root[saved-theme="dark"] .quartz-breadcrumb a:hover,
+.dark-mode .quartz-breadcrumb a:hover {
+    color: var(--q-light);
 }
 
 .quartz-article-header {
@@ -293,8 +355,8 @@
     display: inline-flex;
     align-items: center;
     padding: 0.2rem 0.6rem;
-    background: var(--q-highlight);
-    color: var(--q-secondary);
+    background: var(--q-lightgray);
+    color: var(--q-darkgray);
     font-size: 0.8rem;
     border-radius: 4px;
     text-decoration: none;
@@ -306,8 +368,8 @@
 }
 
 .quartz-tag:hover {
-    background: var(--q-secondary);
-    color: var(--q-light);
+    background: var(--q-gray);
+    color: var(--q-dark);
 }
 
 /* Article Body */
@@ -390,10 +452,9 @@
     padding: 0;
 }
 
-/* Blockquotes */
 .quartz-article-body blockquote {
     margin: 1rem 0;
-    border-left: 3px solid var(--q-secondary);
+    border-left: 3px solid var(--q-darkgray);
     padding-left: 1rem;
     color: var(--q-darkgray);
 }
@@ -419,10 +480,11 @@
 
 /* Images */
 .quartz-article-body img {
+    display: block;
+    margin: 1.5rem auto;
     max-width: 100%;
     height: auto;
     border-radius: 5px;
-    margin: 1rem 0;
 }
 
 /* Lists */
@@ -516,15 +578,21 @@
 }
 
 .quartz-toc-list a {
-    color: var(--q-gray);
+    color: var(--q-dark);
+    opacity: 0.8;
     text-decoration: none;
     display: block;
     padding: 0.2rem 0;
-    transition: color 0.15s;
+    transition: all 0.15s;
 }
 
 .quartz-toc-list a:hover {
     color: var(--q-dark);
+    opacity: 1;
+}
+:root[saved-theme="dark"] .quartz-toc-list a:hover,
+.dark-mode .quartz-toc-list a:hover {
+    color: var(--q-light);
 }
 
 .quartz-toc-list a.active {
@@ -561,8 +629,12 @@
 }
 
 .quartz-backlinks-list a:hover {
-    color: var(--q-secondary);
+    color: var(--q-dark);
     text-decoration: underline;
+}
+:root[saved-theme="dark"] .quartz-backlinks-list a:hover,
+.dark-mode .quartz-backlinks-list a:hover {
+    color: var(--q-light);
 }
 
 .quartz-backlinks-empty {
@@ -658,6 +730,23 @@
     border-radius: 2px;
 }
 
+/* Global Search Modal Fluorescent Highlights */
+.quartz-search-modal mark {
+    background-color: #ffd60a !important; /* 선명한 형광 노란색 */
+    color: #000000 !important;
+    font-weight: 600 !important;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+:root[saved-theme="dark"] .quartz-search-modal mark,
+[data-theme="dark"] .quartz-search-modal mark,
+.dark-mode .quartz-search-modal mark {
+    background-color: #ffd60a !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
 /* Search Preview */
 .quartz-search-body {
     display: grid;
@@ -735,7 +824,7 @@
 }
 
 .quartz-post-item {
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--q-lightgray);
 }
 
@@ -759,12 +848,18 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: inherit;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     transition: color 0.15s;
 }
 
-.quartz-post-item:hover a {
-    color: var(--q-secondary);
+.quartz-post-item:hover a,
+.quartz-post-item a:hover {
+    color: var(--q-dark) !important;
+    text-decoration: none !important;
+}
+
+.quartz-post-item:hover .quartz-post-item-title {
+    font-weight: 700;
 }
 
 .quartz-post-item-excerpt {
@@ -788,7 +883,7 @@ button.toc-header {
     text-align: left;
     cursor: pointer;
     padding: 0;
-    color: var(--q-darkgray);
+    color: #111111 !important; /* Forces dark contrast in light mode */
     display: flex;
     align-items: center;
     font-family: var(--q-font-header);
@@ -799,12 +894,26 @@ button.toc-header {
 button.toc-header h3 {
     font-size: 1rem;
     margin: 0;
+    color: #111111 !important; /* Explicitly forces black for the header text */
 }
 
 button.toc-header .fold {
     margin-left: 0.5rem;
     transition: transform 0.3s ease;
-    opacity: 0.8;
+    opacity: 1 !important; /* Full visibility in light mode */
+}
+
+/* Dark Mode Overrides for TOC Header */
+.dark-mode button.toc-header,
+.dark-mode button.toc-header h3,
+:root[saved-theme="dark"] button.toc-header,
+:root[saved-theme="dark"] button.toc-header h3 {
+    color: var(--q-dark) !important;
+}
+
+.dark-mode button.toc-header .fold,
+:root[saved-theme="dark"] button.toc-header .fold {
+    opacity: 0.8 !important;
 }
 
 button.toc-header.collapsed .fold {
@@ -824,28 +933,54 @@ ul.toc-content.collapsed {
     display: none;
 }
 
-ul.toc-content>li>a {
-    color: var(--q-gray);
+ul.toc-content li a {
+    color: #555555;
     display: block;
-    padding: 0.2rem 0;
+    padding: 0.2rem 0 0.2rem 0.5rem;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: all 0.2s ease;
+    opacity: 0.8;
+    font-weight: 400;
     border-left: 2px solid transparent;
-    padding-left: 0.8rem;
-    opacity: 0.7;
 }
 
-ul.toc-content>li>a:hover {
-    color: var(--q-secondary);
-    opacity: 1;
+/* Dark Mode Overrides for TOC links */
+.dark-mode ul.toc-content li a,
+:root[saved-theme="dark"] ul.toc-content li a {
+    color: #a0a0a5;
+    font-weight: 400;
+    opacity: 0.45; /* Dim non-active items to emphasize the active white text */
 }
 
-ul.toc-content>li>a.in-view {
-    color: var(--q-dark);
-    border-left-color: var(--q-dark);
+ul.toc-content li a:hover {
+    color: #000000;
     opacity: 1;
-    font-weight: 600;
+    border-left-color: var(--q-gray);
+}
+
+.dark-mode ul.toc-content li a:hover,
+:root[saved-theme="dark"] ul.toc-content li a:hover {
+    color: #ffffff;
+    opacity: 1;
+    border-left-color: var(--q-gray);
+}
+
+ul.toc-content li a.in-view {
+    color: #000000 !important;
+    opacity: 1;
+    font-weight: 700 !important;
+    border-left: 3px solid var(--q-dark) !important;
+    padding-left: 0.5rem !important;
+}
+
+.dark-mode ul.toc-content li a.in-view,
+:root[saved-theme="dark"] ul.toc-content li a.in-view {
+    color: #ffffff !important; /* Pure white highlight */
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    border-left: 3px solid #ffffff !important; /* Pure white vertical line */
+    padding-left: 0.5rem !important;
 }
 
 /* TOC Depth Indentation */
@@ -1111,3 +1246,607 @@ ul.toc-content>li>a.in-view {
     border-radius: 4px;
     margin: 0.5rem 0;
 }
+
+/* TOC Navigation Target Flash Highlight removed */
+
+/* =========================================
+   Obsidian Callouts - Quartz Style
+   ========================================= */
+.quartz-callout {
+    margin: 1.5rem 0;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--q-gray);
+    background-color: var(--q-highlight);
+    font-size: 0.95rem;
+}
+
+.quartz-callout .callout-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--q-dark);
+}
+
+.callout-law-link {
+    color: var(--q-gray);
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    opacity: 0.8;
+}
+
+.callout-law-link:hover {
+    color: var(--q-dark);
+    opacity: 1;
+}
+
+.quartz-callout .callout-title-inner {
+    font-family: var(--q-font-header);
+}
+
+.quartz-callout .callout-content {
+    color: var(--q-darkgray);
+    line-height: 1.65;
+}
+
+.quartz-callout .callout-content > *:last-child {
+    margin-bottom: 0;
+}
+
+.quartz-callout.callout-quote {
+    border-left-color: var(--q-darkgray);
+    background-color: var(--q-highlight);
+}
+.quartz-callout.callout-note {
+    border-left-color: #448aff;
+    background-color: rgba(68, 138, 255, 0.08);
+}
+.quartz-callout.callout-info {
+    border-left-color: #00b0ff;
+    background-color: rgba(0, 176, 255, 0.08);
+}
+.quartz-callout.callout-warning {
+    border-left-color: #ff9100;
+    background-color: rgba(255, 145, 0, 0.08);
+}
+.quartz-callout.callout-error,
+.quartz-callout.callout-danger {
+    border-left-color: #ff5252;
+    background-color: rgba(255, 82, 82, 0.08);
+}
+.quartz-callout.callout-example {
+    border-left-color: #7c4dff;
+    background-color: rgba(124, 77, 255, 0.08);
+}
+.quartz-callout.callout-success {
+    border-left-color: #00e676;
+    background-color: rgba(0, 230, 118, 0.08);
+}
+
+/* Global Obsidian Highlight (==text== / <mark>) */
+mark {
+    background-color: var(--q-text-highlight);
+    color: var(--q-dark);
+    padding: 0.125em 0.25em;
+    border-radius: 4px;
+}
+
+:root[saved-theme="dark"] mark,
+[data-theme="dark"] mark,
+.dark-mode mark {
+    background-color: var(--q-text-highlight);
+    color: var(--q-dark);
+}
+
+/* Bold Text Highlight (strong / **text**) */
+.quartz-article-body strong,
+.quartz-callout strong {
+    font-weight: 700;
+    color: #000000; /* Deep black in light mode */
+}
+
+:root[saved-theme="dark"] .quartz-article-body strong,
+:root[saved-theme="dark"] .quartz-callout strong,
+[data-theme="dark"] .quartz-article-body strong,
+[data-theme="dark"] .quartz-callout strong,
+.dark-mode .quartz-article-body strong,
+.dark-mode .quartz-callout strong {
+    color: #ffffff; /* Pure white in dark mode for maximum contrast against grey background */
+}
+
+/* =========================================
+   Inline Body Search Styles
+   ========================================= */
+.body-search-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+#body-search-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--q-lightgray);
+    background-color: var(--q-light);
+    color: var(--q-dark);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: var(--q-font-body);
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+#body-search-input:focus {
+    border-color: var(--q-secondary);
+}
+
+.body-search-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: flex-end;
+    font-size: 0.8rem;
+}
+
+.body-search-count {
+    color: var(--q-gray);
+    margin-right: 0.4rem;
+    font-family: var(--q-font-code);
+}
+
+.body-search-nav, .body-search-clear {
+    background: var(--q-lightgray);
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--q-darkgray);
+    font-weight: bold;
+    transition: all 0.15s ease;
+}
+
+.body-search-nav:hover, .body-search-clear:hover {
+    background: var(--q-gray);
+    color: var(--q-dark);
+}
+
+mark.body-search-highlight {
+    background-color: #ffd60a !important; /* 선명한 형광 노란색 */
+    color: #000000 !important;
+    font-weight: 600 !important;
+    border-radius: 2px;
+    padding: 0 2px;
+    transition: background-color 0.15s ease;
+}
+
+mark.body-search-highlight.current {
+    background-color: #ff6b00 !important; /* 현재 매칭된 검색어: 선명한 오렌지색 형광펜 */
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border-radius: 2px;
+    padding: 0 3px;
+    box-shadow: 0 0 8px rgba(255, 107, 0, 0.8) !important;
+}
+
+:root[saved-theme="dark"] mark.body-search-highlight,
+[data-theme="dark"] mark.body-search-highlight,
+.dark-mode mark.body-search-highlight {
+    background-color: #ffd60a !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+:root[saved-theme="dark"] mark.body-search-highlight.current,
+[data-theme="dark"] mark.body-search-highlight.current,
+.dark-mode mark.body-search-highlight.current {
+    background-color: #ff9f1c !important;
+    color: #000000 !important;
+    box-shadow: 0 0 10px rgba(255, 159, 28, 0.9) !important;
+}
+
+/* SVG Excalidraw Text Highlights */
+tspan.body-search-highlight {
+    fill: #000000 !important; /* 글자색은 배경 대비가 강하도록 검은색으로 */
+    font-weight: 700 !important;
+    stroke: none !important;
+}
+
+tspan.body-search-highlight.current {
+    fill: #ffffff !important; /* 현재 매칭된 글자는 오렌지색 배경 위에 선명하게 흰색 처리 */
+    font-weight: 800 !important;
+    stroke: none !important;
+}
+
+:root[saved-theme="dark"] tspan.body-search-highlight,
+[data-theme="dark"] tspan.body-search-highlight,
+.dark-mode tspan.body-search-highlight {
+    fill: #000000 !important;
+    stroke: none !important;
+}
+
+:root[saved-theme="dark"] tspan.body-search-highlight.current,
+[data-theme="dark"] tspan.body-search-highlight.current,
+.dark-mode tspan.body-search-highlight.current {
+    fill: #000000 !important;
+    stroke: none !important;
+}
+
+/* SVG Highlight Background Rectangles */
+.svg-highlight-bg-rect {
+    fill: #ffd60a !important;
+    opacity: 0.85 !important;
+    transition: fill 0.15s ease, opacity 0.15s ease;
+}
+
+.svg-highlight-bg-rect.current {
+    fill: #ff6b00 !important;
+    opacity: 0.95 !important;
+}
+
+:root[saved-theme="dark"] .svg-highlight-bg-rect,
+[data-theme="dark"] .svg-highlight-bg-rect,
+.dark-mode .svg-highlight-bg-rect {
+    fill: #ffd60a !important;
+    opacity: 0.85 !important;
+}
+
+:root[saved-theme="dark"] .svg-highlight-bg-rect.current,
+[data-theme="dark"] .svg-highlight-bg-rect.current,
+.dark-mode .svg-highlight-bg-rect.current {
+    fill: #ff9f1c !important;
+    opacity: 0.95 !important;
+}
+
+/* Mermaid Diagrams premium custom style */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    padding: 1.5rem 0;
+    margin: 2rem 0;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    font-family: var(--q-font-body) !important;
+}
+
+/* Custom styles for Mermaid flowchart nodes */
+.mermaid svg .node rect,
+.mermaid svg .node polygon,
+.mermaid svg .node circle,
+.mermaid svg .node path {
+    fill: var(--q-light) !important;
+    stroke: var(--q-lightgray) !important;
+    stroke-width: 1.5px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+    transition: all 0.2s ease !important;
+}
+
+.mermaid svg .node:hover rect,
+.mermaid svg .node:hover polygon,
+.mermaid svg .node:hover circle,
+.mermaid svg .node:hover path {
+    fill: var(--q-highlight) !important;
+    stroke: var(--q-dark) !important;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08)) !important;
+}
+
+.mermaid svg .label {
+    color: var(--q-dark) !important;
+    font-family: var(--q-font-body) !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+.mermaid svg .edgePath .path {
+    stroke: var(--q-gray) !important;
+    stroke-width: 1.5px !important;
+    transition: stroke 0.2s ease !important;
+}
+
+.mermaid svg .edgePath:hover .path {
+    stroke: var(--q-dark) !important;
+}
+
+.mermaid svg .marker {
+    fill: var(--q-gray) !important;
+    stroke: none !important;
+}
+
+.mermaid svg .edgeLabel rect {
+    fill: var(--q-light) !important;
+    rx: 4px !important;
+    ry: 4px !important;
+}
+
+.mermaid svg .edgeLabel {
+    color: var(--q-darkgray) !important;
+    font-size: 0.8rem !important;
+}
+
+/* Disable focus ring, borders, outlines, and box shadows on targeted or focused headers and content elements */
+/* Disable focus ring, outlines, box shadows, and focus borders on active/focused states */
+*:focus,
+*:active,
+*:focus-visible,
+:target,
+:target:focus,
+:target:active,
+:target:focus-visible,
+.header-flash:focus,
+.header-flash:active,
+.quartz-article-body *:focus,
+.quartz-article-body *:active,
+.quartz-article-body *:focus-visible,
+a:focus,
+a:active,
+a:focus-visible,
+button:focus,
+button:active,
+button:focus-visible,
+input:focus,
+input:active,
+input:focus-visible,
+div:focus,
+div:active,
+div:focus-visible,
+svg:focus,
+svg:active,
+svg:focus-visible,
+foreignObject:focus,
+foreignObject:active,
+foreignObject:focus-visible {
+    outline: none !important;
+    outline-width: 0 !important;
+    outline-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Ensure targeted elements (like anchors) do not show default browser outlines/borders */
+:target,
+.quartz-article-body h1:target,
+.quartz-article-body h2:target,
+.quartz-article-body h3:target,
+.quartz-article-body h4:target,
+.quartz-article-body h5:target,
+.quartz-article-body h6:target,
+.quartz-article-body h1:focus,
+.quartz-article-body h2:focus,
+.quartz-article-body h3:focus,
+.quartz-article-body h4:focus,
+.quartz-article-body h5:focus,
+.quartz-article-body h6:focus,
+.quartz-article-body h1:active,
+.quartz-article-body h2:active,
+.quartz-article-body h3:active,
+.quartz-article-body h4:active {
+    outline: none !important;
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* Excalidraw embedded HTML markdown layout styling */
+.markdown-embed {
+    text-align: left;
+    font-family: var(--q-font-body), sans-serif;
+    color: var(--q-dark, #2b2b2b) !important;
+}
+.markdown-embed::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.markdown-embed::-webkit-scrollbar-track {
+    background: transparent;
+}
+.markdown-embed::-webkit-scrollbar-thumb {
+    background: var(--q-lightgray, rgba(0,0,0,0.15));
+    border-radius: 3px;
+}
+.markdown-embed::-webkit-scrollbar-thumb:hover {
+    background: var(--q-gray, rgba(0,0,0,0.3));
+}
+.markdown-embed * {
+    color: inherit !important;
+}
+.markdown-embed > *:first-child {
+    margin-top: 0 !important;
+}
+.markdown-embed > *:last-child {
+    margin-bottom: 0 !important;
+}
+.markdown-embed h1,
+.markdown-embed h2,
+.markdown-embed h3,
+.markdown-embed h4,
+.markdown-embed h5,
+.markdown-embed h6 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--q-dark, #2b2b2b) !important;
+}
+.markdown-embed h1 { font-size: 1.5rem; }
+.markdown-embed h2 { font-size: 1.3rem; }
+.markdown-embed h3 { font-size: 1.15rem; }
+.markdown-embed h4 { font-size: 1rem; }
+.markdown-embed p {
+    margin: 0 0 0.5rem 0;
+}
+.markdown-embed ul,
+.markdown-embed ol {
+    margin: 0 0 0.5rem 0;
+    padding-left: 1.25rem;
+}
+.markdown-embed li {
+    margin-bottom: 0.25rem;
+}
+/* 다크모드 하위 요소 박스 배경색 조정 */
+.dark-mode .markdown-embed li,
+.dark-mode .markdown-embed p,
+.dark-mode .markdown-embed div {
+    background-color: transparent !important;
+}
+.dark-mode .markdown-embed .quartz-callout,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout {
+    background-color: var(--q-highlight) !important;
+}
+.dark-mode .markdown-embed .quartz-callout.callout-note,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-note {
+    background-color: rgba(68, 138, 255, 0.08) !important;
+}
+.dark-mode .markdown-embed .quartz-callout.callout-info,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-info {
+    background-color: rgba(0, 176, 255, 0.08) !important;
+}
+.dark-mode .markdown-embed .quartz-callout.callout-warning,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-warning {
+    background-color: rgba(255, 145, 0, 0.08) !important;
+}
+.dark-mode .markdown-embed .quartz-callout.callout-error,
+.dark-mode .markdown-embed .quartz-callout.callout-danger,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-error,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-danger {
+    background-color: rgba(255, 82, 82, 0.08) !important;
+}
+.dark-mode .markdown-embed .quartz-callout.callout-example,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-example {
+    background-color: rgba(124, 77, 255, 0.08) !important;
+}
+.dark-mode .markdown-embed .quartz-callout.callout-success,
+:root[saved-theme="dark"] .markdown-embed .quartz-callout.callout-success {
+    background-color: rgba(0, 230, 118, 0.08) !important;
+}
+
+/* Aggressive global focus and active outline reset to eliminate light blue focus borders */
+*:focus,
+*:active,
+*:focus-visible,
+:focus,
+:active,
+:focus-visible,
+a,
+a:focus,
+a:active,
+a:focus-visible,
+button,
+button:focus,
+button:active,
+button:focus-visible,
+input,
+input:focus,
+input:active,
+input:focus-visible,
+[role="button"],
+[role="button"]:focus,
+[role="button"]:active,
+[role="button"]:focus-visible,
+.toc-header,
+.toc-header:focus,
+.toc-header:active,
+.toc-header:focus-visible,
+#toc-toggle,
+#toc-toggle:focus,
+#toc-toggle:active,
+#toc-toggle:focus-visible,
+.quartz-theme-toggle,
+.quartz-theme-toggle:focus,
+.quartz-theme-toggle:active,
+.quartz-theme-toggle:focus-visible,
+#theme-toggle-btn,
+#theme-toggle-btn:focus,
+#theme-toggle-btn:active,
+#theme-toggle-btn:focus-visible,
+#draw-mode-btn,
+#draw-mode-btn:focus,
+#draw-mode-btn:active,
+#draw-mode-btn:focus-visible,
+.toc-content a,
+.toc-content a:focus,
+.toc-content a:active,
+.toc-content a:focus-visible,
+ul.toc-content li a,
+ul.toc-content li a:focus,
+ul.toc-content li a:active,
+ul.toc-content li a:focus-visible {
+    outline: none !important;
+    outline-width: 0 !important;
+    outline-color: transparent !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Mobile responsive alignment overrides to shield buttons from global button styles */
+@media (max-width: 800px) {
+    .quartz-theme-toggle {
+        min-height: 0 !important;
+        min-width: 0 !important;
+        padding: 0.5rem 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+    }
+    
+    .quartz-theme-toggle span {
+        font-size: 0.9rem !important;
+    }
+    
+    .excalidraw-btn {
+        min-height: 0 !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        width: 32px !important;
+        height: 32px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+    }
+
+    .excalidraw-btn svg {
+        display: block !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* Bulletproof theme toggle SVG display rules */
+#theme-toggle-btn svg {
+    display: none !important;
+}
+#theme-toggle-btn svg[style*="display: inline"],
+#theme-toggle-btn svg[style*="display:inline"] {
+    display: block !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+#draw-mode-btn svg {
+    display: block !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}

@@ -1,0 +1,42 @@
+/* Reading View & Rendered Embeds */
+.internal-embed,
+.internal-embed.image-embed,
+.excalidraw-svg,
+.markdown-rendered .internal-embed {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}
+
+/* Ensure inner SVG/images are block-level and centered */
+.internal-embed img,
+.internal-embed svg,
+.excalidraw-svg svg,
+.markdown-rendered img,
+.markdown-rendered svg {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Live Preview / Editing Mode (CodeMirror 6) */
+.markdown-source-view.mod-cm6 .cm-embed-block {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block > * {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Specific target for Excalidraw SVG embedded container */
+.excalidraw-svg-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+}

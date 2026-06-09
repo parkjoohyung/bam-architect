@@ -1,32 +1,37 @@
 [
   {
-    "id": "테스트-포스트",
-    "title": "테스트 포스트",
-    "date": "2026.01.31",
-    "filename": "테스트 포스트.md",
+    "id": "용도변경·기재사항변경",
+    "title": "용도변경·기재사항변경",
+    "date": "2026.06.09",
+    "filename": "용도변경/용도변경·기재사항변경.md",
     "tags": [
-      "테스트",
-      "시작"
+      "\"#용도변경\""
     ],
-    "description": "이것은 테스트 포스트입니다.",
+    "description": "> [!quote] 건축법 19조(용도변경)     ⑥ 제2항에 따른 허가 대상인 경우로서 용도변경하려는 부분의 **바닥면적의 합계가 500제곱미터 이상인 용도변경**(대통령령으로 정하는 경우는 제외한다)의 설계에 관하여는 **제23조를 준용한다.**  > [!quot...",
     "links": [
-      "건축법-메모"
+      "data.excalidraw.md#^group=z8jnmhnv",
+      "data.excalidraw.md#^group=rqoslq4w",
+      "data.excalidraw.md#^group=buh1ir3n",
+      "data.excalidraw.md#^group=l5gvzz3c1ceijpfnfojkx",
+      "data.excalidraw.md#^group=wf15i6afwm9dorfntkqke",
+      "data.excalidraw.md#^group=bexdq2lg"
     ]
   },
   {
-    "id": "건축법-메모",
-    "title": "건축법 메모",
-    "date": "2026.01.30",
-    "filename": "건축법 메모.md",
+    "id": "용도변경·기재사항변경_draw",
+    "title": "용도변경·기재사항변경_draw",
+    "date": "2026.06.09",
+    "filename": "용도변경/용도변경·기재사항변경_draw.md",
     "tags": [
-      "건축법",
-      "실무",
-      "법규"
+      "excalidraw"
     ],
-    "description": "건축 실무에 필요한 건축법 관련 메모입니다.",
+    "description": "==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress cu...",
     "links": [
-      "테스트-포스트",
-      "설계-착수-체크리스트"
+      "용도변경·기재사항변경#1.3-용도변경-절차",
+      "용도변경·기재사항변경#1.1-건축사가-해야하는-건축물의-설계",
+      "용도변경·기재사항변경#1.2-용도변경-허가와-신고-등의-구분",
+      "용도변경·기재사항변경#1.4-제출서류",
+      "용도변경·기재사항변경#3-건축물의-용도변경시-체크사항"
     ]
   }
 ]

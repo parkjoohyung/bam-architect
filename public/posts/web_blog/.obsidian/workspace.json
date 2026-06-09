@@ -4,37 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "7a73626b24dafe2e",
+        "id": "1264d0391afb3edf",
         "type": "tabs",
         "children": [
           {
-            "id": "ca4f70a60df64b6f",
+            "id": "f1351fbb5b568eb9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "건축/용도변경/용도변경.md",
-                "mode": "source",
-                "source": false
+                "file": "용도변경/용도변경·기재사항변경_draw.md"
               },
-              "icon": "lucide-file",
-              "title": "용도변경"
-            }
-          }
-        ]
-      },
-      {
-        "id": "2e1009d11746adfa",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "511d6f71e3e506b5",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "그래프 뷰"
+              "icon": "excalidraw-icon",
+              "title": "용도변경·기재사항변경_draw"
             }
           }
         ]
@@ -110,7 +92,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "건축/용도변경/용도변경.md",
+                "file": "용도변경/용도변경·기재사항변경_draw.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +102,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "용도변경 의 백링크"
+              "title": "용도변경·기재사항변경_draw 의 백링크"
             }
           },
           {
@@ -129,12 +111,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "건축/용도변경/용도변경.md",
+                "file": "용도변경/용도변경·기재사항변경_draw.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "용도변경 의 나가는 링크"
+              "title": "용도변경·기재사항변경_draw 의 나가는 링크"
             }
           },
           {
@@ -172,21 +154,21 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "건축/용도변경/용도변경.md",
+                "file": "용도변경/용도변경·기재사항변경_draw.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "용도변경 의 개요"
+              "title": "용도변경·기재사항변경_draw 의 개요"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -196,13 +178,40 @@
       "daily-notes:오늘의 일일 노트 열기": false,
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
-      "bases:새 베이스 생성하기": false
+      "bases:새 베이스 생성하기": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "ca4f70a60df64b6f",
+  "active": "f1351fbb5b568eb9",
   "lastOpenFiles": [
+    "용도변경/용도변경·기재사항변경.md",
+    "용도변경/data/draw4.excalidraw.md",
+    "용도변경/data/draw2.excalidraw.md",
+    "용도변경/용도변경·기재사항변경_draw.md",
+    "용도변경/data/data.excalidraw.md",
+    "용도변경/data/data_page.md",
+    "가이드/옵시디안_글쓰기_가이드.md",
+    "가이드/작업_요청_이력.md",
+    "용도변경/data/draw3.excalidraw.md",
+    "용도변경/data/draw1.excalidraw.md",
+    "용도변경/용도변경.excalidraw.rect-0.svg",
+    "용도변경/용도변경.excalidraw.svg",
+    "무제.canvas",
+    "Drawing 2026-06-07 06.58.20.excalidraw.md",
+    "용도변경/용도변경.canvas",
+    "data/Pasted image 20260607070108.png",
+    "data",
+    "용도변경/data/usage_change_flowchart.png",
+    "건축/용도변경/용도변경·기재사항변경.md",
+    "용도변경/data",
+    "용도변경",
+    "무제.base",
+    "샘플캔버스.canvas",
+    "건축/용도변경/data",
+    "무제/og-image.png",
+    "2026-06-06.md",
+    "가이드",
     "환영합니다!.md",
-    "건축/용도변경/용도변경.md",
     "건축/용도변경",
     "건축"
   ]

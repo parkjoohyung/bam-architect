@@ -1,0 +1,153 @@
+{
+	"type": "excalidraw",
+	"version": 2,
+	"source": "https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag2.23.10",
+	"elements": [
+		{
+			"id": "ZNeRGXh2",
+			"type": "embeddable",
+			"x": -43.610483736791934,
+			"y": -553.1514289871142,
+			"width": 589.333251953125,
+			"height": 962.6666870117188,
+			"angle": 0,
+			"strokeColor": "#1e1e1e",
+			"backgroundColor": "transparent",
+			"fillStyle": "hachure",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"roundness": null,
+			"seed": 91900,
+			"version": 113,
+			"versionNonce": 236138200,
+			"updated": 1780788822714,
+			"isDeleted": false,
+			"groupIds": [],
+			"boundElements": [],
+			"link": "[[용도변경·기재사항변경#1.3 용도변경 절차]]",
+			"locked": false,
+			"frameId": null,
+			"hasTextLink": false,
+			"scale": [
+				1,
+				1
+			],
+			"customData": {
+				"mdProps": {
+					"useObsidianDefaults": false,
+					"backgroundMatchCanvas": false,
+					"backgroundMatchElement": true,
+					"backgroundColor": "#fff",
+					"backgroundOpacity": 60,
+					"borderMatchElement": true,
+					"borderColor": "#fff",
+					"borderOpacity": 0,
+					"filenameVisible": true
+				}
+			},
+			"index": "a0"
+		},
+		{
+			"id": "xk2PfhJ4",
+			"type": "embeddable",
+			"x": -806.1571120374763,
+			"y": -549.6653612189705,
+			"width": 500,
+			"height": 500,
+			"angle": 0,
+			"strokeColor": "#1e1e1e",
+			"backgroundColor": "transparent",
+			"fillStyle": "hachure",
+			"strokeWidth": 1,
+			"strokeStyle": "solid",
+			"roughness": 1,
+			"opacity": 100,
+			"roundness": null,
+			"seed": 84078,
+			"version": 174,
+			"versionNonce": 681576665,
+			"updated": 1780788778746,
+			"isDeleted": false,
+			"groupIds": [],
+			"boundElements": [],
+			"link": "[[용도변경·기재사항변경#1.1 건축사가 해야하는 건축물의 설계]]",
+			"locked": false,
+			"frameId": null,
+			"hasTextLink": false,
+			"scale": [
+				1,
+				1
+			],
+			"customData": {
+				"mdProps": {
+					"useObsidianDefaults": false,
+					"backgroundMatchCanvas": false,
+					"backgroundMatchElement": true,
+					"backgroundColor": "#fff",
+					"backgroundOpacity": 60,
+					"borderMatchElement": true,
+					"borderColor": "#fff",
+					"borderOpacity": 0,
+					"filenameVisible": true
+				}
+			},
+			"index": "a1"
+		}
+	],
+	"appState": {
+		"theme": "light",
+		"viewBackgroundColor": "#ffffff",
+		"currentItemStrokeColor": "#1e1e1e",
+		"currentItemBackgroundColor": "transparent",
+		"currentItemFillStyle": "solid",
+		"currentItemStrokeWidth": 2,
+		"currentItemStrokeStyle": "solid",
+		"currentItemRoughness": 1,
+		"currentItemOpacity": 100,
+		"currentItemFontFamily": 5,
+		"currentItemFontSize": 20,
+		"currentItemTextAlign": "left",
+		"currentItemStartArrowhead": null,
+		"currentItemEndArrowhead": "arrow",
+		"currentItemArrowType": "round",
+		"currentItemFrameRole": null,
+		"scrollX": 1388.1931068939414,
+		"scrollY": 1010.0966747499662,
+		"zoom": {
+			"value": 0.766559
+		},
+		"currentItemRoundness": "round",
+		"gridSize": 20,
+		"gridStep": 5,
+		"gridModeEnabled": false,
+		"gridColor": {
+			"Bold": "rgba(217, 217, 217, 0.5)",
+			"Regular": "rgba(230, 230, 230, 0.5)"
+		},
+		"currentStrokeOptions": null,
+		"frameRendering": {
+			"enabled": true,
+			"clip": true,
+			"name": true,
+			"outline": true,
+			"markerName": true,
+			"markerEnabled": true
+		},
+		"objectsSnapModeEnabled": false,
+		"activeTool": {
+			"type": "selection",
+			"customType": null,
+			"locked": false,
+			"fromSelection": false,
+			"lastActiveTool": null
+		},
+		"disableContextMenu": false,
+		"bindingPreference": "enabled",
+		"isBindingEnabled": true,
+		"isMidpointSnappingEnabled": true,
+		"boxSelectionMode": "contain"
+	},
+	"files": {}
+}
