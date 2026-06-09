@@ -2906,7 +2906,12 @@ window.initInteractiveExcalidraw = function() {
             const viewportHeight = isCleanInline ? 'auto' : '100%';
             
             if (!isMainDrawPage) {
-                container.style.height = `${height}px`;
+                let currentScale = 1.0;
+                if (isCleanInline) {
+                    const cw = container.clientWidth || 800;
+                    currentScale = Math.min(cw / width, 1.0);
+                }
+                container.style.height = `${height * currentScale}px`;
             }
             if (isCleanInline) {
                 container.style.border = 'none';
@@ -3043,7 +3048,7 @@ window.initInteractiveExcalidraw = function() {
                 const ch = container.clientHeight;
                 if (width && height && cw && ch) {
                     if (isCleanInline) {
-                        scale = 1;
+                        scale = Math.min(cw / width, 1.0);
                         panX = 0;
                         panY = 0;
                     } else {
